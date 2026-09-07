@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khata — Shop Ledger & GST</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2420;
+    --ink-soft:#4A544D;
+    --paper:#F3F1E4;
+    --paper-raised:#FBFAF3;
+    --green:#1F3D34;
+    --green-light:#2F5347;
+    --green-pale:#E4EAE4;
+    --brass:#A8813C;
+    --brass-light:#C9A15C;
+    --red:#8B3A3A;
+    --red-pale:#F3E3DE;
+    --line:#DAD5C3;
+    --shadow: 0 1px 2px rgba(27,36,32,0.06), 0 4px 16px rgba(27,36,32,0.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+  }
+  .storage-warning{
+    background:var(--red);
+    color:#fff;
+    text-align:center;
+    font-size:13px;
+    font-weight:600;
+    padding:9px 16px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,textarea{font-family:'Inter',sans-serif;}
+ 
+  /* ---------- App shell ---------- */
+  .app{display:flex;min-height:100vh;}
+ 
+  .sidebar{
+    width:220px;
+    flex-shrink:0;
+    background:var(--green);
+    color:#EDEAD9;
+    display:flex;
+    flex-direction:column;
+    padding:24px 0;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 20px 22px 20px;
+    border-bottom:1px solid rgba(237,234,217,0.15);
+    margin-bottom:14px;
+  }
+  .brand-mark{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--brass);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:700;color:var(--green);
+    font-size:16px;flex-shrink:0;
+  }
+  .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;line-height:1.1;}
+  .brand-sub{font-size:10.5px;color:#B9C4BB;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;}
+ 
+  .nav{display:flex;flex-direction:column;gap:2px;padding:0 10px;}
+  .nav-item{
+    display:flex;align-items:center;gap:11px;
+    padding:10px 12px;border-radius:7px;
+    font-size:14px;font-weight:500;
+    color:#D7DFD4;
+    background:transparent;border:none;
+    text-align:left;width:100%;
+    transition:background .15s ease, color .15s ease;
+  }
+  .nav-item svg{width:17px;height:17px;flex-shrink:0;opacity:.85;}
+  .nav-item:hover{background:rgba(237,234,217,0.08);color:#fff;}
+  .nav-item.active{background:var(--brass);color:var(--green);font-weight:600;}
+  .nav-item.active svg{opacity:1;}
+ 
+  .sidebar-foot{
+    margin-top:auto;padding:16px 20px 0 20px;
+    font-size:11px;color:#8FA090;
+    border-top:1px solid rgba(237,234,217,0.12);
+    padding-top:14px;
+  }
+  .logout-btn{
+    display:flex;align-items:center;gap:8px;width:100%;margin-top:10px;
+    padding:9px 12px;background:transparent;border:1px solid rgba(237,234,217,0.25);
+    border-radius:8px;color:#EDEAD9;font-family:'Inter',sans-serif;font-size:12.5px;
+    font-weight:600;cursor:pointer;transition:background .15s ease;
+  }
+  .logout-btn:hover{background:rgba(237,234,217,0.1);}
+  .logout-btn svg{width:15px;height:15px;flex-shrink:0;}
+ 
+  /* ---------- Auth (Login / Register) ---------- */
+  .auth-screen{
+    position:fixed;inset:0;z-index:500;
+    background:var(--green);
+    background-image:radial-gradient(circle at 20% 20%, rgba(255,255,255,0.04), transparent 40%),
+                      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03), transparent 40%);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;overflow-y:auto;
+  }
+  .auth-card{
+    background:var(--paper-raised);
+    border-radius:16px;
+    box-shadow:0 24px 70px rgba(0,0,0,0.35);
+    padding:36px 38px 30px 38px;
+    width:100%;max-width:420px;
+  }
+  .auth-brand{display:flex;align-items:center;gap:11px;margin-bottom:22px;}
+  .auth-brand .brand-mark{
+    width:38px;height:38px;border-radius:9px;background:var(--brass);
+    color:var(--green);display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:700;font-size:19px;flex-shrink:0;
+  }
+  .auth-brand .brand-name{font-family:'Fraunces',serif;font-weight:700;font-size:19px;color:var(--ink);line-height:1.1;}
+  .auth-brand .brand-sub{font-size:11.5px;color:var(--ink-soft);margin-top:1px;}
+  .auth-title{font-family:'Fraunces',serif;font-size:23px;font-weight:600;margin:0 0 4px 0;color:var(--ink);}
+  .auth-sub{font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;line-height:1.5;}
+  .auth-btn{width:100%;justify-content:center;margin-top:6px;padding:12px;font-size:14.5px;}
+  .auth-remember{
+    display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft);
+    margin:2px 0 6px 0;cursor:pointer;user-select:none;
+  }
+  .auth-remember input{width:auto;margin:0;accent-color:var(--brass);}
+  .auth-error{
+    color:var(--red);font-size:12.5px;font-weight:600;min-height:0;margin-bottom:2px;
+  }
+  .auth-error:not(:empty){margin-bottom:10px;}
+  .required-star{color:var(--red);margin-left:2px;}
+  .field.input-error input{border-color:var(--red);background:rgba(139,58,58,0.05);}
+  .field.input-error label{color:var(--red);}
+  .auth-note{font-size:11.5px;color:var(--ink-soft);line-height:1.6;margin-top:18px;text-align:center;}
+  .auth-note a{color:var(--brass);font-weight:600;text-decoration:none;}
+  .auth-note a:hover{text-decoration:underline;}
+  .auth-gate-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+  .auth-gate-btn{flex:1;min-width:150px;justify-content:center;}
+  @media(max-width:480px){
+    .auth-card{padding:28px 22px 24px 22px;}
+  }
+ 
+  .main{flex:1;min-width:0;padding:32px 40px 60px 40px;}
+  .page{display:none;animation:fade .25s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+ 
+  .page-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px;}
+  .page-head h1{font-size:26px;margin:0;}
+  .page-head .sub{color:var(--ink-soft);font-size:13.5px;margin-top:3px;}
+ 
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:10px 16px;border-radius:7px;border:none;
+    font-size:13.5px;font-weight:600;
+    background:var(--green);color:#fff;
+    box-shadow:var(--shadow);
+  }
+  .btn:hover{background:var(--green-light);}
+  .btn.secondary{background:var(--paper-raised);color:var(--ink);border:1px solid var(--line);box-shadow:none;}
+  .btn.secondary:hover{border-color:var(--brass);}
+  .btn.backup{background:var(--green);color:#fff;border:1px solid var(--brass-light);}
+  .btn.backup:hover{background:var(--green-light);}
+  .btn.ghost{background:transparent;color:var(--green);box-shadow:none;padding:8px 10px;}
+  .btn.danger{background:var(--red-pale);color:var(--red);box-shadow:none;}
+  .btn.gold{background:var(--brass);color:#fff;box-shadow:none;padding:8px 12px;}
+  .btn.gold:hover{background:var(--brass-light);}
+  .btn.red{background:var(--red);color:#fff;box-shadow:none;padding:8px 12px;}
+  .btn.red:hover{background:#a24747;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+  .btn svg{width:15px;height:15px;}
+ 
+  /* ---------- Cards / stats ---------- */
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:30px;}
+  .stat-card{
+    background:var(--paper-raised);border:1px solid var(--line);border-radius:10px;
+    padding:18px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .stat-card .label{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);font-weight:600;}
+  .stat-card .value{font-family:'Fraunces',serif;font-size:26px;margin-top:6px;font-weight:600;}
+  .stat-card .accent-bar{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brass);}
+ 
+  .card{
+    background:var(--paper-raised);border:1px solid var(--line);border-radius:10px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:20px;
+  }
+  .card h3{font-size:16px;margin:0 0 14px 0;}
+ 
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);
+     padding:0 10px 10px 10px;border-bottom:1px solid var(--line);font-weight:600;}
+  td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--green-pale);}
+  .empty-row td{color:var(--ink-soft);text-align:center;padding:34px 10px;font-style:italic;}
+ 
+  .badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
+  .badge.paid{background:var(--green-pale);color:var(--green);}
+  .badge.partial{background:#F1E2C4;color:#8A5A1D;}
+  .badge.due{background:var(--red-pale);color:var(--red);}
+ 
+  /* ---------- Forms ---------- */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+  .field label{font-size:12px;font-weight:600;color:var(--ink-soft);}
+  .field input, .field select, .field textarea{
+    width:100%;
+    padding:9px 11px;border:1px solid var(--line);border-radius:7px;
+    background:#fff;font-size:14px;color:var(--ink);outline:none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--brass);box-shadow:0 0 0 3px rgba(168,129,60,0.15);}
+  .field.full{grid-column:1/-1;}
+ 
+  .radio-row{display:flex;gap:10px;}
+  .radio-opt{
+    flex:1;border:1px solid var(--line);border-radius:8px;padding:11px 13px;
+    display:flex;align-items:center;gap:9px;cursor:pointer;background:#fff;font-size:13.5px;
+  }
+  .radio-opt.selected{border-color:var(--brass);background:var(--green-pale);}
+  .radio-opt input{margin:0;}
+ 
+  /* ---------- Invoice item builder ---------- */
+  .item-row{display:grid;grid-template-columns:2fr 60px 90px 92px 78px 30px;gap:8px;align-items:center;margin-bottom:8px;}
+  .item-row input, .item-row select{padding:8px 9px;border:1px solid var(--line);border-radius:6px;font-size:13.5px;}
+  .item-row .rm{background:none;border:none;color:var(--red);font-size:17px;padding:0 4px;}
+  .item-head{display:grid;grid-template-columns:2fr 60px 90px 92px 78px 30px;gap:8px;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:6px;font-weight:600;}
+  .item-head .hint-tag{background:var(--green-pale);color:var(--green);border-radius:4px;padding:1px 5px;font-weight:600;text-transform:none;letter-spacing:0;font-size:9.5px;margin-left:3px;}
+  .item-price.edited{border-color:var(--brass);background:var(--green-pale);}
+ 
+  /* ---------- Invoice preview (ledger sheet) ---------- */
+  .ledger-sheet{
+    background:#fff;border:1px solid var(--line);border-radius:4px;
+    position:relative;padding:36px 32px 32px 54px;box-shadow:var(--shadow);
+    max-width:720px;
+  }
+  .ledger-sheet::before{
+    content:"";position:absolute;left:34px;top:0;bottom:0;width:1.5px;background:var(--red);opacity:.55;
+  }
+  .ledger-sheet::after{
+    content:"";position:absolute;left:0;right:0;top:0;bottom:0;
+    background-image:repeating-linear-gradient(transparent, transparent 27px, var(--line) 28px);
+    opacity:.35;pointer-events:none;
+  }
+  .inv-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1;margin-bottom:18px;}
+  .inv-brand{display:flex;gap:12px;align-items:center;}
+  .inv-brand img{width:48px;height:48px;object-fit:contain;border-radius:6px;}
+  .inv-brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;}
+  .inv-brand-meta{font-size:11.5px;color:var(--ink-soft);line-height:1.5;margin-top:2px;}
+  .inv-num{text-align:right;font-size:12.5px;color:var(--ink-soft);}
+  .inv-num .no{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink);font-weight:600;}
+ 
+  .inv-parties{display:flex;justify-content:space-between;gap:20px;margin-bottom:18px;position:relative;z-index:1;}
+  .inv-party .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:600;margin-bottom:4px;}
+  .inv-party .v{font-size:13.5px;line-height:1.5;}
+ 
+  .inv-table{position:relative;z-index:1;}
+  .inv-table table{font-size:12.5px;}
+  .inv-table th{font-size:10px;padding-bottom:7px;}
+  .inv-table th:not(:first-child), .inv-table td:not(:first-child){text-align:right;}
+  .inv-totals{display:flex;justify-content:flex-end;margin-top:14px;position:relative;z-index:1;}
+  .inv-totals table{width:280px;}
+  .inv-totals td{padding:5px 0;border:none;font-size:13px;}
+  .inv-totals .grand td{font-weight:700;font-size:16px;border-top:1.5px solid var(--ink);padding-top:9px;font-family:'IBM Plex Mono',monospace;}
+ 
+  .stamp{
+    position:absolute;right:44px;top:120px;width:88px;height:88px;border-radius:50%;
+    border:2.5px solid var(--brass);color:var(--brass);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-family:'Fraunces',serif;font-weight:700;font-size:13px;letter-spacing:.05em;
+    transform:rotate(-14deg);opacity:.85;z-index:2;pointer-events:none;
+  }
+  .stamp.stamp-paid{border-color:var(--green);color:var(--green);}
+  .stamp.stamp-partial{border-color:#8A5A1D;color:#8A5A1D;font-size:11.5px;}
+  .stamp.stamp-due{border-color:var(--red);color:var(--red);}
+ 
+  .inv-due-note{
+    margin-top:14px;padding:13px 16px;border:1.4px solid var(--red);
+    border-radius:9px;background:var(--red-pale);color:var(--ink);
+    font-size:12.5px;line-height:1.7;position:relative;z-index:1;
+  }
+  .inv-due-note strong{color:var(--red);}
+  .inv-due-note .due-title{font-weight:700;color:var(--red);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+ 
+  .inv-signatures{display:flex;justify-content:space-between;gap:40px;margin-top:56px;position:relative;z-index:1;}
+  .sig-block{flex:1;text-align:center;}
+  .sig-space{height:46px;}
+  .sig-line{border-top:1.4px solid var(--ink);margin-bottom:8px;}
+  .sig-label{font-size:12px;color:var(--ink);font-weight:600;}
+  .sig-sub{font-size:10.5px;color:var(--ink-soft);font-weight:400;}
+ 
+  /* ---------- Empty state ---------- */
+  .empty-state{text-align:center;padding:60px 20px;color:var(--ink-soft);}
+  .empty-state svg{width:44px;height:44px;color:var(--brass);margin-bottom:14px;opacity:.8;}
+  .empty-state h3{color:var(--ink);margin-bottom:6px;font-size:17px;}
+  .empty-state p{font-size:13.5px;margin:0 0 16px 0;}
+ 
+  .logo-drop{
+    border:1.5px dashed var(--line);border-radius:8px;padding:18px;text-align:center;
+    background:#fff;cursor:pointer;position:relative;
+  }
+  .logo-drop img{max-width:100px;max-height:60px;object-fit:contain;}
+  .logo-drop .hint{font-size:12px;color:var(--ink-soft);margin-top:6px;}
+  .logo-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+ 
+  .toast{
+    position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;
+    padding:12px 18px;border-radius:8px;font-size:13.5px;font-weight:500;
+    box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s ease;pointer-events:none;z-index:50;
+  }
+  .toast.show{opacity:1;transform:none;}
+ 
+  .modal-overlay{position:fixed;inset:0;background:rgba(27,36,32,0.4);display:none;align-items:center;justify-content:center;z-index:60;padding:20px;}
+  .modal-overlay.show{display:flex;}
+  .modal{background:var(--paper);border-radius:12px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:26px 28px;box-shadow:0 20px 60px rgba(0,0,0,0.25);}
+  .modal-close-row{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
+ 
+  @media print{
+    .sidebar,.no-print{display:none !important;}
+    .main{padding:0;}
+    body{background:#fff;}
+  }
+ 
+  @media (max-width:820px){
+    .sidebar{width:72px;}
+    .brand-name,.brand-sub,.nav-item span.label{display:none;}
+    .nav-item{justify-content:center;}
+    .brand{justify-content:center;padding:0 0 18px 0;}
+    .main{padding:22px 16px 60px 16px;}
+    .form-grid{grid-template-columns:1fr;}
+    .inv-parties{flex-direction:column;gap:14px;}
+  }
+</style>
+</head>
+<body>
+ 
+<div class="storage-warning no-print" id="storage-warning" style="display:none;">
+  ⚠ This file isn't connected to persistent storage right now, so nothing you enter will be saved. Open it from within Claude.ai (not as a locally double-clicked file) for your data to save automatically — and always keep a recent Export Backup as a safety copy.
+</div>
+ 
+<!-- ===================== REGISTRATION PAGE ===================== -->
+<div class="auth-screen" id="auth-register-screen">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-mark">₹</div>
+      <div>
+        <div class="brand-name">Khata</div>
+        <div class="brand-sub">Shop Ledger &amp; GST Invoicing</div>
+      </div>
+    </div>
+ 
+    <div class="auth-gate" id="reg-gate">
+      <h1 class="auth-title">Welcome to Khata</h1>
+      <div class="auth-sub">Do you already have a Khata username and password?</div>
+      <div class="auth-gate-btns">
+        <button class="btn secondary auth-gate-btn" id="reg-gate-no">No, create one now</button>
+        <button class="btn auth-gate-btn" id="reg-gate-yes">Yes, I have an account</button>
+      </div>
+    </div>
+ 
+    <div id="reg-form-body" style="display:none;">
+      <h1 class="auth-title">Create Your Account</h1>
+      <div class="auth-sub">Set up your login once — you'll use it every time you open Khata on this device.</div>
+ 
+      <div class="field" id="reg-name-field">
+        <label>Your Name<span class="required-star">*</span></label>
+        <input id="reg-name" placeholder="e.g. Anirban Das">
+      </div>
+      <div class="field" id="reg-username-field">
+        <label>Username<span class="required-star">*</span></label>
+        <input id="reg-username" placeholder="Choose a username" autocomplete="username">
+      </div>
+      <div class="field" id="reg-password-field">
+        <label>Password<span class="required-star">*</span></label>
+        <input id="reg-password" type="password" placeholder="Choose a password" autocomplete="new-password">
+      </div>
+      <div class="field" id="reg-password2-field">
+        <label>Confirm Password<span class="required-star">*</span></label>
+        <input id="reg-password2" type="password" placeholder="Re-enter your password" autocomplete="new-password">
+      </div>
+      <div class="auth-error" id="reg-error"></div>
+      <button class="btn auth-btn" id="reg-submit-btn">Register</button>
+      <div class="auth-note">This app runs entirely on your own device — there's no server or account recovery, so please remember your username and password, or use "Remember me" on the login page.</div>
+      <div class="auth-note">Already have an account? <a href="#" id="reg-switch-to-login">Log in instead</a></div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ===================== LOGIN PAGE ===================== -->
+<div class="auth-screen" id="auth-login-screen" style="display:none;">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-mark">₹</div>
+      <div>
+        <div class="brand-name">Khata</div>
+        <div class="brand-sub">Shop Ledger &amp; GST Invoicing</div>
+      </div>
+    </div>
+ 
+    <div class="auth-gate" id="login-gate">
+      <h1 class="auth-title">Welcome Back</h1>
+      <div class="auth-sub">Do you already have a Khata username and password?</div>
+      <div class="auth-gate-btns">
+        <button class="btn secondary auth-gate-btn" id="login-gate-no">No, I need to register</button>
+        <button class="btn auth-gate-btn" id="login-gate-yes">Yes, I have an account</button>
+      </div>
+    </div>
+ 
+    <div id="login-form-body" style="display:none;">
+      <h1 class="auth-title">Log In</h1>
+      <div class="auth-sub" id="login-welcome-sub">Log in to continue to your ledger.</div>
+ 
+      <div class="field" id="login-username-field">
+        <label>Username<span class="required-star">*</span></label>
+        <input id="login-username" list="login-username-list" placeholder="Your username" autocomplete="username">
+        <datalist id="login-username-list"></datalist>
+      </div>
+      <div class="field" id="login-password-field">
+        <label>Password<span class="required-star">*</span></label>
+        <input id="login-password" type="password" placeholder="Your password" autocomplete="current-password">
+      </div>
+      <label class="auth-remember">
+        <input type="checkbox" id="login-remember"> Remember my username and password on this device
+      </label>
+      <div class="auth-error" id="login-error"></div>
+      <button class="btn auth-btn" id="login-submit-btn">Log In</button>
+      <div class="auth-note">
+        Forgot your password? <a href="#" id="login-reset-link">Reset account</a> and register again. (Your invoices, products, and accounts data stay safe — only the login is reset.)
+      </div>
+      <div class="auth-note">New to Khata? <a href="#" id="login-switch-to-register">Create an account</a></div>
+    </div>
+  </div>
+</div>
+ 
+<div class="app" id="main-app" style="display:none;">
+  <!-- SIDEBAR -->
+  <nav class="sidebar no-print">
+    <div class="brand">
+      <div class="brand-mark">₹</div>
+      <div>
+        <div class="brand-name">Khata</div>
+        <div class="brand-sub">Shop Ledger</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        <span class="label">Dashboard</span>
+      </button>
+      <button class="nav-item" data-page="invoice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="label">New Invoice</span>
+      </button>
+      <button class="nav-item" data-page="history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+        <span class="label">History</span>
+      </button>
+      <button class="nav-item" data-page="gst">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>
+        <span class="label">GST Summary</span>
+      </button>
+      <button class="nav-item" data-page="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        <span class="label">Products</span>
+      </button>
+      <button class="nav-item" data-page="accounts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
+        <span class="label">Accounts</span>
+      </button>
+      <button class="nav-item" data-page="profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
+        <span class="label">Business Profile</span>
+      </button>
+    </div>
+    <div class="sidebar-foot">
+      Saved automatically<br>on this device.
+      <button class="logout-btn" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        Log Out
+      </button>
+    </div>
+  </nav>
+ 
+  <!-- MAIN -->
+  <main class="main">
+ 
+    <!-- DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-head">
+        <div>
+          <h1>Dashboard</h1>
+          <div class="sub" id="dash-date"></div>
+        </div>
+        <button class="btn" data-goto="invoice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          New Invoice
+        </button>
+      </div>
+ 
+      <div class="stat-grid">
+        <div class="stat-card"><div class="accent-bar"></div><div class="label">Today's Sales</div><div class="value mono" id="stat-today">₹0</div></div>
+        <div class="stat-card"><div class="accent-bar"></div><div class="label">This Month</div><div class="value mono" id="stat-month">₹0</div></div>
+        <div class="stat-card"><div class="accent-bar"></div><div class="label">GST Collected (Month)</div><div class="value mono" id="stat-gst">₹0</div></div>
+        <div class="stat-card"><div class="accent-bar"></div><div class="label">Invoices (Month)</div><div class="value mono" id="stat-count">0</div></div>
+      </div>
+ 
+      <div class="card">
+        <h3>Recent Transactions</h3>
+        <table>
+          <thead><tr><th>Invoice</th><th>Date</th><th>Customer</th><th>Tax Type</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+          <tbody id="recent-body"></tbody>
+        </table>
+      </div>
+    </section>
+ 
+    <!-- NEW INVOICE -->
+    <section class="page" id="page-invoice">
+      <div class="page-head">
+        <div><h1>New Invoice</h1><div class="sub">Create a GST invoice for a sale.</div></div>
+      </div>
+ 
+      <div class="card">
+        <h3>Customer</h3>
+        <div class="form-grid">
+          <div class="field"><label>Customer Name</label><input id="cust-name" placeholder="Walk-in / Customer name"></div>
+          <div class="field"><label>Phone</label><input id="cust-phone" placeholder="Optional"></div>
+          <div class="field full"><label>Address</label><input id="cust-address" placeholder="Optional"></div>
+          <div class="field"><label>State</label><select id="cust-state"></select></div>
+          <div class="field"><label>PIN Code</label><input id="cust-pin" type="tel" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 700001"></div>
+          <div class="field"><label>GSTIN (if registered)</label><input id="cust-gstin" placeholder="Optional"></div>
+          <div class="field">
+            <label>Tax Type</label>
+            <div class="radio-row">
+              <label class="radio-opt selected" id="opt-intra"><input type="radio" name="taxtype" value="intra" checked> Same state (CGST + SGST)</label>
+              <label class="radio-opt" id="opt-inter"><input type="radio" name="taxtype" value="inter"> Different state (IGST)</label>
+            </div>
+            <div class="sub" style="margin-top:6px;color:var(--ink-soft);font-size:12px;" id="taxtype-hint">Auto-set from customer's State — change it above if the customer state differs from your business.</div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="card">
+        <h3>Items</h3>
+        <div class="item-head"><div>Product</div><div>Qty</div><div>Price (₹) <span class="hint-tag">editable</span></div><div>Price Type</div><div>GST %</div><div></div></div>
+        <div id="items-wrap"></div>
+        <button class="btn secondary" id="add-item-btn" style="margin-top:8px;">+ Add Item</button>
+      </div>
+ 
+      <div class="card">
+        <h3>Totals</h3>
+        <div class="inv-totals" style="justify-content:flex-start;">
+          <table>
+            <tr><td>Taxable Value</td><td class="mono" id="calc-taxable">₹0.00</td></tr>
+            <tr id="row-cgst"><td>CGST</td><td class="mono" id="calc-cgst">₹0.00</td></tr>
+            <tr id="row-sgst"><td>SGST</td><td class="mono" id="calc-sgst">₹0.00</td></tr>
+            <tr id="row-igst" style="display:none;"><td>IGST</td><td class="mono" id="calc-igst">₹0.00</td></tr>
+            <tr class="grand"><td>Grand Total</td><td class="mono" id="calc-grand">₹0.00</td></tr>
+          </table>
+        </div>
+        <div style="margin-top:18px;display:flex;gap:10px;">
+          <button class="btn" id="save-invoice-btn">Save Invoice</button>
+          <button class="btn secondary" id="clear-invoice-btn">Clear</button>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- HISTORY -->
+    <section class="page" id="page-history">
+      <div class="page-head">
+        <div><h1>Transaction History</h1><div class="sub">All saved invoices.</div></div>
+        <input type="text" id="history-search" placeholder="Search customer or invoice no." style="padding:9px 13px;border:1px solid var(--line);border-radius:7px;font-size:13.5px;width:240px;">
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Invoice</th><th>Date</th><th>Customer</th><th>Tax Type</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </section>
+ 
+    <!-- GST SUMMARY -->
+    <section class="page" id="page-gst">
+      <div class="page-head">
+        <div><h1>GST Summary</h1><div class="sub">Monthly totals for filing reference.</div></div>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Month</th><th>Invoices</th><th>Taxable Value</th><th>CGST</th><th>SGST</th><th>IGST</th><th>Total GST</th></tr></thead>
+          <tbody id="gst-body"></tbody>
+        </table>
+      </div>
+    </section>
+ 
+    <!-- PRODUCTS -->
+    <section class="page" id="page-products">
+      <div class="page-head">
+        <div><h1>Products</h1><div class="sub">Save frequent items for faster invoicing.</div></div>
+        <button class="btn" id="add-product-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add Product
+        </button>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Name</th><th>Price (₹)</th><th>GST %</th><th></th></tr></thead>
+          <tbody id="products-body"></tbody>
+        </table>
+      </div>
+    </section>
+ 
+    <!-- ACCOUNTS -->
+    <section class="page" id="page-accounts">
+      <div class="page-head">
+        <div><h1>Accounts</h1><div class="sub">Track money in and out across cash and bank accounts.</div></div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn secondary" id="add-account-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Add Account
+          </button>
+          <button class="btn" id="add-txn-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Add Transaction
+          </button>
+        </div>
+      </div>
+ 
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="accent-bar"></div>
+          <div class="label">Total Money In</div>
+          <div class="value mono" id="acc-in">₹0.00</div>
+        </div>
+        <div class="stat-card">
+          <div class="accent-bar" style="background:var(--red);"></div>
+          <div class="label">Total Money Out</div>
+          <div class="value mono" id="acc-out">₹0.00</div>
+        </div>
+        <div class="stat-card">
+          <div class="accent-bar" style="background:var(--green-light);"></div>
+          <div class="label">Total Balance (All Accounts)</div>
+          <div class="value mono" id="acc-balance">₹0.00</div>
+        </div>
+      </div>
+ 
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <h3 style="margin:0;">Payment Accounts</h3>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input id="account-search-input" type="text" placeholder="Search by name, bank, or account number" style="min-width:260px;">
+            <button class="btn secondary" id="account-search-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              Search
+            </button>
+          </div>
+        </div>
+        <div class="sub" style="margin:10px 0 14px 0;color:var(--ink-soft);font-size:13px;">
+          Each account tracks its own balance. Add your bank accounts with account numbers to see exactly where your money sits.
+        </div>
+        <div id="accounts-list-body" style="display:flex;flex-direction:column;gap:10px;"></div>
+      </div>
+ 
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:4px;">
+          <h3 style="margin:0;">Transactions</h3>
+          <select id="txn-filter-account" style="max-width:220px;">
+            <option value="all">All Accounts</option>
+          </select>
+        </div>
+        <table>
+          <thead><tr><th>Date</th><th>Account</th><th>Type</th><th>Note</th><th>Amount</th><th>Balance</th><th></th></tr></thead>
+          <tbody id="accounts-body"></tbody>
+        </table>
+      </div>
+    </section>
+ 
+    <!-- ADD TRANSACTION MODAL -->
+    <div class="modal-overlay" id="txn-modal-overlay">
+      <div class="modal">
+        <h3 style="margin:0 0 16px 0;">Add Transaction</h3>
+        <div class="radio-row" style="margin-bottom:14px;">
+          <label class="radio-opt selected" id="txn-type-in-opt">
+            <input type="radio" name="txn-type" value="in" checked> Money In
+          </label>
+          <label class="radio-opt" id="txn-type-out-opt">
+            <input type="radio" name="txn-type" value="out"> Money Out
+          </label>
+          <label class="radio-opt" id="txn-type-transfer-opt">
+            <input type="radio" name="txn-type" value="transfer"> Transfer
+          </label>
+        </div>
+        <div class="field">
+          <label id="txn-account-label">Account</label>
+          <select id="txn-account"></select>
+        </div>
+        <div class="field" id="txn-to-account-field" style="display:none;">
+          <label>To Account</label>
+          <select id="txn-to-account"></select>
+        </div>
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="txn-date">
+        </div>
+        <div class="field">
+          <label>Amount (₹)</label>
+          <input type="number" id="txn-amount" placeholder="0.00" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label>Note</label>
+          <input type="text" id="txn-note" placeholder="e.g. Cash sale, Rent, Supplier payment, Deposited to bank">
+        </div>
+        <div class="modal-close-row">
+          <button class="btn secondary" id="txn-cancel">Cancel</button>
+          <button class="btn" id="txn-save">Save</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- VIEW TRANSACTION MODAL -->
+    <div class="modal-overlay" id="view-txn-modal-overlay">
+      <div class="modal">
+        <h3 style="margin:0 0 4px 0;">Transaction Details</h3>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:16px;" id="vt-id"></div>
+ 
+        <div style="display:flex;flex-direction:column;gap:9px;font-size:14px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Date</span><span id="vt-date" style="font-weight:600;"></span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Type</span><span id="vt-type" style="font-weight:600;"></span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Note</span><span id="vt-note" style="font-weight:600;text-align:right;max-width:60%;"></span></div>
+          <div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:9px;margin-top:2px;"><span style="color:var(--ink-soft);">Amount</span><span id="vt-amount" class="mono" style="font-weight:700;font-size:16px;"></span></div>
+        </div>
+ 
+        <div id="vt-from-section" style="margin-top:18px;">
+          <div style="font-weight:600;font-size:13px;margin-bottom:8px;" id="vt-from-heading">Account</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;background:var(--card-alt,rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px;padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Account</span><span id="vt-from-name" style="font-weight:600;"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Opening Balance</span><span id="vt-from-opening" class="mono"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Balance Before</span><span id="vt-from-before" class="mono"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Balance After</span><span id="vt-from-after" class="mono" style="font-weight:700;"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Current Balance (Today)</span><span id="vt-from-current" class="mono"></span></div>
+          </div>
+        </div>
+ 
+        <div id="vt-to-section" style="margin-top:14px;display:none;">
+          <div style="font-weight:600;font-size:13px;margin-bottom:8px;">To Account</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;background:var(--card-alt,rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px;padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Account</span><span id="vt-to-name" style="font-weight:600;"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Opening Balance</span><span id="vt-to-opening" class="mono"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Balance Before</span><span id="vt-to-before" class="mono"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Balance After</span><span id="vt-to-after" class="mono" style="font-weight:700;"></span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Current Balance (Today)</span><span id="vt-to-current" class="mono"></span></div>
+          </div>
+        </div>
+ 
+        <div class="modal-close-row">
+          <button class="btn secondary" id="vt-close">Close</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ADD/EDIT PAYMENT ACCOUNT MODAL -->
+    <div class="modal-overlay" id="account-modal-overlay">
+      <div class="modal">
+        <h3 style="margin:0 0 16px 0;" id="am-title">Add Account</h3>
+        <div class="field">
+          <label>Account Type</label>
+          <div class="radio-row">
+            <label class="radio-opt selected" id="am-kind-cash-opt">
+              <input type="radio" name="am-kind" value="cash" checked> Cash
+            </label>
+            <label class="radio-opt" id="am-kind-bank-opt">
+              <input type="radio" name="am-kind" value="bank"> Bank
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Account Name</label>
+          <input id="am-name" placeholder="e.g. Cash in Hand, HDFC Current A/c">
+        </div>
+        <div id="am-bank-fields" style="display:none;">
+          <div class="field">
+            <label>Bank Name</label>
+            <input id="am-bank-name" placeholder="e.g. HDFC Bank">
+          </div>
+          <div class="field">
+            <label>Account Number</label>
+            <input id="am-account-number" placeholder="e.g. 50100XXXXXXXX" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label>IFSC Code (optional)</label>
+            <input id="am-ifsc" placeholder="e.g. HDFC0001234">
+          </div>
+        </div>
+        <div class="field">
+          <label>Opening Balance (₹)</label>
+          <input id="am-opening-balance" type="number" min="0" step="0.01" placeholder="0.00">
+        </div>
+        <div class="modal-close-row">
+          <button class="btn secondary" id="am-cancel">Cancel</button>
+          <button class="btn" id="am-save">Save</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- VIEW PAYMENT ACCOUNT MODAL -->
+    <div class="modal-overlay" id="view-account-modal-overlay">
+      <div class="modal">
+        <h3 style="margin:0 0 16px 0;" id="va-title">Account Details</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Type</span><span id="va-type" style="font-weight:600;"></span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Account Name</span><span id="va-name" style="font-weight:600;"></span></div>
+          <div id="va-bank-row" style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Bank Name</span><span id="va-bank-name" style="font-weight:600;"></span></div>
+          <div id="va-number-row" style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Account Number</span><span id="va-account-number" class="mono" style="font-weight:600;"></span></div>
+          <div id="va-ifsc-row" style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">IFSC Code</span><span id="va-ifsc" class="mono" style="font-weight:600;"></span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Opening Balance</span><span id="va-opening" class="mono" style="font-weight:600;"></span></div>
+          <div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px;margin-top:4px;"><span style="color:var(--ink-soft);">Current Balance</span><span id="va-balance" class="mono" style="font-weight:700;font-size:16px;"></span></div>
+        </div>
+        <div style="margin-top:18px;">
+          <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Recent Transactions</div>
+          <div id="va-txn-list" style="display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;"></div>
+        </div>
+        <div class="modal-close-row">
+          <button class="btn secondary" id="va-close">Close</button>
+          <button class="btn" id="va-edit">Edit This Account</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- PROFILE -->
+    <section class="page" id="page-profile">
+      <div class="page-head">
+        <div><h1>Business Profile</h1><div class="sub">Appears on every invoice.</div></div>
+      </div>
+      <div class="card" style="max-width:640px;">
+        <div class="form-grid">
+          <div class="field full">
+            <label>Business Logo</label>
+            <div class="logo-drop" id="logo-drop">
+              <div id="logo-preview">Click or drop an image</div>
+              <div class="hint">PNG or JPG, shown on invoices</div>
+              <input type="file" id="logo-input" accept="image/*">
+            </div>
+          </div>
+          <div class="field full"><label>Business Name</label><input id="biz-name" placeholder="Your shop name"></div>
+          <div class="field full"><label>Address</label><input id="biz-address" placeholder="Shop address"></div>
+          <div class="field"><label>GSTIN</label><input id="biz-gstin" placeholder="e.g. 22AAAAA0000A1Z5"></div>
+          <div class="field"><label>State</label><select id="biz-state"></select></div>
+          <div class="field"><label>PIN Code</label><input id="biz-pin" type="tel" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 700001"></div>
+          <div class="field"><label>Phone</label><input id="biz-phone" placeholder="Optional"></div>
+        </div>
+        <button class="btn" id="save-profile-btn">Save Profile</button>
+      </div>
+ 
+      <div class="card" style="max-width:640px;">
+        <h3>Data Backup</h3>
+        <div class="sub" style="margin-bottom:14px;color:var(--ink-soft);font-size:13px;">
+          Export all your data (profile, products, invoices) as a file, or restore from a previous backup.
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn backup" id="export-backup-btn">Export Backup</button>
+          <button class="btn backup" id="import-backup-btn">Import Backup</button>
+          <input type="file" id="import-backup-input" accept="application/json,.json" style="display:none;">
+        </div>
+      </div>
+ 
+      <div class="card" style="max-width:640px;">
+        <h3>Google Sheet Sync</h3>
+        <div class="sub" style="margin-bottom:14px;color:var(--ink-soft);font-size:13px;line-height:1.6;">
+          Auto-push every invoice and transaction to a Google Sheet in your own account, in real time. One-time setup required — see steps below.
+        </div>
+        <div class="field full">
+          <label>Apps Script Web App URL</label>
+          <input id="sheet-sync-url" placeholder="https://script.google.com/macros/s/XXXXX/exec">
+        </div>
+        <div id="sheet-sync-status" style="font-size:12.5px;color:var(--ink-soft);margin-bottom:12px;"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
+          <button class="btn" id="save-sync-url-btn">Save URL</button>
+          <button class="btn secondary" id="sync-now-btn">Sync All Data Now</button>
+        </div>
+        <details>
+          <summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--green);">How to set this up (one-time, ~2 minutes)</summary>
+          <ol style="font-size:13px;color:var(--ink-soft);line-height:1.9;padding-left:20px;margin-top:10px;">
+            <li>Create a new blank Google Sheet in your own Google account.</li>
+            <li>In the Sheet, go to <strong>Extensions → Apps Script</strong>.</li>
+            <li>Delete any starter code, paste in the script shown below, then click <strong>Save</strong>.</li>
+            <li>Click <strong>Deploy → New deployment → type: Web app</strong>. Set "Execute as" to <strong>Me</strong> and "Who has access" to <strong>Anyone</strong>. Click <strong>Deploy</strong> and authorize it with your Google account.</li>
+            <li>Copy the <strong>Web app URL</strong> Google gives you and paste it into the field above, then click <strong>Save URL</strong>.</li>
+            <li>Click <strong>Sync All Data Now</strong> once to push everything you already have. After that, every new invoice or transaction syncs automatically.</li>
+          </ol>
+          <div style="position:relative;margin-top:10px;">
+            <pre id="apps-script-code" style="background:#1B2420;color:#EDEAD9;padding:16px;border-radius:8px;font-size:11.5px;line-height:1.6;overflow-x:auto;white-space:pre;font-family:'IBM Plex Mono',monospace;">function doPost(e) {
+  var data = JSON.parse(e.postData.contents);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+ 
+  function getSheet(name, headers) {
+    var sh = ss.getSheetByName(name);
+    if (!sh) {
+      sh = ss.insertSheet(name);
+      sh.appendRow(headers);
+    }
+    return sh;
+  }
+ 
+  if (data.type === 'invoice') {
+    var sh = getSheet('Invoices', ['Invoice No','Date','Customer','Phone','Tax Type','Taxable','CGST','SGST','IGST','Grand Total','Status']);
+    var inv = data.record;
+    sh.appendRow([inv.invoiceNo, inv.date, inv.customer.name, inv.customer.phone||'', inv.taxType, inv.taxable, inv.totalCgst, inv.totalSgst, inv.totalIgst, inv.grandTotal, inv.status]);
+  } else if (data.type === 'transaction') {
+    var sh = getSheet('Transactions', ['Date','Account','Account Number','Type','To Account','Note','Amount']);
+    var t = data.record;
+    sh.appendRow([t.date, t.accountName||'', t.accountNumber||'', t.type, t.toAccountName||'', t.note||'', t.amount]);
+  } else if (data.type === 'fullsync') {
+    var invSh = getSheet('Invoices', ['Invoice No','Date','Customer','Phone','Tax Type','Taxable','CGST','SGST','IGST','Grand Total','Status']);
+    invSh.clearContents();
+    invSh.appendRow(['Invoice No','Date','Customer','Phone','Tax Type','Taxable','CGST','SGST','IGST','Grand Total','Status']);
+    (data.invoices||[]).forEach(function(inv){
+      invSh.appendRow([inv.invoiceNo, inv.date, inv.customer.name, inv.customer.phone||'', inv.taxType, inv.taxable, inv.totalCgst, inv.totalSgst, inv.totalIgst, inv.grandTotal, inv.status]);
+    });
+ 
+    var accById = {};
+    (data.paymentAccounts||[]).forEach(function(a){ accById[a.id] = a; });
+ 
+    var accSh = getSheet('Accounts', ['Account Name','Type','Bank Name','Account Number','IFSC','Opening Balance']);
+    accSh.clearContents();
+    accSh.appendRow(['Account Name','Type','Bank Name','Account Number','IFSC','Opening Balance']);
+    (data.paymentAccounts||[]).forEach(function(a){
+      accSh.appendRow([a.name, a.kind, a.bankName||'', a.accountNumber||'', a.ifsc||'', a.openingBalance||0]);
+    });
+ 
+    var txSh = getSheet('Transactions', ['Date','Account','Account Number','Type','To Account','Note','Amount']);
+    txSh.clearContents();
+    txSh.appendRow(['Date','Account','Account Number','Type','To Account','Note','Amount']);
+    (data.transactions||[]).forEach(function(t){
+      var acc = accById[t.accountId] || {};
+      var toAcc = accById[t.toAccountId] || {};
+      txSh.appendRow([t.date, acc.name||'', acc.accountNumber||'', t.type, toAcc.name||'', t.note||'', t.amount]);
+    });
+  }
+ 
+  return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
+}</pre>
+            <button class="btn secondary" id="copy-script-btn" style="margin-top:8px;">Copy Script</button>
+          </div>
+        </details>
+      </div>
+    </section>
+ 
+  </main>
+</div>
+ 
+<div class="toast" id="toast"></div>
+ 
+<!-- Invoice view/print modal -->
+<div class="modal-overlay" id="inv-modal-overlay">
+  <div class="modal">
+    <div id="inv-modal-body"></div>
+    <div class="modal-close-row no-print">
+      <button class="btn secondary" id="mark-paid-btn">Record Payment</button>
+      <button class="btn secondary" onclick="window.print()">Print</button>
+      <button class="btn" id="close-modal-btn">Close</button>
+    </div>
+  </div>
+</div>
+ 
+<!-- Record Payment modal -->
+<div class="modal-overlay" id="payment-modal-overlay">
+  <div class="modal" style="max-width:400px;">
+    <h3 style="margin:0 0 6px 0;">Record Payment</h3>
+    <div class="sub" style="margin-bottom:16px;color:var(--ink-soft);font-size:13px;" id="payment-modal-sub"></div>
+    <div class="field">
+      <label>Amount Received (₹)</label>
+      <input id="payment-amount-input" type="number" min="0" step="0.01" placeholder="0.00">
+    </div>
+    <div class="sub" style="font-size:12px;color:var(--ink-soft);margin-bottom:6px;" id="payment-remaining-hint"></div>
+    <div class="auth-error" id="payment-error" style="margin-top:6px;"></div>
+    <div class="modal-close-row">
+      <button class="btn secondary" id="payment-cancel-btn">Cancel</button>
+      <button class="btn" id="payment-save-btn">Save Payment</button>
+    </div>
+  </div>
+</div>
+ 
+<!-- Add product modal -->
+<div class="modal-overlay" id="product-modal-overlay">
+  <div class="modal" style="max-width:420px;">
+    <h3 style="margin-top:0;" id="pm-title">Add Product</h3>
+    <div class="field"><label>Name</label><input id="pm-name"></div>
+    <div class="field"><label>Price (₹)</label><input id="pm-price" type="number" min="0" step="0.01"></div>
+    <div class="field">
+      <label>GST %</label>
+      <select id="pm-gst">
+        <option value="0">0%</option><option value="5">5%</option>
+        <option value="18" selected>18%</option><option value="28">28%</option>
+      </select>
+    </div>
+    <div class="modal-close-row">
+      <button class="btn secondary" id="pm-cancel">Cancel</button>
+      <button class="btn" id="pm-save">Save</button>
+    </div>
+  </div>
+</div>
+ 
+<!-- Confirm delete modal -->
+<div class="modal-overlay" id="confirm-modal-overlay">
+  <div class="modal" style="max-width:380px;">
+    <h3 style="margin-top:0;" id="confirm-title">Are you sure?</h3>
+    <p id="confirm-message" style="color:var(--ink-soft);font-size:14px;line-height:1.5;margin:0 0 6px 0;"></p>
+    <div class="modal-close-row">
+      <button class="btn secondary" id="confirm-no">No</button>
+      <button class="btn red" id="confirm-yes">Yes, Remove</button>
+    </div>
+  </div>
+</div>
+ 
+<script>
+/* ================= STATE ================= */
+let profile = { name:"", address:"", gstin:"", state:"", pin:"", phone:"", logo:"", sheetSyncUrl:"" };
+let products = [];
+let invoices = [];
+let transactions = [];
+let paymentAccounts = [];
+let itemRowId = 0;
+let currentInvoiceIdForModal = null;
+let editingAccountId = null;
+ 
+const INDIA_STATES = [
+  "West Bengal",
+  "Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
+  "Chandigarh","Chhattisgarh","Dadra and Nagar Haveli and Daman and Diu","Delhi","Goa",
+  "Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
+  "Kerala","Ladakh","Lakshadweep","Madhya Pradesh","Maharashtra","Manipur","Meghalaya",
+  "Mizoram","Nagaland","Odisha","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu",
+  "Telangana","Tripura","Uttar Pradesh","Uttarakhand"
+];
+function populateStateSelect(selectEl, includeBlank){
+  selectEl.innerHTML = (includeBlank ? '<option value="">Select State</option>' : '') +
+    INDIA_STATES.map(s=>`<option value="${s}">${s}</option>`).join('');
+}
+function normalizeState(s){ return (s||'').trim().toLowerCase(); }
+ 
+/* ================= STORAGE HELPERS (browser localStorage) ================= */
+const LS_PREFIX = 'khata:';
+const storage = {
+  async get(key){
+    const raw = localStorage.getItem(LS_PREFIX+key);
+    return raw===null ? null : { key, value: raw };
+  },
+  async set(key, value){
+    localStorage.setItem(LS_PREFIX+key, value);
+    return { key, value };
+  },
+  async delete(key){
+    localStorage.removeItem(LS_PREFIX+key);
+    return { key, deleted:true };
+  }
+};
+async function loadAll(){
+  try{
+    const p = await storage.get('business-profile');
+    if(p) profile = JSON.parse(p.value);
+  }catch(e){}
+  try{
+    const pr = await storage.get('products');
+    if(pr) products = JSON.parse(pr.value);
+  }catch(e){}
+  try{
+    const inv = await storage.get('invoices');
+    if(inv) invoices = JSON.parse(inv.value);
+  }catch(e){}
+  try{
+    const t = await storage.get('transactions');
+    if(t) transactions = JSON.parse(t.value);
+  }catch(e){}
+  try{
+    const pa = await storage.get('payment-accounts');
+    if(pa) paymentAccounts = JSON.parse(pa.value);
+  }catch(e){}
+  ensureDefaultAccount();
+  await migrateLegacyGstRate();
+}
+async function migrateLegacyGstRate(){
+  // The 12% GST slab was removed by the Government of India. Any product still
+  // saved at the old 12% rate is moved to 18% so it stays usable in new invoices;
+  // past invoices already issued are left untouched since they reflect what was
+  // actually charged at the time.
+  const affected = products.filter(p=>p.gstRate===12 || p.gstRate==='12');
+  if(affected.length===0) return;
+  products.forEach(p=>{ if(p.gstRate===12 || p.gstRate==='12') p.gstRate = 18; });
+  await saveProducts();
+  showToast(`${affected.length} product(s) using the removed 12% GST slab were updated to 18% — please review`);
+}
+function ensureDefaultAccount(){
+  if(!Array.isArray(paymentAccounts) || paymentAccounts.length===0){
+    paymentAccounts = [{ id:'acc_cash', name:'Cash in Hand', kind:'cash', bankName:'', accountNumber:'', ifsc:'', openingBalance:0, createdAt:Date.now() }];
+  }
+  const validIds = new Set(paymentAccounts.map(a=>a.id));
+  let migrated = false;
+  transactions.forEach(t=>{
+    if(!t.accountId || !validIds.has(t.accountId)){
+      t.accountId = paymentAccounts[0].id;
+      migrated = true;
+    }
+  });
+  if(migrated) saveTransactions();
+}
+async function saveProfile(){
+  try{ await storage.set('business-profile', JSON.stringify(profile)); }catch(e){ showToast('Could not save profile'); }
+}
+async function saveProducts(){
+  try{ await storage.set('products', JSON.stringify(products)); }catch(e){ showToast('Could not save products'); }
+}
+async function saveInvoices(){
+  try{ await storage.set('invoices', JSON.stringify(invoices)); }catch(e){ showToast('Could not save invoice'); }
+}
+async function saveTransactions(){
+  try{ await storage.set('transactions', JSON.stringify(transactions)); }catch(e){ showToast('Could not save transaction'); }
+}
+async function saveAccountsList(){
+  try{ await storage.set('payment-accounts', JSON.stringify(paymentAccounts)); }catch(e){ showToast('Could not save accounts'); }
+}
+ 
+/* ================= AUTH: REGISTER / LOGIN / SESSION ================= */
+async function getAuthUser(){
+  try{
+    const r = await storage.get('auth-user');
+    return r ? JSON.parse(r.value) : null;
+  }catch(e){ return null; }
+}
+async function saveAuthUser(user){
+  await storage.set('auth-user', JSON.stringify(user));
+}
+async function clearAuthUser(){
+  try{ await storage.delete('auth-user'); }catch(e){}
+}
+async function getRememberedCreds(){
+  try{
+    const r = await storage.get('remember-credentials');
+    return r ? JSON.parse(r.value) : null;
+  }catch(e){ return null; }
+}
+async function setSessionActive(active){
+  if(active) await storage.set('session-active', 'true');
+  else { try{ await storage.delete('session-active'); }catch(e){} }
+}
+async function isSessionActive(){
+  try{
+    const r = await storage.get('session-active');
+    return !!r && r.value === 'true';
+  }catch(e){ return false; }
+}
+ 
+function showAuthScreen(which){
+  document.getElementById('auth-register-screen').style.display = which==='register' ? 'flex' : 'none';
+  document.getElementById('auth-login-screen').style.display = which==='login' ? 'flex' : 'none';
+  document.getElementById('main-app').style.display = which==='app' ? 'flex' : 'none';
+  if(which==='register') revealRegisterGate();
+  if(which==='login') revealLoginGate();
+}
+function revealRegisterGate(){
+  document.getElementById('reg-gate').style.display = 'block';
+  document.getElementById('reg-form-body').style.display = 'none';
+}
+function revealRegisterForm(){
+  document.getElementById('reg-gate').style.display = 'none';
+  document.getElementById('reg-form-body').style.display = 'block';
+  document.getElementById('reg-name').focus();
+}
+function revealLoginGate(){
+  document.getElementById('login-gate').style.display = 'block';
+  document.getElementById('login-form-body').style.display = 'none';
+}
+function revealLoginForm(){
+  document.getElementById('login-gate').style.display = 'none';
+  document.getElementById('login-form-body').style.display = 'block';
+  document.getElementById('login-username').focus();
+}
+function populateLoginUsernameList(username){
+  const list = document.getElementById('login-username-list');
+  list.innerHTML = username ? `<option value="${escapeHtml(username)}"></option>` : '';
+}
+ 
+document.getElementById('reg-gate-no').addEventListener('click', revealRegisterForm);
+document.getElementById('reg-gate-yes').addEventListener('click', ()=>{
+  showAuthScreen('login');
+  revealLoginForm();
+});
+document.getElementById('login-gate-yes').addEventListener('click', revealLoginForm);
+document.getElementById('login-gate-no').addEventListener('click', ()=>{
+  showAuthScreen('register');
+  revealRegisterForm();
+});
+document.getElementById('reg-switch-to-login').addEventListener('click', (e)=>{
+  e.preventDefault();
+  showAuthScreen('login');
+  revealLoginForm();
+});
+document.getElementById('login-switch-to-register').addEventListener('click', (e)=>{
+  e.preventDefault();
+  showAuthScreen('register');
+  revealRegisterForm();
+});
+ 
+function markFieldError(fieldId, isError){
+  document.getElementById(fieldId).classList.toggle('input-error', isError);
+}
+function clearFieldErrorOnInput(inputId, fieldId){
+  document.getElementById(inputId).addEventListener('input', ()=> markFieldError(fieldId, false));
+}
+clearFieldErrorOnInput('reg-name','reg-name-field');
+clearFieldErrorOnInput('reg-username','reg-username-field');
+clearFieldErrorOnInput('reg-password','reg-password-field');
+clearFieldErrorOnInput('reg-password2','reg-password2-field');
+clearFieldErrorOnInput('login-username','login-username-field');
+clearFieldErrorOnInput('login-password','login-password-field');
+ 
+document.getElementById('reg-submit-btn').addEventListener('click', async ()=>{
+  const name = document.getElementById('reg-name').value.trim();
+  const username = document.getElementById('reg-username').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const password2 = document.getElementById('reg-password2').value;
+  const errEl = document.getElementById('reg-error');
+  errEl.textContent = '';
+  ['reg-name-field','reg-username-field','reg-password-field','reg-password2-field'].forEach(id=>markFieldError(id,false));
+ 
+  const missing = [];
+  if(!name) missing.push('reg-name-field');
+  if(!username) missing.push('reg-username-field');
+  if(!password) missing.push('reg-password-field');
+  if(!password2) missing.push('reg-password2-field');
+  if(missing.length>0){
+    missing.forEach(id=>markFieldError(id,true));
+    errEl.textContent = 'Please fill in all the required fields marked with *.';
+    return;
+  }
+  if(password.length<4){ markFieldError('reg-password-field',true); errEl.textContent = 'Password should be at least 4 characters.'; return; }
+  if(password !== password2){ markFieldError('reg-password-field',true); markFieldError('reg-password2-field',true); errEl.textContent = 'Passwords do not match.'; return; }
+  await saveAuthUser({ name, username, password });
+  populateLoginUsernameList(username);
+  showToast('Account created — please log in');
+  document.getElementById('login-welcome-sub').textContent = `Welcome, ${name}! Log in to continue.`;
+  document.getElementById('login-username').value = username;
+  document.getElementById('login-password').value = '';
+  showAuthScreen('login');
+  revealLoginForm();
+});
+ 
+document.getElementById('login-submit-btn').addEventListener('click', async ()=>{
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value;
+  const remember = document.getElementById('login-remember').checked;
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '';
+  markFieldError('login-username-field', false);
+  markFieldError('login-password-field', false);
+ 
+  const missing = [];
+  if(!username) missing.push('login-username-field');
+  if(!password) missing.push('login-password-field');
+  if(missing.length>0){
+    missing.forEach(id=>markFieldError(id,true));
+    errEl.textContent = 'Please fill in all the required fields marked with *.';
+    return;
+  }
+  const user = await getAuthUser();
+  if(!user){ showAuthScreen('register'); return; }
+  if(username !== user.username || password !== user.password){
+    errEl.textContent = 'Incorrect username or password.';
+    return;
+  }
+  if(remember){
+    await storage.set('remember-credentials', JSON.stringify({ username, password }));
+  } else {
+    try{ await storage.delete('remember-credentials'); }catch(e){}
+  }
+  await setSessionActive(true);
+  await enterApp();
+});
+document.getElementById('login-username').addEventListener('keydown', (e)=>{ if(e.key==='Enter') document.getElementById('login-password').focus(); });
+document.getElementById('login-password').addEventListener('keydown', (e)=>{ if(e.key==='Enter') document.getElementById('login-submit-btn').click(); });
+document.getElementById('reg-password2').addEventListener('keydown', (e)=>{ if(e.key==='Enter') document.getElementById('reg-submit-btn').click(); });
+ 
+document.getElementById('login-reset-link').addEventListener('click', async (e)=>{
+  e.preventDefault();
+  const ok = await confirmAction('Reset your login? You will need to register a new username and password. Your invoices, products, and accounts data will NOT be deleted.', 'Reset Account');
+  if(!ok) return;
+  await clearAuthUser();
+  try{ await storage.delete('remember-credentials'); }catch(err){}
+  await setSessionActive(false);
+  populateLoginUsernameList('');
+  document.getElementById('reg-name').value = '';
+  document.getElementById('reg-username').value = '';
+  document.getElementById('reg-password').value = '';
+  document.getElementById('reg-password2').value = '';
+  showAuthScreen('register');
+  revealRegisterForm();
+});
+ 
+document.getElementById('logout-btn').addEventListener('click', async ()=>{
+  const ok = await confirmAction('Log out of Khata on this device?', 'Log Out');
+  if(!ok) return;
+  await setSessionActive(false);
+  document.getElementById('login-password').value = '';
+  document.getElementById('login-error').textContent = '';
+  document.getElementById('login-welcome-sub').textContent = 'Log in to continue to your ledger.';
+  showAuthScreen('login');
+});
+ 
+async function enterApp(){
+  showAuthScreen('app');
+  const healthy = await checkStorageHealth();
+  if(!healthy){
+    document.getElementById('storage-warning').style.display = 'block';
+  }
+  await loadAll();
+  renderDashboard();
+  addItemRow();
+  recalc();
+}
+ 
+async function initAuth(){
+  const user = await getAuthUser();
+  if(!user){
+    showAuthScreen('register');
+    return;
+  }
+  populateLoginUsernameList(user.username);
+  const remembered = await getRememberedCreds();
+  if(remembered){
+    document.getElementById('login-username').value = remembered.username||'';
+    document.getElementById('login-password').value = remembered.password||'';
+    document.getElementById('login-remember').checked = true;
+  }
+  if(await isSessionActive()){
+    await enterApp();
+  } else {
+    showAuthScreen('login');
+    if(remembered) revealLoginForm();
+  }
+}
+ 
+/* ================= BACKUP: EXPORT / IMPORT ================= */
+function exportBackup(){
+  const backup = {
+    exportedAt: new Date().toISOString(),
+    profile: profile,
+    products: products,
+    invoices: invoices,
+    transactions: transactions,
+    paymentAccounts: paymentAccounts
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const stamp = todayISO();
+  a.href = url;
+  a.download = `khata-backup-${stamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Backup exported');
+}
+ 
+async function importBackupFromFile(file){
+  try{
+    const text = await file.text();
+    const data = JSON.parse(text);
+ 
+    if(typeof data !== 'object' || data === null){
+      showToast('Invalid backup file');
+      return;
+    }
+ 
+    const hasProfile = data.profile && typeof data.profile === 'object';
+    const hasProducts = Array.isArray(data.products);
+    const hasInvoices = Array.isArray(data.invoices);
+    const hasTransactions = Array.isArray(data.transactions);
+    const hasAccounts = Array.isArray(data.paymentAccounts);
+ 
+    if(!hasProfile && !hasProducts && !hasInvoices && !hasTransactions && !hasAccounts){
+      showToast('This file does not look like a Khata backup');
+      return;
+    }
+ 
+    if(hasProfile){
+      profile = Object.assign({ name:"", address:"", gstin:"", state:"", pin:"", phone:"", logo:"", sheetSyncUrl:"" }, data.profile);
+      await saveProfile();
+    }
+    if(hasProducts){
+      products = data.products;
+      await saveProducts();
+    }
+    if(hasInvoices){
+      invoices = data.invoices;
+      await saveInvoices();
+    }
+    if(hasTransactions){
+      transactions = data.transactions;
+      await saveTransactions();
+    }
+    if(hasAccounts){
+      paymentAccounts = data.paymentAccounts;
+      ensureDefaultAccount();
+      await saveAccountsList();
+    }
+ 
+    renderProfileForm();
+    renderProducts();
+    renderDashboard();
+    renderHistory();
+    renderGst();
+    renderAccounts();
+ 
+    showToast('Backup imported successfully');
+  }catch(e){
+    showToast('Could not read backup file — is it valid JSON?');
+  }
+}
+ 
+document.getElementById('export-backup-btn').addEventListener('click', exportBackup);
+document.getElementById('import-backup-btn').addEventListener('click', ()=>{
+  document.getElementById('import-backup-input').click();
+});
+document.getElementById('import-backup-input').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  importBackupFromFile(file);
+  e.target.value = '';
+});
+ 
+/* ================= GOOGLE SHEET SYNC ================= */
+function setSyncStatus(msg, isError){
+  const el = document.getElementById('sheet-sync-status');
+  el.textContent = msg;
+  el.style.color = isError ? 'var(--red)' : 'var(--ink-soft)';
+}
+async function pushToSheet(payload){
+  const url = (profile.sheetSyncUrl||'').trim();
+  if(!url) return;
+  try{
+    await fetch(url, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify(payload)
+    });
+    // no-cors means we can't read the response, so we optimistically assume success.
+  }catch(e){
+    showToast('Saved locally, but Google Sheet sync failed — check your connection or Web App URL');
+  }
+}
+document.getElementById('save-sync-url-btn').addEventListener('click', async ()=>{
+  profile.sheetSyncUrl = document.getElementById('sheet-sync-url').value.trim();
+  await saveProfile();
+  setSyncStatus(profile.sheetSyncUrl ? 'URL saved. Click "Sync All Data Now" to push existing data.' : 'Sync URL cleared — auto-sync is off.');
+  showToast('Sync settings saved');
+});
+document.getElementById('sync-now-btn').addEventListener('click', async ()=>{
+  const url = (document.getElementById('sheet-sync-url').value||'').trim();
+  if(!url){ showToast('Enter and save your Web App URL first'); return; }
+  profile.sheetSyncUrl = url;
+  await saveProfile();
+  setSyncStatus('Syncing all data…');
+  await pushToSheet({ type:'fullsync', invoices, transactions, paymentAccounts });
+  setSyncStatus('Full sync sent. Open your Google Sheet to confirm the rows appeared.');
+  showToast('Full sync sent to Google Sheet');
+});
+document.getElementById('copy-script-btn').addEventListener('click', async ()=>{
+  const code = document.getElementById('apps-script-code').textContent;
+  try{
+    await navigator.clipboard.writeText(code);
+    showToast('Script copied to clipboard');
+  }catch(e){
+    showToast('Could not copy — please select and copy manually');
+  }
+});
+ 
+/* ================= UTIL ================= */
+function fmt(n){ return '₹' + (Math.round(n*100)/100).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+function nextInvoiceNo(){
+  const n = invoices.length + 1;
+  const yr = new Date().getFullYear();
+  return `INV-${yr}-${String(n).padStart(4,'0')}`;
+}
+ 
+/* ================= NAVIGATION ================= */
+document.querySelectorAll('.nav-item').forEach(btn=>{
+  btn.addEventListener('click', ()=>gotoPage(btn.dataset.page));
+});
+document.querySelectorAll('[data-goto]').forEach(btn=>{
+  btn.addEventListener('click', ()=>gotoPage(btn.dataset.goto));
+});
+function gotoPage(name){
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.page===name));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active', p.id==='page-'+name));
+  if(name==='dashboard') renderDashboard();
+  if(name==='history') renderHistory();
+  if(name==='gst') renderGst();
+  if(name==='products') renderProducts();
+  if(name==='accounts') renderAccounts();
+  if(name==='profile') renderProfileForm();
+}
+ 
+/* ================= DASHBOARD ================= */
+function renderDashboard(){
+  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-IN', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  const today = todayISO();
+  const monthKey = today.slice(0,7);
+ 
+  let todaySales=0, monthSales=0, monthGst=0, monthCount=0;
+  invoices.forEach(inv=>{
+    if(inv.date===today) todaySales += inv.grandTotal;
+    if(inv.date.slice(0,7)===monthKey){
+      monthSales += inv.grandTotal;
+      monthGst += (inv.totalCgst+inv.totalSgst+inv.totalIgst);
+      monthCount++;
+    }
+  });
+  document.getElementById('stat-today').textContent = fmt(todaySales);
+  document.getElementById('stat-month').textContent = fmt(monthSales);
+  document.getElementById('stat-gst').textContent = fmt(monthGst);
+  document.getElementById('stat-count').textContent = monthCount;
+ 
+  const recent = [...invoices].sort((a,b)=> b.createdAt - a.createdAt).slice(0,6);
+  const body = document.getElementById('recent-body');
+  body.innerHTML = '';
+  if(recent.length===0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="7">No invoices yet — create your first one.</td></tr>`;
+  }else{
+    recent.forEach(inv=> body.appendChild(invoiceRow(inv)));
+  }
+}
+ 
+/* ================= INVOICE ITEMS BUILDER ================= */
+function addItemRow(prefill){
+  itemRowId++;
+  const id = 'row'+itemRowId;
+  const wrap = document.getElementById('items-wrap');
+  const row = document.createElement('div');
+  row.className = 'item-row';
+  row.id = id;
+ 
+  const nameOptions = products.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
+ 
+  row.innerHTML = `
+    <input class="item-name" list="dl-${id}" placeholder="Item name" value="${prefill?escapeHtml(prefill.name):''}">
+    <datalist id="dl-${id}">${products.map(p=>`<option value="${escapeHtml(p.name)}">`).join('')}</datalist>
+    <input class="item-qty" type="number" min="1" value="${prefill?prefill.qty:1}">
+    <input class="item-price" type="number" min="0" step="0.01" value="${prefill?prefill.price:''}" placeholder="0.00">
+    <select class="item-price-mode" title="Does the price above already include GST?">
+      <option value="excl" selected>Excl. GST</option>
+      <option value="incl">Incl. GST</option>
+    </select>
+    <select class="item-gst">
+      <option value="0">0%</option><option value="5">5%</option>
+      <option value="18">18%</option><option value="28">28%</option>
+    </select>
+    <button class="rm">&times;</button>
+  `;
+  wrap.appendChild(row);
+  if(prefill) row.querySelector('.item-gst').value = prefill.gst;
+  if(prefill && prefill.priceMode) row.querySelector('.item-price-mode').value = prefill.priceMode;
+ 
+  row.querySelector('.item-name').addEventListener('input', (e)=>{
+    const match = products.find(p=>p.name.toLowerCase()===e.target.value.toLowerCase());
+    if(match && match.id !== row.dataset.lastMatchId){
+      row.querySelector('.item-price').value = match.price;
+      row.querySelector('.item-gst').value = match.gstRate;
+      row.querySelector('.item-price-mode').value = 'excl';
+      row.querySelector('.item-price').classList.remove('edited');
+      row.dataset.lastMatchId = match.id;
+      recalc();
+    } else if(!match){
+      row.dataset.lastMatchId = '';
+    }
+  });
+  row.querySelector('.item-price').addEventListener('input', ()=>{
+    row.querySelector('.item-price').classList.add('edited');
+  });
+  row.querySelectorAll('input,select').forEach(el=> el.addEventListener('input', recalc));
+  row.querySelector('.rm').addEventListener('click', ()=>{ row.remove(); recalc(); });
+}
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+ 
+document.getElementById('add-item-btn').addEventListener('click', ()=>addItemRow());
+ 
+populateStateSelect(document.getElementById('cust-state'), true);
+ 
+function enforceDigitsOnly(inputEl, maxLen){
+  inputEl.addEventListener('input', ()=>{
+    const digitsOnly = inputEl.value.replace(/\D/g, '').slice(0, maxLen);
+    if(inputEl.value !== digitsOnly) inputEl.value = digitsOnly;
+  });
+  inputEl.addEventListener('keydown', (e)=>{
+    const allowedKeys = ['Backspace','Delete','Tab','Escape','Enter','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'];
+    if(allowedKeys.includes(e.key) || e.ctrlKey || e.metaKey) return;
+    if(!/^[0-9]$/.test(e.key)) e.preventDefault();
+  });
+  inputEl.addEventListener('paste', (e)=>{
+    e.preventDefault();
+    const pasted = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g, '');
+    const start = inputEl.selectionStart, end = inputEl.selectionEnd;
+    const newValue = (inputEl.value.slice(0,start) + pasted + inputEl.value.slice(end)).replace(/\D/g, '').slice(0, maxLen);
+    inputEl.value = newValue;
+    inputEl.dispatchEvent(new Event('input', {bubbles:true}));
+  });
+}
+enforceDigitsOnly(document.getElementById('cust-pin'), 6);
+enforceDigitsOnly(document.getElementById('biz-pin'), 6);
+document.getElementById('cust-state').addEventListener('change', autoSetTaxTypeFromState);
+function autoSetTaxTypeFromState(){
+  const custState = document.getElementById('cust-state').value;
+  const bizState = profile.state || '';
+  if(!custState){
+    document.getElementById('taxtype-hint').textContent = "Auto-set from customer's State — change it above if the customer state differs from your business.";
+    return;
+  }
+  if(!bizState){
+    document.getElementById('taxtype-hint').textContent = "Set your business State in Business Profile to enable auto tax-type detection.";
+    return;
+  }
+  const isInter = normalizeState(custState) !== normalizeState(bizState);
+  const targetValue = isInter ? 'inter' : 'intra';
+  document.querySelector(`input[name="taxtype"][value="${targetValue}"]`).checked = true;
+  document.getElementById('opt-intra').classList.toggle('selected', !isInter);
+  document.getElementById('opt-inter').classList.toggle('selected', isInter);
+  document.getElementById('taxtype-hint').textContent = isInter
+    ? `Customer is in ${custState}, different from your state (${bizState}) — IGST applied automatically.`
+    : `Customer is in ${custState}, same as your state — CGST + SGST applied automatically.`;
+  recalc();
+}
+ 
+document.querySelectorAll('input[name=taxtype]').forEach(r=>{
+  r.addEventListener('change', ()=>{
+    document.getElementById('opt-intra').classList.toggle('selected', r.value==='intra' && r.checked);
+    document.getElementById('opt-inter').classList.toggle('selected', r.value==='inter' && r.checked);
+    recalc();
+  });
+});
+document.getElementById('opt-intra').addEventListener('click', ()=>{ document.querySelector('input[value=intra]').checked=true; document.getElementById('opt-intra').classList.add('selected'); document.getElementById('opt-inter').classList.remove('selected'); recalc(); });
+document.getElementById('opt-inter').addEventListener('click', ()=>{ document.querySelector('input[value=inter]').checked=true; document.getElementById('opt-inter').classList.add('selected'); document.getElementById('opt-intra').classList.remove('selected'); recalc(); });
+ 
+function getItemsFromForm(){
+  const rows = document.querySelectorAll('#items-wrap .item-row');
+  const items = [];
+  rows.forEach(row=>{
+    const name = row.querySelector('.item-name').value.trim();
+    const qty = parseFloat(row.querySelector('.item-qty').value)||0;
+    const price = parseFloat(row.querySelector('.item-price').value)||0;
+    const gst = parseFloat(row.querySelector('.item-gst').value)||0;
+    const priceMode = row.querySelector('.item-price-mode').value; // 'excl' or 'incl'
+    if(name && qty>0 && price>=0){
+      // 'excl': price is the taxable (pre-GST) unit price — unchanged from previous behaviour.
+      // 'incl': price already includes GST, so back-calculate the taxable unit price first.
+      const taxable = priceMode==='incl' ? qty * (price / (1 + gst/100)) : qty*price;
+      items.push({name, qty, price, gst, priceMode, taxable});
+    }
+  });
+  return items;
+}
+ 
+function recalc(){
+  const items = getItemsFromForm();
+  const isInter = document.querySelector('input[name=taxtype]:checked').value === 'inter';
+  let taxable=0, cgst=0, sgst=0, igst=0;
+  items.forEach(it=>{
+    taxable += it.taxable;
+    const tax = it.taxable * (it.gst/100);
+    if(isInter) igst += tax; else { cgst += tax/2; sgst += tax/2; }
+  });
+  document.getElementById('calc-taxable').textContent = fmt(taxable);
+  document.getElementById('calc-cgst').textContent = fmt(cgst);
+  document.getElementById('calc-sgst').textContent = fmt(sgst);
+  document.getElementById('calc-igst').textContent = fmt(igst);
+  document.getElementById('calc-grand').textContent = fmt(taxable+cgst+sgst+igst);
+  document.getElementById('row-cgst').style.display = isInter?'none':'table-row';
+  document.getElementById('row-sgst').style.display = isInter?'none':'table-row';
+  document.getElementById('row-igst').style.display = isInter?'table-row':'none';
+  return {items, isInter, taxable, cgst, sgst, igst, grand: taxable+cgst+sgst+igst};
+}
+ 
+document.getElementById('save-invoice-btn').addEventListener('click', async ()=>{
+  const custName = document.getElementById('cust-name').value.trim();
+  const {items, isInter, taxable, cgst, sgst, igst, grand} = recalc();
+  if(!custName){ showToast('Enter a customer name'); return; }
+  if(items.length===0){ showToast('Add at least one item'); return; }
+ 
+  const inv = {
+    id: 'i'+Date.now(),
+    invoiceNo: nextInvoiceNo(),
+    date: todayISO(),
+    createdAt: Date.now(),
+    customer: {
+      name: custName,
+      phone: document.getElementById('cust-phone').value.trim(),
+      address: document.getElementById('cust-address').value.trim(),
+      state: document.getElementById('cust-state').value,
+      pin: document.getElementById('cust-pin').value.trim(),
+      gstin: document.getElementById('cust-gstin').value.trim()
+    },
+    taxType: isInter ? 'inter' : 'intra',
+    items, taxable,
+    totalCgst: cgst, totalSgst: sgst, totalIgst: igst,
+    grandTotal: grand,
+    status: 'unpaid',
+    paidAmount: 0
+  };
+  invoices.push(inv);
+  await saveInvoices();
+  showToast('Invoice '+inv.invoiceNo+' saved');
+  pushToSheet({ type:'invoice', record: inv });
+  clearInvoiceForm();
+  openInvoiceModal(inv.id);
+});
+ 
+document.getElementById('clear-invoice-btn').addEventListener('click', clearInvoiceForm);
+function clearInvoiceForm(){
+  ['cust-name','cust-phone','cust-address','cust-pin','cust-gstin'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cust-state').value = '';
+  document.getElementById('items-wrap').innerHTML='';
+  document.querySelector('input[value=intra]').checked = true;
+  document.getElementById('opt-intra').classList.add('selected');
+  document.getElementById('opt-inter').classList.remove('selected');
+  document.getElementById('taxtype-hint').textContent = "Auto-set from customer's State — change it above if the customer state differs from your business.";
+  addItemRow();
+  recalc();
+}
+ 
+/* ================= HISTORY ================= */
+function paymentStatusInfo(inv){
+  const grand = inv.grandTotal||0;
+  // Legacy invoices (saved before payment tracking existed) have no paidAmount field —
+  // infer it from their old binary status so an already-paid invoice doesn't show a false balance due.
+  let paid = (inv.paidAmount===undefined || inv.paidAmount===null) ? (inv.status==='paid' ? grand : 0) : inv.paidAmount;
+  const due = Math.max(0, Math.round((grand-paid)*100)/100);
+  let status = inv.status;
+  if(!status){ status = paid>=grand && grand>0 ? 'paid' : (paid>0 ? 'partial' : 'unpaid'); }
+  const badgeClass = status==='paid' ? 'paid' : (status==='partial' ? 'partial' : 'due');
+  const label = status==='paid' ? 'Paid' : (status==='partial' ? 'Partial' : 'Due');
+  return { status, badgeClass, label, paid, due };
+}
+function invoiceRow(inv){
+  const tr = document.createElement('tr');
+  const pay = paymentStatusInfo(inv);
+  tr.innerHTML = `
+    <td class="mono">${inv.invoiceNo}</td>
+    <td>${new Date(inv.date).toLocaleDateString('en-IN')}</td>
+    <td>${escapeHtml(inv.customer.name)}</td>
+    <td>${inv.taxType==='inter'?'IGST':'CGST+SGST'}</td>
+    <td class="mono">${fmt(inv.grandTotal)}</td>
+    <td><span class="badge ${pay.badgeClass}">${pay.label}</span></td>
+    <td><button class="btn ghost view-btn" data-id="${inv.id}">View</button></td>
+  `;
+  tr.querySelector('.view-btn').addEventListener('click', ()=>openInvoiceModal(inv.id));
+  return tr;
+}
+function renderHistory(){
+  const body = document.getElementById('history-body');
+  const q = (document.getElementById('history-search').value||'').toLowerCase();
+  const list = [...invoices].sort((a,b)=>b.createdAt-a.createdAt)
+    .filter(inv => !q || inv.customer.name.toLowerCase().includes(q) || inv.invoiceNo.toLowerCase().includes(q));
+  body.innerHTML='';
+  if(list.length===0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="7">No matching invoices.</td></tr>`;
+  }else{
+    list.forEach(inv=>body.appendChild(invoiceRow(inv)));
+  }
+}
+document.getElementById('history-search').addEventListener('input', renderHistory);
+ 
+/* ================= GST SUMMARY ================= */
+function renderGst(){
+  const map = {};
+  invoices.forEach(inv=>{
+    const key = inv.date.slice(0,7);
+    if(!map[key]) map[key] = {count:0, taxable:0, cgst:0, sgst:0, igst:0};
+    map[key].count++;
+    map[key].taxable += inv.taxable;
+    map[key].cgst += inv.totalCgst;
+    map[key].sgst += inv.totalSgst;
+    map[key].igst += inv.totalIgst;
+  });
+  const keys = Object.keys(map).sort().reverse();
+  const body = document.getElementById('gst-body');
+  body.innerHTML = '';
+  if(keys.length===0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="7">No invoices yet.</td></tr>`;
+    return;
+  }
+  keys.forEach(k=>{
+    const m = map[k];
+    const label = new Date(k+'-01').toLocaleDateString('en-IN', {year:'numeric', month:'long'});
+    const total = m.cgst+m.sgst+m.igst;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${label}</td><td>${m.count}</td><td class="mono">${fmt(m.taxable)}</td>
+      <td class="mono">${fmt(m.cgst)}</td><td class="mono">${fmt(m.sgst)}</td><td class="mono">${fmt(m.igst)}</td>
+      <td class="mono"><strong>${fmt(total)}</strong></td>`;
+    body.appendChild(tr);
+  });
+}
+ 
+/* ================= PRODUCTS ================= */
+/* ================= CONFIRM DIALOG ================= */
+let confirmResolver = null;
+function confirmAction(message, title){
+  document.getElementById('confirm-title').textContent = title || 'Are you sure?';
+  document.getElementById('confirm-message').textContent = message;
+  document.getElementById('confirm-modal-overlay').classList.add('show');
+  return new Promise(resolve=>{ confirmResolver = resolve; });
+}
+document.getElementById('confirm-yes').addEventListener('click', ()=>{
+  document.getElementById('confirm-modal-overlay').classList.remove('show');
+  if(confirmResolver) confirmResolver(true);
+  confirmResolver = null;
+});
+document.getElementById('confirm-no').addEventListener('click', ()=>{
+  document.getElementById('confirm-modal-overlay').classList.remove('show');
+  if(confirmResolver) confirmResolver(false);
+  confirmResolver = null;
+});
+ 
+let editingProductId = null;
+ 
+function renderProducts(){
+  const body = document.getElementById('products-body');
+  body.innerHTML='';
+  if(products.length===0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="4">No saved products yet.</td></tr>`;
+    return;
+  }
+  products.forEach(p=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${escapeHtml(p.name)}</td><td class="mono">${fmt(p.price)}</td><td>${p.gstRate}%</td>
+      <td>
+        <button class="btn gold edit-prod" data-id="${p.id}">Edit</button>
+        <button class="btn red del-prod" data-id="${p.id}">Remove</button>
+      </td>`;
+    tr.querySelector('.edit-prod').addEventListener('click', ()=>{
+      editingProductId = p.id;
+      document.getElementById('pm-title').textContent = 'Edit Product';
+      document.getElementById('pm-name').value = p.name;
+      document.getElementById('pm-price').value = p.price;
+      document.getElementById('pm-gst').value = p.gstRate;
+      document.getElementById('product-modal-overlay').classList.add('show');
+    });
+    tr.querySelector('.del-prod').addEventListener('click', async ()=>{
+      const ok = await confirmAction(`Remove "${p.name}" from your products? This cannot be undone.`, 'Remove Product');
+      if(!ok) return;
+      products = products.filter(x=>x.id!==p.id);
+      await saveProducts();
+      renderProducts();
+    });
+    body.appendChild(tr);
+  });
+}
+document.getElementById('add-product-btn').addEventListener('click', ()=>{
+  editingProductId = null;
+  document.getElementById('pm-title').textContent = 'Add Product';
+  document.getElementById('pm-name').value='';
+  document.getElementById('pm-price').value='';
+  document.getElementById('pm-gst').value='18';
+  document.getElementById('product-modal-overlay').classList.add('show');
+});
+document.getElementById('pm-cancel').addEventListener('click', ()=>document.getElementById('product-modal-overlay').classList.remove('show'));
+document.getElementById('pm-save').addEventListener('click', async ()=>{
+  const name = document.getElementById('pm-name').value.trim();
+  const price = parseFloat(document.getElementById('pm-price').value)||0;
+  const gstRate = parseFloat(document.getElementById('pm-gst').value)||0;
+  if(!name){ showToast('Enter a product name'); return; }
+  if(editingProductId){
+    const idx = products.findIndex(x=>x.id===editingProductId);
+    if(idx>-1) products[idx] = { ...products[idx], name, price, gstRate };
+  }else{
+    products.push({id:'p'+Date.now(), name, price, gstRate});
+  }
+  await saveProducts();
+  document.getElementById('product-modal-overlay').classList.remove('show');
+  renderProducts();
+  showToast(editingProductId ? 'Product updated' : 'Product added');
+  editingProductId = null;
+});
+ 
+/* ================= ACCOUNTS ================= */
+/* ================= ACCOUNT BALANCE HELPERS ================= */
+function computeAccountBalance(accountId){
+  const acc = paymentAccounts.find(a=>a.id===accountId);
+  if(!acc) return 0;
+  let bal = acc.openingBalance||0;
+  transactions.forEach(t=>{
+    if(t.type==='in' && t.accountId===accountId) bal += t.amount;
+    else if(t.type==='out' && t.accountId===accountId) bal -= t.amount;
+    else if(t.type==='transfer'){
+      if(t.accountId===accountId) bal -= t.amount;
+      if(t.toAccountId===accountId) bal += t.amount;
+    }
+  });
+  return bal;
+}
+// Returns a map of txnId -> {before, after} balance for one account, replayed in
+// chronological order (same ordering used everywhere else in the app).
+function computeAccountBalanceHistory(accountId){
+  const acc = paymentAccounts.find(a=>a.id===accountId);
+  const history = {};
+  if(!acc) return history;
+  const related = transactions.filter(t=> t.accountId===accountId || t.toAccountId===accountId);
+  const sorted = [...related].sort((a,b)=> a.date===b.date ? a.createdAt-b.createdAt : a.date.localeCompare(b.date));
+  let running = acc.openingBalance||0;
+  sorted.forEach(t=>{
+    const before = running;
+    if(t.type==='in' && t.accountId===accountId) running += t.amount;
+    else if(t.type==='out' && t.accountId===accountId) running -= t.amount;
+    else if(t.type==='transfer'){
+      if(t.accountId===accountId) running -= t.amount;
+      if(t.toAccountId===accountId) running += t.amount;
+    }
+    history[t.id] = { before, after: running };
+  });
+  return history;
+}
+function accountLabel(acc){
+  if(!acc) return 'Unknown Account';
+  if(acc.kind==='bank'){
+    const last4 = (acc.accountNumber||'').slice(-4);
+    return `${acc.name}${last4 ? ' ••'+last4 : ''}`;
+  }
+  return acc.name;
+}
+function populateAccountSelects(){
+  const opts = paymentAccounts.map(a=>`<option value="${a.id}">${escapeHtml(accountLabel(a))}</option>`).join('');
+  document.getElementById('txn-account').innerHTML = opts;
+  document.getElementById('txn-to-account').innerHTML = opts;
+  const filterSel = document.getElementById('txn-filter-account');
+  const prevFilter = filterSel.value || 'all';
+  filterSel.innerHTML = `<option value="all">All Accounts</option>` + opts;
+  filterSel.value = [...filterSel.options].some(o=>o.value===prevFilter) ? prevFilter : 'all';
+}
+ 
+function renderAccountsList(){
+  const box = document.getElementById('accounts-list-body');
+  box.innerHTML='';
+  const term = (document.getElementById('account-search-input').value||'').trim().toLowerCase();
+  const filteredAccounts = term ? paymentAccounts.filter(acc=>{
+    return (acc.name||'').toLowerCase().includes(term)
+      || (acc.bankName||'').toLowerCase().includes(term)
+      || (acc.accountNumber||'').toLowerCase().includes(term)
+      || (acc.ifsc||'').toLowerCase().includes(term);
+  }) : paymentAccounts;
+ 
+  if(filteredAccounts.length===0){
+    box.innerHTML = `<div style="font-size:13px;color:var(--ink-soft);padding:10px 0;">No accounts match "${escapeHtml(term)}".</div>`;
+    return;
+  }
+ 
+  filteredAccounts.forEach(acc=>{
+    const bal = computeAccountBalance(acc.id);
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:10px;flex-wrap:wrap;gap:10px;';
+    row.innerHTML = `
+      <div>
+        <div style="font-weight:600;">${escapeHtml(acc.name)} ${acc.kind==='bank'?'<span class="badge due" style="margin-left:6px;">Bank</span>':'<span class="badge paid" style="margin-left:6px;">Cash</span>'}</div>
+        <div style="font-size:12.5px;color:var(--ink-soft);margin-top:3px;">
+          ${acc.kind==='bank' ? escapeHtml(acc.bankName||'') + (acc.accountNumber ? ' • A/c No. '+escapeHtml(acc.accountNumber) : '') + (acc.ifsc ? ' • IFSC '+escapeHtml(acc.ifsc) : '') : 'Physical cash on hand'}
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="mono" style="font-weight:700;font-size:16px;color:${bal<0?'var(--red)':'var(--ink)'};">${fmt(bal)}</div>
+        <button class="btn ghost view-acc" data-id="${acc.id}">View</button>
+        <button class="btn ghost edit-acc" data-id="${acc.id}">Edit</button>
+        ${paymentAccounts.length>1 ? `<button class="btn ghost del-acc" data-id="${acc.id}">Remove</button>` : ''}
+      </div>`;
+    row.querySelector('.view-acc').addEventListener('click', ()=>openViewAccountModal(acc.id));
+    row.querySelector('.edit-acc').addEventListener('click', ()=>openAccountModal(acc.id));
+    const delBtn = row.querySelector('.del-acc');
+    if(delBtn){
+      delBtn.addEventListener('click', async ()=>{
+        const inUse = transactions.some(t=>t.accountId===acc.id || t.toAccountId===acc.id);
+        if(inUse){ showToast('Cannot remove — this account has transactions. Reassign or delete them first.'); return; }
+        const ok = await confirmAction(`Remove account "${acc.name}"? This cannot be undone.`, 'Remove Account');
+        if(!ok) return;
+        paymentAccounts = paymentAccounts.filter(a=>a.id!==acc.id);
+        await saveAccountsList();
+        renderAccounts();
+      });
+    }
+    box.appendChild(row);
+  });
+}
+ 
+function renderAccounts(){
+  ensureDefaultAccount();
+  populateAccountSelects();
+  renderAccountsList();
+ 
+  const body = document.getElementById('accounts-body');
+  body.innerHTML='';
+  let totalIn = 0, totalOut = 0;
+  transactions.forEach(t=>{
+    if(t.type==='in') totalIn += t.amount;
+    else if(t.type==='out') totalOut += t.amount;
+  });
+  document.getElementById('acc-in').textContent = fmt(totalIn);
+  document.getElementById('acc-out').textContent = fmt(totalOut);
+  const totalOpening = paymentAccounts.reduce((s,a)=>s+(a.openingBalance||0),0);
+  document.getElementById('acc-balance').textContent = fmt(totalOpening + totalIn - totalOut);
+ 
+  const filterId = document.getElementById('txn-filter-account').value || 'all';
+  const filtered = filterId==='all' ? transactions : transactions.filter(t=>t.accountId===filterId || t.toAccountId===filterId);
+ 
+  if(filtered.length===0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="7">No transactions yet.</td></tr>`;
+    return;
+  }
+  const sorted = [...filtered].sort((a,b)=> a.date===b.date ? a.createdAt-b.createdAt : a.date.localeCompare(b.date));
+  const runningByAccount = {};
+  paymentAccounts.forEach(a=>runningByAccount[a.id]=a.openingBalance||0);
+  const rows = sorted.map(t=>{
+    if(t.type==='in') runningByAccount[t.accountId] = (runningByAccount[t.accountId]||0) + t.amount;
+    else if(t.type==='out') runningByAccount[t.accountId] = (runningByAccount[t.accountId]||0) - t.amount;
+    else if(t.type==='transfer'){
+      runningByAccount[t.accountId] = (runningByAccount[t.accountId]||0) - t.amount;
+      runningByAccount[t.toAccountId] = (runningByAccount[t.toAccountId]||0) + t.amount;
+    }
+    const balanceAtPoint = filterId==='all' ? null : runningByAccount[filterId];
+    return {t, balanceAtPoint};
+  });
+  rows.reverse().forEach(({t, balanceAtPoint})=>{
+    const fromAcc = paymentAccounts.find(a=>a.id===t.accountId);
+    const toAcc = paymentAccounts.find(a=>a.id===t.toAccountId);
+    const tr = document.createElement('tr');
+    let typeBadge, amountCell, accountCell;
+    if(t.type==='transfer'){
+      typeBadge = `<span class="badge due">Transfer</span>`;
+      amountCell = `<span class="mono">${fmt(t.amount)}</span>`;
+      accountCell = `${escapeHtml(accountLabel(fromAcc))} → ${escapeHtml(accountLabel(toAcc))}`;
+    } else {
+      typeBadge = `<span class="badge ${t.type==='in'?'paid':'due'}">${t.type==='in'?'In':'Out'}</span>`;
+      amountCell = `<span class="mono">${t.type==='in'?'+':'-'}${fmt(t.amount)}</span>`;
+      accountCell = escapeHtml(accountLabel(fromAcc));
+    }
+    tr.innerHTML = `<td>${new Date(t.date).toLocaleDateString('en-IN',{year:'numeric',month:'short',day:'numeric'})}</td>
+      <td>${accountCell}</td>
+      <td>${typeBadge}</td>
+      <td>${escapeHtml(t.note||'—')}</td>
+      <td class="mono">${amountCell}</td>
+      <td class="mono">${balanceAtPoint===null ? '—' : fmt(balanceAtPoint)}</td>
+      <td><button class="btn ghost view-txn" data-id="${t.id}">View</button> <button class="btn ghost del-txn" data-id="${t.id}">Remove</button></td>`;
+    tr.querySelector('.view-txn').addEventListener('click', ()=>openViewTxnModal(t.id));
+    tr.querySelector('.del-txn').addEventListener('click', async ()=>{
+      const label = t.note ? `"${t.note}"` : (t.type==='transfer'?'this transfer':(t.type==='in'?'this Money In entry':'this Money Out entry'));
+      const ok = await confirmAction(`Remove ${label} (${fmt(t.amount)})? This cannot be undone.`, 'Remove Transaction');
+      if(!ok) return;
+      transactions = transactions.filter(x=>x.id!==t.id);
+      await saveTransactions();
+      renderAccounts();
+    });
+    body.appendChild(tr);
+  });
+}
+document.getElementById('txn-filter-account').addEventListener('change', renderAccounts);
+document.getElementById('account-search-btn').addEventListener('click', renderAccountsList);
+document.getElementById('account-search-input').addEventListener('input', renderAccountsList);
+document.getElementById('account-search-input').addEventListener('keydown', (e)=>{
+  if(e.key==='Enter') renderAccountsList();
+});
+ 
+function setTxnType(type){
+  document.querySelector(`input[name="txn-type"][value="${type}"]`).checked = true;
+  document.getElementById('txn-type-in-opt').classList.toggle('selected', type==='in');
+  document.getElementById('txn-type-out-opt').classList.toggle('selected', type==='out');
+  document.getElementById('txn-type-transfer-opt').classList.toggle('selected', type==='transfer');
+  document.getElementById('txn-to-account-field').style.display = type==='transfer' ? 'block' : 'none';
+  document.getElementById('txn-account-label').textContent = type==='transfer' ? 'From Account' : 'Account';
+}
+document.getElementById('txn-type-in-opt').addEventListener('click', ()=>setTxnType('in'));
+document.getElementById('txn-type-out-opt').addEventListener('click', ()=>setTxnType('out'));
+document.getElementById('txn-type-transfer-opt').addEventListener('click', ()=>setTxnType('transfer'));
+ 
+document.getElementById('add-txn-btn').addEventListener('click', ()=>{
+  if(paymentAccounts.length===0){ showToast('Add a payment account first'); return; }
+  document.getElementById('txn-date').value = todayISO();
+  document.getElementById('txn-amount').value = '';
+  document.getElementById('txn-note').value = '';
+  populateAccountSelects();
+  setTxnType('in');
+  document.getElementById('txn-modal-overlay').classList.add('show');
+});
+document.getElementById('txn-cancel').addEventListener('click', ()=>{
+  document.getElementById('txn-modal-overlay').classList.remove('show');
+});
+document.getElementById('txn-save').addEventListener('click', async ()=>{
+  const type = document.querySelector('input[name="txn-type"]:checked').value;
+  const date = document.getElementById('txn-date').value || todayISO();
+  const amount = parseFloat(document.getElementById('txn-amount').value)||0;
+  const note = document.getElementById('txn-note').value.trim();
+  const accountId = document.getElementById('txn-account').value;
+  const toAccountId = document.getElementById('txn-to-account').value;
+  if(amount<=0){ showToast('Enter a valid amount'); return; }
+  if(type==='transfer' && accountId===toAccountId){ showToast('Choose two different accounts for a transfer'); return; }
+  const txn = { id:'t'+Date.now(), type, date, amount, note, accountId, createdAt:Date.now() };
+  if(type==='transfer') txn.toAccountId = toAccountId;
+  transactions.push(txn);
+  await saveTransactions();
+  document.getElementById('txn-modal-overlay').classList.remove('show');
+  renderAccounts();
+  showToast(type==='transfer' ? 'Transfer recorded' : 'Transaction added');
+  const acc = paymentAccounts.find(a=>a.id===accountId);
+  const toAcc = paymentAccounts.find(a=>a.id===toAccountId);
+  pushToSheet({ type:'transaction', record: Object.assign({}, txn, {
+    accountName: acc ? acc.name : '', accountNumber: acc ? (acc.accountNumber||'') : '',
+    toAccountName: toAcc ? toAcc.name : ''
+  }) });
+});
+ 
+/* ================= PAYMENT ACCOUNTS (CASH & BANK) ================= */
+function setAccountKind(kind){
+  document.querySelector(`input[name="am-kind"][value="${kind}"]`).checked = true;
+  document.getElementById('am-kind-cash-opt').classList.toggle('selected', kind==='cash');
+  document.getElementById('am-kind-bank-opt').classList.toggle('selected', kind==='bank');
+  document.getElementById('am-bank-fields').style.display = kind==='bank' ? 'block' : 'none';
+}
+document.getElementById('am-kind-cash-opt').addEventListener('click', ()=>setAccountKind('cash'));
+document.getElementById('am-kind-bank-opt').addEventListener('click', ()=>setAccountKind('bank'));
+ 
+function openViewAccountModal(accountId){
+  const acc = paymentAccounts.find(a=>a.id===accountId);
+  if(!acc) return;
+  document.getElementById('va-title').textContent = acc.name;
+  document.getElementById('va-type').textContent = acc.kind==='bank' ? 'Bank Account' : 'Cash';
+  document.getElementById('va-name').textContent = acc.name;
+  const isBank = acc.kind==='bank';
+  document.getElementById('va-bank-row').style.display = isBank ? 'flex' : 'none';
+  document.getElementById('va-number-row').style.display = isBank ? 'flex' : 'none';
+  document.getElementById('va-ifsc-row').style.display = (isBank && acc.ifsc) ? 'flex' : 'none';
+  document.getElementById('va-bank-name').textContent = acc.bankName||'—';
+  document.getElementById('va-account-number').textContent = acc.accountNumber||'—';
+  document.getElementById('va-ifsc').textContent = acc.ifsc||'—';
+  document.getElementById('va-opening').textContent = fmt(acc.openingBalance||0);
+  const bal = computeAccountBalance(acc.id);
+  const balEl = document.getElementById('va-balance');
+  balEl.textContent = fmt(bal);
+  balEl.style.color = bal<0 ? 'var(--red)' : 'var(--ink)';
+ 
+  const list = document.getElementById('va-txn-list');
+  list.innerHTML = '';
+  const related = transactions.filter(t=>t.accountId===acc.id || t.toAccountId===acc.id)
+    .sort((a,b)=> b.date===a.date ? b.createdAt-a.createdAt : b.date.localeCompare(a.date))
+    .slice(0, 10);
+  if(related.length===0){
+    list.innerHTML = `<div style="font-size:13px;color:var(--ink-soft);">No transactions for this account yet.</div>`;
+  } else {
+    related.forEach(t=>{
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--line);';
+      let sign, color, desc;
+      if(t.type==='transfer'){
+        const toAcc = paymentAccounts.find(a=>a.id===t.toAccountId);
+        const fromAcc = paymentAccounts.find(a=>a.id===t.accountId);
+        if(t.accountId===acc.id){ sign='-'; color='var(--red)'; desc='Transfer to '+accountLabel(toAcc); }
+        else { sign='+'; color='var(--green)'; desc='Transfer from '+accountLabel(fromAcc); }
+      } else {
+        sign = t.type==='in' ? '+' : '-';
+        color = t.type==='in' ? 'var(--green)' : 'var(--red)';
+        desc = t.note || (t.type==='in' ? 'Money In' : 'Money Out');
+      }
+      row.innerHTML = `<span>${new Date(t.date).toLocaleDateString('en-IN',{month:'short',day:'numeric'})} — ${escapeHtml(desc)}</span><span class="mono" style="color:${color};">${sign}${fmt(t.amount)}</span>`;
+      list.appendChild(row);
+    });
+  }
+ 
+  document.getElementById('view-account-modal-overlay').classList.add('show');
+  document.getElementById('va-edit').onclick = ()=>{
+    document.getElementById('view-account-modal-overlay').classList.remove('show');
+    openAccountModal(acc.id);
+  };
+}
+document.getElementById('va-close').addEventListener('click', ()=>{
+  document.getElementById('view-account-modal-overlay').classList.remove('show');
+});
+ 
+function openViewTxnModal(txnId){
+  const t = transactions.find(x=>x.id===txnId);
+  if(!t) return;
+  document.getElementById('vt-id').textContent = 'Reference: '+t.id;
+  document.getElementById('vt-date').textContent = new Date(t.date).toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('vt-note').textContent = t.note || '—';
+ 
+  const fromAcc = paymentAccounts.find(a=>a.id===t.accountId);
+  const fromHistory = computeAccountBalanceHistory(t.accountId)[t.id] || {before:0, after:0};
+ 
+  if(t.type==='transfer'){
+    const toAcc = paymentAccounts.find(a=>a.id===t.toAccountId);
+    document.getElementById('vt-type').textContent = 'Transfer';
+    document.getElementById('vt-amount').textContent = fmt(t.amount);
+    document.getElementById('vt-amount').style.color = 'var(--ink)';
+    document.getElementById('vt-from-heading').textContent = 'From Account';
+    document.getElementById('vt-from-name').textContent = accountLabel(fromAcc);
+    document.getElementById('vt-from-opening').textContent = fmt(fromAcc ? (fromAcc.openingBalance||0) : 0);
+    document.getElementById('vt-from-before').textContent = fmt(fromHistory.before);
+    document.getElementById('vt-from-after').textContent = fmt(fromHistory.after);
+    document.getElementById('vt-from-current').textContent = fmt(computeAccountBalance(t.accountId));
+ 
+    const toHistory = computeAccountBalanceHistory(t.toAccountId)[t.id] || {before:0, after:0};
+    document.getElementById('vt-to-section').style.display = 'block';
+    document.getElementById('vt-to-name').textContent = accountLabel(toAcc);
+    document.getElementById('vt-to-opening').textContent = fmt(toAcc ? (toAcc.openingBalance||0) : 0);
+    document.getElementById('vt-to-before').textContent = fmt(toHistory.before);
+    document.getElementById('vt-to-after').textContent = fmt(toHistory.after);
+    document.getElementById('vt-to-current').textContent = fmt(computeAccountBalance(t.toAccountId));
+  } else {
+    document.getElementById('vt-type').textContent = t.type==='in' ? 'Money In' : 'Money Out';
+    document.getElementById('vt-amount').textContent = (t.type==='in'?'+':'-') + fmt(t.amount);
+    document.getElementById('vt-amount').style.color = t.type==='in' ? 'var(--green)' : 'var(--red)';
+    document.getElementById('vt-from-heading').textContent = 'Account';
+    document.getElementById('vt-from-name').textContent = accountLabel(fromAcc);
+    document.getElementById('vt-from-opening').textContent = fmt(fromAcc ? (fromAcc.openingBalance||0) : 0);
+    document.getElementById('vt-from-before').textContent = fmt(fromHistory.before);
+    document.getElementById('vt-from-after').textContent = fmt(fromHistory.after);
+    document.getElementById('vt-from-current').textContent = fmt(computeAccountBalance(t.accountId));
+    document.getElementById('vt-to-section').style.display = 'none';
+  }
+ 
+  document.getElementById('view-txn-modal-overlay').classList.add('show');
+}
+document.getElementById('vt-close').addEventListener('click', ()=>{
+  document.getElementById('view-txn-modal-overlay').classList.remove('show');
+});
+ 
+function openAccountModal(accountId){
+  editingAccountId = accountId || null;
+  const acc = accountId ? paymentAccounts.find(a=>a.id===accountId) : null;
+  document.getElementById('am-title').textContent = acc ? 'Edit Account' : 'Add Account';
+  document.getElementById('am-name').value = acc ? acc.name : '';
+  document.getElementById('am-bank-name').value = acc ? (acc.bankName||'') : '';
+  document.getElementById('am-account-number').value = acc ? (acc.accountNumber||'') : '';
+  document.getElementById('am-ifsc').value = acc ? (acc.ifsc||'') : '';
+  document.getElementById('am-opening-balance').value = acc ? (acc.openingBalance||0) : '';
+  setAccountKind(acc ? acc.kind : 'cash');
+  document.getElementById('account-modal-overlay').classList.add('show');
+}
+document.getElementById('add-account-btn').addEventListener('click', ()=>openAccountModal(null));
+document.getElementById('am-cancel').addEventListener('click', ()=>{
+  document.getElementById('account-modal-overlay').classList.remove('show');
+});
+document.getElementById('am-save').addEventListener('click', async ()=>{
+  const kind = document.querySelector('input[name="am-kind"]:checked').value;
+  const name = document.getElementById('am-name').value.trim();
+  const bankName = document.getElementById('am-bank-name').value.trim();
+  const accountNumber = document.getElementById('am-account-number').value.trim();
+  const ifsc = document.getElementById('am-ifsc').value.trim();
+  const openingBalance = parseFloat(document.getElementById('am-opening-balance').value)||0;
+  if(!name){ showToast('Enter an account name'); return; }
+  if(kind==='bank' && !accountNumber){ showToast('Enter the bank account number'); return; }
+  if(editingAccountId){
+    const acc = paymentAccounts.find(a=>a.id===editingAccountId);
+    Object.assign(acc, { name, kind, bankName: kind==='bank'?bankName:'', accountNumber: kind==='bank'?accountNumber:'', ifsc: kind==='bank'?ifsc:'', openingBalance });
+  } else {
+    paymentAccounts.push({ id:'acc_'+Date.now(), name, kind, bankName: kind==='bank'?bankName:'', accountNumber: kind==='bank'?accountNumber:'', ifsc: kind==='bank'?ifsc:'', openingBalance, createdAt:Date.now() });
+  }
+  await saveAccountsList();
+  document.getElementById('account-modal-overlay').classList.remove('show');
+  renderAccounts();
+  showToast('Account saved');
+});
+ 
+/* ================= PROFILE ================= */
+function findCanonicalState(rawValue){
+  const match = INDIA_STATES.find(s=>normalizeState(s)===normalizeState(rawValue));
+  return match || '';
+}
+function renderProfileForm(){
+  document.getElementById('biz-name').value = profile.name||'';
+  document.getElementById('biz-address').value = profile.address||'';
+  document.getElementById('biz-gstin').value = profile.gstin||'';
+  populateStateSelect(document.getElementById('biz-state'), true);
+  document.getElementById('biz-state').value = findCanonicalState(profile.state);
+  document.getElementById('biz-pin').value = profile.pin||'';
+  document.getElementById('biz-phone').value = profile.phone||'';
+  document.getElementById('sheet-sync-url').value = profile.sheetSyncUrl||'';
+  setSyncStatus(profile.sheetSyncUrl ? 'Auto-sync is on for new invoices and transactions.' : 'Not connected — paste your Web App URL to enable auto-sync.');
+  const preview = document.getElementById('logo-preview');
+  preview.innerHTML = profile.logo ? `<img src="${profile.logo}">` : 'Click or drop an image';
+}
+document.getElementById('logo-input').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    profile.logo = reader.result;
+    document.getElementById('logo-preview').innerHTML = `<img src="${profile.logo}">`;
+  };
+  reader.readAsDataURL(file);
+});
+document.getElementById('save-profile-btn').addEventListener('click', async ()=>{
+  profile.name = document.getElementById('biz-name').value.trim();
+  profile.address = document.getElementById('biz-address').value.trim();
+  profile.gstin = document.getElementById('biz-gstin').value.trim();
+  profile.state = document.getElementById('biz-state').value;
+  profile.pin = document.getElementById('biz-pin').value.trim();
+  profile.phone = document.getElementById('biz-phone').value.trim();
+  await saveProfile();
+  showToast('Business profile saved');
+});
+ 
+/* ================= INVOICE MODAL ================= */
+function openInvoiceModal(id){
+  const inv = invoices.find(x=>x.id===id);
+  if(!inv) return;
+  currentInvoiceIdForModal = id;
+  const body = document.getElementById('inv-modal-body');
+  const isInter = inv.taxType==='inter';
+  const pay = paymentStatusInfo(inv);
+ 
+  const invDate = new Date(inv.date);
+  const dueDate = new Date(invDate);
+  dueDate.setDate(dueDate.getDate()+15);
+  const dueDateStr = dueDate.toLocaleDateString('en-IN', {year:'numeric',month:'short',day:'numeric'});
+ 
+  let stampHtml = '';
+  if(pay.status==='paid') stampHtml = '<div class="stamp stamp-paid">PAID</div>';
+  else if(pay.status==='partial') stampHtml = '<div class="stamp stamp-partial">PARTIALLY<br>PAID</div>';
+ 
+  let dueNoteHtml = '';
+  if(pay.due>0){
+    if(pay.paid>0){
+      dueNoteHtml = `<div class="inv-due-note">
+        <div class="due-title">Part Payment Received</div>
+        A part payment of <strong>${fmt(pay.paid)}</strong> has been received against this invoice. The remaining balance of <strong>${fmt(pay.due)}</strong> is requested to be paid within <strong>15 days</strong> from the invoice date, i.e. on or before <strong>${dueDateStr}</strong>.
+      </div>`;
+    } else {
+      dueNoteHtml = `<div class="inv-due-note">
+        <div class="due-title">Payment Due</div>
+        The due amount of <strong>${fmt(pay.due)}</strong> is requested to be paid within <strong>15 days</strong> from the invoice date, i.e. on or before <strong>${dueDateStr}</strong>.
+      </div>`;
+    }
+  }
+ 
+  body.innerHTML = `
+    <div class="ledger-sheet">
+      ${stampHtml}
+      <div class="inv-top">
+        <div class="inv-brand">
+          ${profile.logo ? `<img src="${profile.logo}">` : ''}
+          <div>
+            <div class="inv-brand-name">${escapeHtml(profile.name||'Your Business')}</div>
+            <div class="inv-brand-meta">${escapeHtml(profile.address||'')}${profile.gstin?('<br>GSTIN: '+escapeHtml(profile.gstin)):''}${profile.state?('<br>State: '+escapeHtml(profile.state)+(profile.pin?(' - '+escapeHtml(profile.pin)):'')):''}</div>
+          </div>
+        </div>
+        <div class="inv-num">
+          <div class="no">${inv.invoiceNo}</div>
+          <div>${new Date(inv.date).toLocaleDateString('en-IN', {year:'numeric',month:'short',day:'numeric'})}</div>
+        </div>
+      </div>
+      <div class="inv-parties">
+        <div class="inv-party">
+          <div class="k">Billed To</div>
+          <div class="v">${escapeHtml(inv.customer.name)}<br>${escapeHtml(inv.customer.address||'')}${(inv.customer.state||inv.customer.pin)?('<br>'+escapeHtml([inv.customer.state,inv.customer.pin].filter(Boolean).join(' - '))):''}${inv.customer.phone?('<br>'+escapeHtml(inv.customer.phone)):''}${inv.customer.gstin?('<br>GSTIN: '+escapeHtml(inv.customer.gstin)):''}</div>
+        </div>
+        <div class="inv-party">
+          <div class="k">Tax Type</div>
+          <div class="v">${isInter?'Inter-state (IGST)':'Intra-state (CGST + SGST)'}</div>
+        </div>
+      </div>
+      <div class="inv-table">
+        <table>
+          <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>GST%</th><th>Taxable</th><th>GST</th></tr></thead>
+          <tbody>
+            ${inv.items.map(it=>`<tr><td>${escapeHtml(it.name)}</td><td>${it.qty}</td><td class="mono">${fmt(it.price)}${it.priceMode==='incl'?' <span style="font-size:9.5px;color:var(--ink-soft);">(incl. GST)</span>':''}</td><td>${it.gst}%</td><td class="mono">${fmt(it.taxable)}</td><td class="mono">${fmt(it.taxable*(it.gst/100))}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="inv-totals">
+        <table>
+          <tr><td>Taxable Value</td><td class="mono">${fmt(inv.taxable)}</td></tr>
+          ${isInter ? `<tr><td>IGST</td><td class="mono">${fmt(inv.totalIgst)}</td></tr>`
+                    : `<tr><td>CGST</td><td class="mono">${fmt(inv.totalCgst)}</td></tr><tr><td>SGST</td><td class="mono">${fmt(inv.totalSgst)}</td></tr>`}
+          <tr class="grand"><td>Grand Total</td><td class="mono">${fmt(inv.grandTotal)}</td></tr>
+          ${pay.paid>0 ? `<tr><td>Amount Paid</td><td class="mono">${fmt(pay.paid)}</td></tr>` : ''}
+          ${pay.due>0 ? `<tr><td style="color:var(--red);font-weight:700;">Balance Due</td><td class="mono" style="color:var(--red);font-weight:700;">${fmt(pay.due)}</td></tr>` : ''}
+        </table>
+      </div>
+      ${dueNoteHtml}
+      <div class="inv-signatures">
+        <div class="sig-block">
+          <div class="sig-space"></div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Invoice Passed By</div>
+          <div class="sig-sub">(Signature &amp; Seal)</div>
+        </div>
+        <div class="sig-block">
+          <div class="sig-space"></div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Payment Received By</div>
+          <div class="sig-sub">(Signature &amp; Seal)</div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('mark-paid-btn').style.display = pay.status==='paid' ? 'none' : 'inline-flex';
+  document.getElementById('mark-paid-btn').textContent = pay.paid>0 ? 'Update Payment' : 'Record Payment';
+  document.getElementById('inv-modal-overlay').classList.add('show');
+}
+document.getElementById('close-modal-btn').addEventListener('click', ()=>{
+  document.getElementById('inv-modal-overlay').classList.remove('show');
+  renderDashboard(); renderHistory();
+});
+document.getElementById('mark-paid-btn').addEventListener('click', ()=>{
+  const inv = invoices.find(x=>x.id===currentInvoiceIdForModal);
+  if(!inv) return;
+  const pay = paymentStatusInfo(inv);
+  document.getElementById('payment-modal-sub').textContent = `Grand Total: ${fmt(inv.grandTotal)}${pay.paid>0 ? ' | Already Paid: '+fmt(pay.paid) : ''}`;
+  document.getElementById('payment-amount-input').value = pay.due>0 ? pay.due : '';
+  document.getElementById('payment-remaining-hint').textContent = `Enter the full amount received so far (not just today's payment). Balance due will be calculated automatically.`;
+  document.getElementById('payment-error').textContent = '';
+  document.getElementById('payment-modal-overlay').classList.add('show');
+});
+document.getElementById('payment-amount-input').addEventListener('keydown', (e)=>{
+  if(e.key==='Enter') document.getElementById('payment-save-btn').click();
+});
+document.getElementById('payment-cancel-btn').addEventListener('click', ()=>{
+  document.getElementById('payment-modal-overlay').classList.remove('show');
+});
+document.getElementById('payment-save-btn').addEventListener('click', async ()=>{
+  const inv = invoices.find(x=>x.id===currentInvoiceIdForModal);
+  if(!inv) return;
+  const errEl = document.getElementById('payment-error');
+  const raw = document.getElementById('payment-amount-input').value;
+  const amount = parseFloat(raw);
+  if(raw===''||isNaN(amount)||amount<0){ errEl.textContent = 'Enter a valid amount (0 or more).'; return; }
+  if(amount > inv.grandTotal + 0.001){ errEl.textContent = `Amount cannot exceed the Grand Total of ${fmt(inv.grandTotal)}.`; return; }
+  inv.paidAmount = Math.round(amount*100)/100;
+  inv.status = inv.paidAmount>=inv.grandTotal ? 'paid' : (inv.paidAmount>0 ? 'partial' : 'unpaid');
+  await saveInvoices();
+  document.getElementById('payment-modal-overlay').classList.remove('show');
+  showToast(inv.status==='paid' ? 'Marked as fully paid' : (inv.status==='partial' ? 'Part payment recorded' : 'Payment updated'));
+  openInvoiceModal(inv.id);
+});
+ 
+/* ================= INIT ================= */
+async function checkStorageHealth(){
+  try{
+    if(!storage || typeof storage.set!=='function'){
+      throw new Error('no storage API');
+    }
+    const probeKey = '__storage_health_check__';
+    await storage.set(probeKey, String(Date.now()));
+    const readBack = await storage.get(probeKey);
+    if(!readBack) throw new Error('write not confirmed');
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+initAuth();
+</script>
+</body>
+</html>
+ 
