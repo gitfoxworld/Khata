@@ -47,10 +47,10 @@
   a{color:inherit;}
   button{font-family:inherit;cursor:pointer;}
   input,select,textarea{font-family:'Inter',sans-serif;}
- 
+
   /* ---------- App shell ---------- */
   .app{display:flex;min-height:100vh;}
- 
+
   .sidebar{
     width:220px;
     flex-shrink:0;
@@ -77,7 +77,7 @@
   }
   .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;line-height:1.1;}
   .brand-sub{font-size:10.5px;color:#B9C4BB;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;}
- 
+
   .nav{display:flex;flex-direction:column;gap:2px;padding:0 10px;}
   .nav-item{
     display:flex;align-items:center;gap:11px;
@@ -92,7 +92,7 @@
   .nav-item:hover{background:rgba(237,234,217,0.08);color:#fff;}
   .nav-item.active{background:var(--brass);color:var(--green);font-weight:600;}
   .nav-item.active svg{opacity:1;}
- 
+
   .sidebar-foot{
     margin-top:auto;padding:16px 20px 0 20px;
     font-size:11px;color:#8FA090;
@@ -107,7 +107,7 @@
   }
   .logout-btn:hover{background:rgba(237,234,217,0.1);}
   .logout-btn svg{width:15px;height:15px;flex-shrink:0;}
- 
+
   /* ---------- Auth (Login / Register) ---------- */
   .auth-screen{
     position:fixed;inset:0;z-index:500;
@@ -155,16 +155,16 @@
   @media(max-width:480px){
     .auth-card{padding:28px 22px 24px 22px;}
   }
- 
+
   .main{flex:1;min-width:0;padding:32px 40px 60px 40px;}
   .page{display:none;animation:fade .25s ease;}
   .page.active{display:block;}
   @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
- 
+
   .page-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px;}
   .page-head h1{font-size:26px;margin:0;}
   .page-head .sub{color:var(--ink-soft);font-size:13.5px;margin-top:3px;}
- 
+
   .btn{
     display:inline-flex;align-items:center;gap:7px;
     padding:10px 16px;border-radius:7px;border:none;
@@ -185,7 +185,7 @@
   .btn.red:hover{background:#a24747;}
   .btn:disabled{opacity:.45;cursor:not-allowed;}
   .btn svg{width:15px;height:15px;}
- 
+
   /* ---------- Cards / stats ---------- */
   .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:30px;}
   .stat-card{
@@ -195,13 +195,13 @@
   .stat-card .label{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);font-weight:600;}
   .stat-card .value{font-family:'Fraunces',serif;font-size:26px;margin-top:6px;font-weight:600;}
   .stat-card .accent-bar{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brass);}
- 
+
   .card{
     background:var(--paper-raised);border:1px solid var(--line);border-radius:10px;
     padding:22px 24px;box-shadow:var(--shadow);margin-bottom:20px;
   }
   .card h3{font-size:16px;margin:0 0 14px 0;}
- 
+
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
   th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);
      padding:0 10px 10px 10px;border-bottom:1px solid var(--line);font-weight:600;}
@@ -209,12 +209,12 @@
   tr:last-child td{border-bottom:none;}
   tbody tr:hover{background:var(--green-pale);}
   .empty-row td{color:var(--ink-soft);text-align:center;padding:34px 10px;font-style:italic;}
- 
+
   .badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
   .badge.paid{background:var(--green-pale);color:var(--green);}
   .badge.partial{background:#F1E2C4;color:#8A5A1D;}
   .badge.due{background:var(--red-pale);color:var(--red);}
- 
+
   /* ---------- Forms ---------- */
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
@@ -226,7 +226,7 @@
   }
   .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--brass);box-shadow:0 0 0 3px rgba(168,129,60,0.15);}
   .field.full{grid-column:1/-1;}
- 
+
   .radio-row{display:flex;gap:10px;}
   .radio-opt{
     flex:1;border:1px solid var(--line);border-radius:8px;padding:11px 13px;
@@ -234,7 +234,7 @@
   }
   .radio-opt.selected{border-color:var(--brass);background:var(--green-pale);}
   .radio-opt input{margin:0;}
- 
+
   /* ---------- Invoice item builder ---------- */
   .item-row{display:grid;grid-template-columns:2fr 60px 90px 92px 78px 30px;gap:8px;align-items:center;margin-bottom:8px;}
   .item-row input, .item-row select{padding:8px 9px;border:1px solid var(--line);border-radius:6px;font-size:13.5px;}
@@ -242,7 +242,7 @@
   .item-head{display:grid;grid-template-columns:2fr 60px 90px 92px 78px 30px;gap:8px;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:6px;font-weight:600;}
   .item-head .hint-tag{background:var(--green-pale);color:var(--green);border-radius:4px;padding:1px 5px;font-weight:600;text-transform:none;letter-spacing:0;font-size:9.5px;margin-left:3px;}
   .item-price.edited{border-color:var(--brass);background:var(--green-pale);}
- 
+
   /* ---------- Invoice preview (ledger sheet) ---------- */
   .ledger-sheet{
     background:#fff;border:1px solid var(--line);border-radius:4px;
@@ -264,11 +264,11 @@
   .inv-brand-meta{font-size:11.5px;color:var(--ink-soft);line-height:1.5;margin-top:2px;}
   .inv-num{text-align:right;font-size:12.5px;color:var(--ink-soft);}
   .inv-num .no{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink);font-weight:600;}
- 
+
   .inv-parties{display:flex;justify-content:space-between;gap:20px;margin-bottom:18px;position:relative;z-index:1;}
   .inv-party .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:600;margin-bottom:4px;}
   .inv-party .v{font-size:13.5px;line-height:1.5;}
- 
+
   .inv-table{position:relative;z-index:1;}
   .inv-table table{font-size:12.5px;}
   .inv-table th{font-size:10px;padding-bottom:7px;}
@@ -277,7 +277,7 @@
   .inv-totals table{width:280px;}
   .inv-totals td{padding:5px 0;border:none;font-size:13px;}
   .inv-totals .grand td{font-weight:700;font-size:16px;border-top:1.5px solid var(--ink);padding-top:9px;font-family:'IBM Plex Mono',monospace;}
- 
+
   .stamp{
     position:absolute;right:44px;top:120px;width:88px;height:88px;border-radius:50%;
     border:2.5px solid var(--brass);color:var(--brass);
@@ -288,7 +288,7 @@
   .stamp.stamp-paid{border-color:var(--green);color:var(--green);}
   .stamp.stamp-partial{border-color:#8A5A1D;color:#8A5A1D;font-size:11.5px;}
   .stamp.stamp-due{border-color:var(--red);color:var(--red);}
- 
+
   .inv-due-note{
     margin-top:14px;padding:13px 16px;border:1.4px solid var(--red);
     border-radius:9px;background:var(--red-pale);color:var(--ink);
@@ -296,20 +296,163 @@
   }
   .inv-due-note strong{color:var(--red);}
   .inv-due-note .due-title{font-weight:700;color:var(--red);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
- 
+
   .inv-signatures{display:flex;justify-content:space-between;gap:40px;margin-top:56px;position:relative;z-index:1;}
   .sig-block{flex:1;text-align:center;}
   .sig-space{height:46px;}
   .sig-line{border-top:1.4px solid var(--ink);margin-bottom:8px;}
   .sig-label{font-size:12px;color:var(--ink);font-weight:600;}
   .sig-sub{font-size:10.5px;color:var(--ink-soft);font-weight:400;}
- 
+
+  /* ---------- Workshop item lists ---------- */
+  .workshop-items-title{
+    font-family:'Fraunces',serif;font-weight:600;font-size:14.5px;color:var(--ink);
+    margin-bottom:12px;padding-bottom:8px;border-bottom:1.4px solid var(--line);
+  }
+  .workshop-items-list{display:flex;flex-direction:column;gap:9px;}
+  .workshop-item-row{
+    display:flex;align-items:center;gap:12px;padding:10px 14px;flex-wrap:wrap;
+    border:1px solid var(--line);border-radius:9px;background:#fff;
+    transition:border-color .15s ease;
+  }
+  .workshop-item-row:focus-within{border-color:var(--brass);}
+  .workshop-item-number{
+    font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:var(--brass);
+    min-width:26px;flex-shrink:0;
+  }
+  .workshop-item-row input{
+    flex:1;border:none;background:transparent;font-size:14px;color:var(--ink);
+    outline:none;padding:3px 0;font-family:'Inter',sans-serif;
+  }
+  .btn.ghost.workshop-item-remove{
+    flex-shrink:0;background:var(--red-pale);color:var(--red);border:1px solid transparent;
+  }
+  .btn.ghost.workshop-item-remove:hover{background:var(--red);color:#fff;}
+  .workshop-items-empty{font-size:13px;color:var(--ink-soft);padding:8px 0 2px 0;}
+  .workshop-finished-head{
+    display:flex;align-items:flex-end;gap:12px;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);
+    font-weight:600;margin-bottom:6px;padding:0 14px;
+  }
+  .workshop-finished-head .fh-num{width:26px;flex-shrink:0;}
+  .workshop-finished-head .fh-item{flex:1;}
+  .workshop-finished-head .fh-rawavail{width:130px;flex-shrink:0;}
+  .workshop-finished-head .fh-stock{width:118px;flex-shrink:0;}
+  .workshop-finished-head .fh-produced{width:172px;flex-shrink:0;padding-left:14px;}
+  .workshop-finished-head .fh-sellout{width:172px;flex-shrink:0;padding-left:14px;}
+  .workshop-rawavail-value{
+    font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:600;
+    width:130px;flex-shrink:0;
+  }
+  .workshop-finished-qty{
+    width:90px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;
+    font-size:14px;color:var(--ink);outline:none;background:#fff;font-family:'IBM Plex Mono',monospace;
+    text-align:right;
+  }
+  .workshop-finished-qty:focus{border-color:var(--brass);}
+  .workshop-finished-qty-unit{font-size:12.5px;color:var(--ink-soft);margin-left:8px;}
+  .workshop-finished-add-wrap{display:flex;align-items:center;gap:6px;padding-left:14px;border-left:1px solid var(--line);width:172px;flex-shrink:0;box-sizing:border-box;}
+  .workshop-finished-add-input{
+    width:58px;padding:7px 8px;border:1px solid var(--line);border-radius:6px;
+    font-size:13px;color:var(--ink);outline:none;background:#fff;text-align:right;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .workshop-finished-add-input:focus{border-color:var(--brass);}
+  .workshop-finished-add-input::placeholder{font-family:'Inter',sans-serif;font-size:11px;}
+  .workshop-finished-add-btn{
+    flex-shrink:0;padding:7px 12px !important;background:var(--green-pale);color:var(--green);
+    border:1px solid transparent;font-size:13px !important;
+  }
+  .workshop-finished-add-btn:hover{background:var(--brass);color:#fff;}
+  .workshop-finished-sell-wrap{display:flex;align-items:center;gap:6px;padding-left:14px;border-left:1px solid var(--line);width:172px;flex-shrink:0;box-sizing:border-box;}
+  .workshop-finished-sell-input{
+    width:58px;padding:7px 8px;border:1px solid var(--line);border-radius:6px;
+    font-size:13px;color:var(--ink);outline:none;background:#fff;text-align:right;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .workshop-finished-sell-input:focus{border-color:var(--red);}
+  .workshop-finished-sell-input::placeholder{font-family:'Inter',sans-serif;font-size:11px;}
+  .workshop-finished-sell-btn{
+    flex-shrink:0;padding:7px 12px !important;background:var(--red-pale);color:var(--red);
+    border:1px solid transparent;font-size:13px !important;
+  }
+  .workshop-finished-sell-btn:hover{background:var(--red);color:#fff;}
+
+  /* ---------- Workshop: Workers ---------- */
+  .workshop-worker-table-wrap{overflow-x:auto;}
+  .workshop-worker-head{
+    display:grid;grid-template-columns:26px 180px 100px 120px 120px 100px 78px;gap:10px;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);
+    font-weight:600;margin-bottom:6px;padding:0 14px;min-width:800px;
+  }
+  .workshop-worker-row{
+    display:grid;grid-template-columns:26px 180px 100px 120px 120px 100px 78px;gap:10px;align-items:center;
+    padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;
+    transition:border-color .15s ease;margin-bottom:9px;min-width:800px;
+  }
+  .workshop-worker-row:focus-within{border-color:var(--brass);}
+  .workshop-worker-row input{
+    width:100%;border:none;background:transparent;font-size:14px;color:var(--ink);
+    outline:none;padding:3px 0;font-family:'Inter',sans-serif;
+  }
+  .workshop-worker-wage-input{font-family:'IBM Plex Mono',monospace !important;}
+  .btn.ghost.workshop-worker-attendance-btn{
+    background:var(--green-pale);color:var(--green);border:1px solid transparent;white-space:nowrap;
+  }
+  .btn.ghost.workshop-worker-attendance-btn:hover{background:var(--brass);color:#fff;}
+  .btn.ghost.workshop-worker-remove{background:var(--red-pale);color:var(--red);border:1px solid transparent;}
+  .btn.ghost.workshop-worker-remove:hover{background:var(--red);color:#fff;}
+
+  .workshop-attendance-form{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;
+    padding:14px;background:var(--green-pale);border-radius:10px;margin-bottom:18px;
+  }
+  .workshop-attendance-form .field{margin-bottom:0;min-width:120px;}
+  .workshop-attendance-head{
+    display:grid;grid-template-columns:100px 90px 70px 70px 70px 90px 60px 30px;gap:8px;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);
+    font-weight:600;margin-bottom:6px;padding:0 4px;
+  }
+  .workshop-attendance-row{
+    display:grid;grid-template-columns:100px 90px 70px 70px 70px 90px 60px 30px;gap:8px;align-items:center;
+    padding:8px 4px;border-bottom:1px solid var(--line);font-size:13px;
+  }
+  .btn.ghost.workshop-item-materials-btn{
+    flex-shrink:0;white-space:nowrap;background:var(--green-pale);color:var(--green);border:1px solid transparent;
+  }
+  .btn.ghost.workshop-item-materials-btn:hover{background:var(--brass);color:#fff;}
+
+  .workshop-material-head{
+    display:grid;grid-template-columns:2fr 80px 120px 70px 90px 80px 30px;gap:10px;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);
+    font-weight:600;margin-bottom:6px;
+  }
+  .workshop-material-row{display:grid;grid-template-columns:2fr 80px 120px 70px 90px 80px 30px;gap:10px;align-items:center;}
+  .workshop-material-row input{
+    padding:8px 9px;border:1px solid var(--line);border-radius:6px;
+    font-size:13.5px;color:var(--ink);outline:none;background:#fff;font-family:'Inter',sans-serif;
+  }
+  .workshop-material-row input:focus{border-color:var(--brass);}
+  .workshop-piece-value{
+    font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:600;color:var(--green);
+    text-align:center;padding:8px 4px;background:var(--green-pale);border-radius:6px;
+  }
+  .workshop-restock-wrap{display:flex;align-items:center;gap:5px;}
+  .workshop-restock-input{
+    width:58px;padding:7px 7px !important;text-align:right;font-family:'IBM Plex Mono',monospace !important;
+  }
+  .workshop-restock-btn{
+    flex-shrink:0;padding:7px 10px !important;background:var(--green-pale);color:var(--green);
+    border:1px solid transparent;font-size:12.5px !important;white-space:nowrap;
+  }
+  .workshop-restock-btn:hover{background:var(--brass);color:#fff;}
+
   /* ---------- Empty state ---------- */
   .empty-state{text-align:center;padding:60px 20px;color:var(--ink-soft);}
   .empty-state svg{width:44px;height:44px;color:var(--brass);margin-bottom:14px;opacity:.8;}
   .empty-state h3{color:var(--ink);margin-bottom:6px;font-size:17px;}
   .empty-state p{font-size:13.5px;margin:0 0 16px 0;}
- 
+
   .logo-drop{
     border:1.5px dashed var(--line);border-radius:8px;padding:18px;text-align:center;
     background:#fff;cursor:pointer;position:relative;
@@ -317,25 +460,25 @@
   .logo-drop img{max-width:100px;max-height:60px;object-fit:contain;}
   .logo-drop .hint{font-size:12px;color:var(--ink-soft);margin-top:6px;}
   .logo-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
- 
+
   .toast{
     position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;
     padding:12px 18px;border-radius:8px;font-size:13.5px;font-weight:500;
     box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s ease;pointer-events:none;z-index:50;
   }
   .toast.show{opacity:1;transform:none;}
- 
+
   .modal-overlay{position:fixed;inset:0;background:rgba(27,36,32,0.4);display:none;align-items:center;justify-content:center;z-index:60;padding:20px;}
   .modal-overlay.show{display:flex;}
   .modal{background:var(--paper);border-radius:12px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:26px 28px;box-shadow:0 20px 60px rgba(0,0,0,0.25);}
   .modal-close-row{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
- 
+
   @media print{
     .sidebar,.no-print{display:none !important;}
     .main{padding:0;}
     body{background:#fff;}
   }
- 
+
   @media (max-width:820px){
     .sidebar{width:72px;}
     .brand-name,.brand-sub,.nav-item span.label{display:none;}
@@ -348,11 +491,11 @@
 </style>
 </head>
 <body>
- 
+
 <div class="storage-warning no-print" id="storage-warning" style="display:none;">
   ⚠ This file isn't connected to persistent storage right now, so nothing you enter will be saved. Open it from within Claude.ai (not as a locally double-clicked file) for your data to save automatically — and always keep a recent Export Backup as a safety copy.
 </div>
- 
+
 <!-- ===================== REGISTRATION PAGE ===================== -->
 <div class="auth-screen" id="auth-register-screen">
   <div class="auth-card">
@@ -363,7 +506,7 @@
         <div class="brand-sub">Shop Ledger &amp; GST Invoicing</div>
       </div>
     </div>
- 
+
     <div class="auth-gate" id="reg-gate">
       <h1 class="auth-title">Welcome to Khata</h1>
       <div class="auth-sub">Do you already have a Khata username and password?</div>
@@ -372,11 +515,11 @@
         <button class="btn auth-gate-btn" id="reg-gate-yes">Yes, I have an account</button>
       </div>
     </div>
- 
+
     <div id="reg-form-body" style="display:none;">
       <h1 class="auth-title">Create Your Account</h1>
       <div class="auth-sub">Set up your login once — you'll use it every time you open Khata on this device.</div>
- 
+
       <div class="field" id="reg-name-field">
         <label>Your Name<span class="required-star">*</span></label>
         <input id="reg-name" placeholder="e.g. Anirban Das">
@@ -400,7 +543,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- ===================== LOGIN PAGE ===================== -->
 <div class="auth-screen" id="auth-login-screen" style="display:none;">
   <div class="auth-card">
@@ -411,7 +554,7 @@
         <div class="brand-sub">Shop Ledger &amp; GST Invoicing</div>
       </div>
     </div>
- 
+
     <div class="auth-gate" id="login-gate">
       <h1 class="auth-title">Welcome Back</h1>
       <div class="auth-sub">Do you already have a Khata username and password?</div>
@@ -420,11 +563,11 @@
         <button class="btn auth-gate-btn" id="login-gate-yes">Yes, I have an account</button>
       </div>
     </div>
- 
+
     <div id="login-form-body" style="display:none;">
       <h1 class="auth-title">Log In</h1>
       <div class="auth-sub" id="login-welcome-sub">Log in to continue to your ledger.</div>
- 
+
       <div class="field" id="login-username-field">
         <label>Username<span class="required-star">*</span></label>
         <input id="login-username" list="login-username-list" placeholder="Your username" autocomplete="username">
@@ -446,7 +589,7 @@
     </div>
   </div>
 </div>
- 
+
 <div class="app" id="main-app" style="display:none;">
   <!-- SIDEBAR -->
   <nav class="sidebar no-print">
@@ -474,13 +617,17 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>
         <span class="label">GST Summary</span>
       </button>
+      <button class="nav-item" data-page="accounts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
+        <span class="label">Accounts</span>
+      </button>
       <button class="nav-item" data-page="products">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
         <span class="label">Products</span>
       </button>
-      <button class="nav-item" data-page="accounts">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
-        <span class="label">Accounts</span>
+      <button class="nav-item" data-page="workshop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <span class="label">Workshop</span>
       </button>
       <button class="nav-item" data-page="profile">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
@@ -495,10 +642,10 @@
       </button>
     </div>
   </nav>
- 
+
   <!-- MAIN -->
   <main class="main">
- 
+
     <!-- DASHBOARD -->
     <section class="page active" id="page-dashboard">
       <div class="page-head">
@@ -511,14 +658,14 @@
           New Invoice
         </button>
       </div>
- 
+
       <div class="stat-grid">
         <div class="stat-card"><div class="accent-bar"></div><div class="label">Today's Sales</div><div class="value mono" id="stat-today">₹0</div></div>
         <div class="stat-card"><div class="accent-bar"></div><div class="label">This Month</div><div class="value mono" id="stat-month">₹0</div></div>
         <div class="stat-card"><div class="accent-bar"></div><div class="label">GST Collected (Month)</div><div class="value mono" id="stat-gst">₹0</div></div>
         <div class="stat-card"><div class="accent-bar"></div><div class="label">Invoices (Month)</div><div class="value mono" id="stat-count">0</div></div>
       </div>
- 
+
       <div class="card">
         <h3>Recent Transactions</h3>
         <table>
@@ -527,13 +674,13 @@
         </table>
       </div>
     </section>
- 
+
     <!-- NEW INVOICE -->
     <section class="page" id="page-invoice">
       <div class="page-head">
         <div><h1>New Invoice</h1><div class="sub">Create a GST invoice for a sale.</div></div>
       </div>
- 
+
       <div class="card">
         <h3>Customer</h3>
         <div class="form-grid">
@@ -553,14 +700,14 @@
           </div>
         </div>
       </div>
- 
+
       <div class="card">
         <h3>Items</h3>
         <div class="item-head"><div>Product</div><div>Qty</div><div>Price (₹) <span class="hint-tag">editable</span></div><div>Price Type</div><div>GST %</div><div></div></div>
         <div id="items-wrap"></div>
         <button class="btn secondary" id="add-item-btn" style="margin-top:8px;">+ Add Item</button>
       </div>
- 
+
       <div class="card">
         <h3>Totals</h3>
         <div class="inv-totals" style="justify-content:flex-start;">
@@ -578,7 +725,7 @@
         </div>
       </div>
     </section>
- 
+
     <!-- HISTORY -->
     <section class="page" id="page-history">
       <div class="page-head">
@@ -592,7 +739,7 @@
         </table>
       </div>
     </section>
- 
+
     <!-- GST SUMMARY -->
     <section class="page" id="page-gst">
       <div class="page-head">
@@ -605,7 +752,7 @@
         </table>
       </div>
     </section>
- 
+
     <!-- PRODUCTS -->
     <section class="page" id="page-products">
       <div class="page-head">
@@ -622,7 +769,7 @@
         </table>
       </div>
     </section>
- 
+
     <!-- ACCOUNTS -->
     <section class="page" id="page-accounts">
       <div class="page-head">
@@ -638,7 +785,7 @@
           </button>
         </div>
       </div>
- 
+
       <div class="stat-grid">
         <div class="stat-card">
           <div class="accent-bar"></div>
@@ -656,7 +803,7 @@
           <div class="value mono" id="acc-balance">₹0.00</div>
         </div>
       </div>
- 
+
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
           <h3 style="margin:0;">Payment Accounts</h3>
@@ -673,7 +820,7 @@
         </div>
         <div id="accounts-list-body" style="display:flex;flex-direction:column;gap:10px;"></div>
       </div>
- 
+
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:4px;">
           <h3 style="margin:0;">Transactions</h3>
@@ -687,7 +834,7 @@
         </table>
       </div>
     </section>
- 
+
     <!-- ADD TRANSACTION MODAL -->
     <div class="modal-overlay" id="txn-modal-overlay">
       <div class="modal">
@@ -729,20 +876,20 @@
         </div>
       </div>
     </div>
- 
+
     <!-- VIEW TRANSACTION MODAL -->
     <div class="modal-overlay" id="view-txn-modal-overlay">
       <div class="modal">
         <h3 style="margin:0 0 4px 0;">Transaction Details</h3>
         <div style="font-size:12px;color:var(--ink-soft);margin-bottom:16px;" id="vt-id"></div>
- 
+
         <div style="display:flex;flex-direction:column;gap:9px;font-size:14px;">
           <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Date</span><span id="vt-date" style="font-weight:600;"></span></div>
           <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Type</span><span id="vt-type" style="font-weight:600;"></span></div>
           <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Note</span><span id="vt-note" style="font-weight:600;text-align:right;max-width:60%;"></span></div>
           <div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:9px;margin-top:2px;"><span style="color:var(--ink-soft);">Amount</span><span id="vt-amount" class="mono" style="font-weight:700;font-size:16px;"></span></div>
         </div>
- 
+
         <div id="vt-from-section" style="margin-top:18px;">
           <div style="font-weight:600;font-size:13px;margin-bottom:8px;" id="vt-from-heading">Account</div>
           <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;background:var(--card-alt,rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px;padding:12px 14px;">
@@ -753,7 +900,7 @@
             <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Current Balance (Today)</span><span id="vt-from-current" class="mono"></span></div>
           </div>
         </div>
- 
+
         <div id="vt-to-section" style="margin-top:14px;display:none;">
           <div style="font-weight:600;font-size:13px;margin-bottom:8px;">To Account</div>
           <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;background:var(--card-alt,rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px;padding:12px 14px;">
@@ -764,13 +911,13 @@
             <div style="display:flex;justify-content:space-between;"><span style="color:var(--ink-soft);">Current Balance (Today)</span><span id="vt-to-current" class="mono"></span></div>
           </div>
         </div>
- 
+
         <div class="modal-close-row">
           <button class="btn secondary" id="vt-close">Close</button>
         </div>
       </div>
     </div>
- 
+
     <!-- ADD/EDIT PAYMENT ACCOUNT MODAL -->
     <div class="modal-overlay" id="account-modal-overlay">
       <div class="modal">
@@ -814,7 +961,7 @@
         </div>
       </div>
     </div>
- 
+
     <!-- VIEW PAYMENT ACCOUNT MODAL -->
     <div class="modal-overlay" id="view-account-modal-overlay">
       <div class="modal">
@@ -838,7 +985,125 @@
         </div>
       </div>
     </div>
- 
+
+    <!-- WORKSHOP -->
+    <section class="page" id="page-workshop">
+      <div class="page-head">
+        <div><h1>Workshop</h1><div class="sub">Items manufactured in-house at your connected workshop.</div></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn" id="workshop-tab-raw">Raw Materials</button>
+          <button class="btn secondary" id="workshop-tab-finished">Finished Products</button>
+          <button class="btn secondary" id="workshop-tab-workers">Workers</button>
+        </div>
+      </div>
+
+      <div class="card" id="workshop-raw-panel">
+        <h3>Raw Materials</h3>
+        <div class="sub" style="color:var(--ink-soft);font-size:13.5px;line-height:1.7;margin-bottom:18px;">
+          Raw materials used across your workshop, organised by the item they're used for.
+        </div>
+        <div class="workshop-items-title">Raw Materials for the Items:</div>
+        <div id="workshop-raw-items-list" class="workshop-items-list"></div>
+        <button class="btn secondary" id="workshop-raw-add-btn" style="margin-top:12px;">+ Add Item</button>
+      </div>
+
+      <div class="card" id="workshop-finished-panel" style="display:none;">
+        <h3>Finished Products</h3>
+        <div class="sub" style="color:var(--ink-soft);font-size:13.5px;line-height:1.7;margin-bottom:18px;">
+          Finished products manufactured and ready from your workshop. These items are the same items listed under Raw Materials — add, rename, or remove an item there and it updates here automatically.
+        </div>
+        <div class="workshop-items-title">Finished Products for the Items:</div>
+        <div class="workshop-finished-head">
+          <div class="fh-num"></div><div class="fh-item">Item</div><div class="fh-rawavail">Raw Material Available</div><div class="fh-stock">Stock Available</div><div class="fh-produced">QTY Produced</div><div class="fh-sellout">Sell Out</div>
+        </div>
+        <div id="workshop-finished-items-list" class="workshop-items-list"></div>
+      </div>
+
+      <div id="workshop-workers-panel" style="display:none;">
+        <div class="card">
+          <h3>Worker Directory</h3>
+          <div class="sub" style="color:var(--ink-soft);font-size:13.5px;line-height:1.7;margin-bottom:18px;">
+            Workers connected with your workshop. Set each worker's normal arrival and departure time (their standard shift). Overtime is paid, and short days are deducted, at that worker's own wages-per-hour rate (Wage / Day ÷ Normal Hours) — calculated automatically from the actual In/Out time logged in Attendance.
+          </div>
+          <div class="workshop-items-title">Workers:</div>
+          <div class="workshop-worker-table-wrap">
+            <div class="workshop-worker-head">
+              <div></div><div>Name</div><div>Wage / Day (₹)</div><div>Normal In</div><div>Normal Out</div><div></div><div></div>
+            </div>
+            <div id="workshop-workers-list" class="workshop-items-list"></div>
+          </div>
+          <button class="btn secondary" id="workshop-worker-add-btn" style="margin-top:12px;">+ Add Worker</button>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:4px;">
+            <h3 style="margin:0;">Weekly Wage Summary</h3>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <label style="font-size:12.5px;color:var(--ink-soft);font-weight:600;">Week starting</label>
+              <input type="date" id="workshop-week-start">
+            </div>
+          </div>
+          <div class="sub" style="color:var(--ink-soft);font-size:13.5px;line-height:1.7;margin:10px 0 18px 0;">
+            Wages and payments are calculated for the 7 days from the date above (Monday–Sunday). Opening Balance carries forward automatically from last week's unpaid Balance Due — shown with a dashed border. Type a value to set a manual opening balance just for that week instead (shown with a solid border).
+          </div>
+          <table>
+            <thead><tr><th>Worker</th><th>Opening Balance (₹)</th><th>Days Present</th><th>OT Hours</th><th>This Week's Wage</th><th>Paid This Week</th><th>Balance Due</th><th></th></tr></thead>
+            <tbody id="workshop-weekly-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workshop: Attendance modal for a worker -->
+    <div class="modal-overlay" id="workshop-attendance-modal-overlay">
+      <div class="modal" style="max-width:720px;">
+        <h3 style="margin:0 0 4px 0;" id="wa-title">Attendance</h3>
+        <div class="sub" style="color:var(--ink-soft);font-size:12.5px;margin-bottom:16px;">Log the actual In and Out time for each day. Hours worked, overtime, and daily wage are calculated automatically by comparing this against the worker's Normal In/Out time set in the Worker Directory.</div>
+
+        <div class="workshop-attendance-form">
+          <div class="field"><label>Date</label><input type="date" id="wa-date"></div>
+          <div class="field"><label>In Time</label><input type="time" id="wa-in-time"></div>
+          <div class="field"><label>Out Time</label><input type="time" id="wa-out-time"></div>
+          <button class="btn" id="wa-add-entry-btn" style="align-self:flex-end;">+ Add Entry</button>
+          <button class="btn secondary" id="wa-cancel-edit-btn" style="align-self:flex-end;display:none;">Cancel Edit</button>
+        </div>
+
+        <div class="workshop-attendance-head">
+          <div>Date</div><div>In</div><div>Out</div><div>Hours</div><div>OT (hrs)</div><div>Daily Wage</div><div></div><div></div>
+        </div>
+        <div id="workshop-attendance-list" style="display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;"></div>
+
+        <div class="modal-close-row" style="justify-content:space-between;">
+          <button class="btn secondary" id="wa-back-btn">Back</button>
+          <button class="btn" id="wa-close-btn">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workshop: Worker payment modal -->
+    <div class="modal-overlay" id="workshop-payment-modal-overlay">
+      <div class="modal" style="max-width:400px;">
+        <h3 style="margin:0 0 6px 0;" id="wp-title">Record Payment</h3>
+        <div class="sub" style="margin-bottom:16px;color:var(--ink-soft);font-size:13px;" id="wp-sub"></div>
+        <div class="field">
+          <label>Payment Type</label>
+          <div class="radio-row">
+            <label class="radio-opt selected" id="wp-type-wage-opt"><input type="radio" name="wp-type" value="wage" checked> Wage Payment</label>
+            <label class="radio-opt" id="wp-type-advance-opt"><input type="radio" name="wp-type" value="advance"> Advance Payment</label>
+            <label class="radio-opt" id="wp-type-extra-opt"><input type="radio" name="wp-type" value="extra"> Extra Payment</label>
+          </div>
+        </div>
+        <div class="field"><label>Date</label><input type="date" id="wp-date"></div>
+        <div class="field"><label>Amount (₹)</label><input type="number" id="wp-amount" min="0" step="0.01" placeholder="0.00"></div>
+        <div class="field"><label>Note (optional)</label><input type="text" id="wp-note" placeholder="e.g. Week ending 14 Sep"></div>
+        <div class="auth-error" id="wp-error"></div>
+        <div class="modal-close-row">
+          <button class="btn secondary" id="wp-cancel-btn">Cancel</button>
+          <button class="btn" id="wp-save-btn">Save Payment</button>
+        </div>
+      </div>
+    </div>
+
     <!-- PROFILE -->
     <section class="page" id="page-profile">
       <div class="page-head">
@@ -863,7 +1128,7 @@
         </div>
         <button class="btn" id="save-profile-btn">Save Profile</button>
       </div>
- 
+
       <div class="card" style="max-width:640px;">
         <h3>Data Backup</h3>
         <div class="sub" style="margin-bottom:14px;color:var(--ink-soft);font-size:13px;">
@@ -872,10 +1137,14 @@
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <button class="btn backup" id="export-backup-btn">Export Backup</button>
           <button class="btn backup" id="import-backup-btn">Import Backup</button>
-          <input type="file" id="import-backup-input" accept="application/json,.json" style="display:none;">
+          <input type="file" id="import-backup-input" accept="application/json,.json,text/plain" style="display:none;">
+        </div>
+        <div style="font-size:12px;color:var(--ink-soft);line-height:1.7;margin-top:14px;">
+          <strong>Export Backup</strong> downloads a file named <span class="mono">khata-backup-[date].json</span> to your device's usual Downloads location (or prompts you to choose where to save it).<br>
+          <strong>Import Backup</strong> opens your device's file picker — select a <span class="mono">khata-backup-*.json</span> file you exported earlier, and everything in it (profile, products, invoices, accounts) replaces what's currently on this device.
         </div>
       </div>
- 
+
       <div class="card" style="max-width:640px;">
         <h3>Google Sheet Sync</h3>
         <div class="sub" style="margin-bottom:14px;color:var(--ink-soft);font-size:13px;line-height:1.6;">
@@ -904,7 +1173,7 @@
             <pre id="apps-script-code" style="background:#1B2420;color:#EDEAD9;padding:16px;border-radius:8px;font-size:11.5px;line-height:1.6;overflow-x:auto;white-space:pre;font-family:'IBM Plex Mono',monospace;">function doPost(e) {
   var data = JSON.parse(e.postData.contents);
   var ss = SpreadsheetApp.getActiveSpreadsheet();
- 
+
   function getSheet(name, headers) {
     var sh = ss.getSheetByName(name);
     if (!sh) {
@@ -913,7 +1182,7 @@
     }
     return sh;
   }
- 
+
   if (data.type === 'invoice') {
     var sh = getSheet('Invoices', ['Invoice No','Date','Customer','Phone','Tax Type','Taxable','CGST','SGST','IGST','Grand Total','Status']);
     var inv = data.record;
@@ -929,17 +1198,17 @@
     (data.invoices||[]).forEach(function(inv){
       invSh.appendRow([inv.invoiceNo, inv.date, inv.customer.name, inv.customer.phone||'', inv.taxType, inv.taxable, inv.totalCgst, inv.totalSgst, inv.totalIgst, inv.grandTotal, inv.status]);
     });
- 
+
     var accById = {};
     (data.paymentAccounts||[]).forEach(function(a){ accById[a.id] = a; });
- 
+
     var accSh = getSheet('Accounts', ['Account Name','Type','Bank Name','Account Number','IFSC','Opening Balance']);
     accSh.clearContents();
     accSh.appendRow(['Account Name','Type','Bank Name','Account Number','IFSC','Opening Balance']);
     (data.paymentAccounts||[]).forEach(function(a){
       accSh.appendRow([a.name, a.kind, a.bankName||'', a.accountNumber||'', a.ifsc||'', a.openingBalance||0]);
     });
- 
+
     var txSh = getSheet('Transactions', ['Date','Account','Account Number','Type','To Account','Note','Amount']);
     txSh.clearContents();
     txSh.appendRow(['Date','Account','Account Number','Type','To Account','Note','Amount']);
@@ -949,7 +1218,7 @@
       txSh.appendRow([t.date, acc.name||'', acc.accountNumber||'', t.type, toAcc.name||'', t.note||'', t.amount]);
     });
   }
- 
+
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }</pre>
             <button class="btn secondary" id="copy-script-btn" style="margin-top:8px;">Copy Script</button>
@@ -957,12 +1226,12 @@
         </details>
       </div>
     </section>
- 
+
   </main>
 </div>
- 
+
 <div class="toast" id="toast"></div>
- 
+
 <!-- Invoice view/print modal -->
 <div class="modal-overlay" id="inv-modal-overlay">
   <div class="modal">
@@ -974,7 +1243,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- Record Payment modal -->
 <div class="modal-overlay" id="payment-modal-overlay">
   <div class="modal" style="max-width:400px;">
@@ -992,7 +1261,24 @@
     </div>
   </div>
 </div>
- 
+
+<!-- Workshop: Raw Materials for an item -->
+<div class="modal-overlay" id="workshop-materials-modal-overlay">
+  <div class="modal" style="max-width:860px;">
+    <h3 style="margin:0 0 4px 0;" id="wm-title">Raw Materials</h3>
+    <div class="sub" style="color:var(--ink-soft);font-size:12.5px;margin-bottom:16px;">List the raw materials that go into manufacturing this item. "Piece" shows how many pieces your current Stock can produce (Stock ÷ Per Piece). Use "+ Add Stock" whenever new material arrives for your running business.</div>
+    <div class="workshop-material-head">
+      <div>Material</div><div>Stock</div><div>+ Add Stock</div><div>Unit</div><div>Per Piece</div><div>Piece</div><div></div>
+    </div>
+    <div id="workshop-materials-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <button class="btn secondary" id="wm-add-material-btn" style="margin-top:14px;">+ Add Material</button>
+    <div class="modal-close-row" style="justify-content:space-between;">
+      <button class="btn secondary" id="wm-back-btn">Back</button>
+      <button class="btn" id="wm-close-btn">Done</button>
+    </div>
+  </div>
+</div>
+
 <!-- Add product modal -->
 <div class="modal-overlay" id="product-modal-overlay">
   <div class="modal" style="max-width:420px;">
@@ -1012,7 +1298,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- Confirm delete modal -->
 <div class="modal-overlay" id="confirm-modal-overlay">
   <div class="modal" style="max-width:380px;">
@@ -1024,7 +1310,7 @@
     </div>
   </div>
 </div>
- 
+
 <script>
 /* ================= STATE ================= */
 let profile = { name:"", address:"", gstin:"", state:"", pin:"", phone:"", logo:"", sheetSyncUrl:"" };
@@ -1032,10 +1318,15 @@ let products = [];
 let invoices = [];
 let transactions = [];
 let paymentAccounts = [];
+let workshopRawItems = [];
+let workshopWorkers = [];
+let workshopAttendance = [];
+let workshopWagePayments = [];
+let workshopOpeningBalances = {};
 let itemRowId = 0;
 let currentInvoiceIdForModal = null;
 let editingAccountId = null;
- 
+
 const INDIA_STATES = [
   "West Bengal",
   "Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
@@ -1050,7 +1341,7 @@ function populateStateSelect(selectEl, includeBlank){
     INDIA_STATES.map(s=>`<option value="${s}">${s}</option>`).join('');
 }
 function normalizeState(s){ return (s||'').trim().toLowerCase(); }
- 
+
 /* ================= STORAGE HELPERS (browser localStorage) ================= */
 const LS_PREFIX = 'khata:';
 const storage = {
@@ -1088,8 +1379,43 @@ async function loadAll(){
     const pa = await storage.get('payment-accounts');
     if(pa) paymentAccounts = JSON.parse(pa.value);
   }catch(e){}
+  try{
+    const wr = await storage.get('workshop-raw-items');
+    workshopRawItems = wr ? JSON.parse(wr.value) : [{name:'Wheel hoe',materials:[]},{name:'Plunger',materials:[]},{name:'Hand Pump',materials:[]}];
+  }catch(e){ workshopRawItems = [{name:'Wheel hoe',materials:[]},{name:'Plunger',materials:[]},{name:'Hand Pump',materials:[]}]; }
+  try{
+    const ww = await storage.get('workshop-workers');
+    workshopWorkers = ww ? JSON.parse(ww.value) : [];
+  }catch(e){ workshopWorkers = []; }
+  try{
+    const wa = await storage.get('workshop-attendance');
+    workshopAttendance = wa ? JSON.parse(wa.value) : [];
+  }catch(e){ workshopAttendance = []; }
+  try{
+    const wp = await storage.get('workshop-wage-payments');
+    workshopWagePayments = wp ? JSON.parse(wp.value) : [];
+  }catch(e){ workshopWagePayments = []; }
+  try{
+    const wob = await storage.get('workshop-opening-balances');
+    workshopOpeningBalances = wob ? JSON.parse(wob.value) : {};
+  }catch(e){ workshopOpeningBalances = {}; }
   ensureDefaultAccount();
   await migrateLegacyGstRate();
+}
+async function saveWorkshopRawItems(){
+  try{ await storage.set('workshop-raw-items', JSON.stringify(workshopRawItems)); }catch(e){ showToast('Could not save raw materials list'); }
+}
+async function saveWorkshopWorkers(){
+  try{ await storage.set('workshop-workers', JSON.stringify(workshopWorkers)); }catch(e){ showToast('Could not save worker list'); }
+}
+async function saveWorkshopAttendance(){
+  try{ await storage.set('workshop-attendance', JSON.stringify(workshopAttendance)); }catch(e){ showToast('Could not save attendance'); }
+}
+async function saveWorkshopWagePayments(){
+  try{ await storage.set('workshop-wage-payments', JSON.stringify(workshopWagePayments)); }catch(e){ showToast('Could not save payment record'); }
+}
+async function saveWorkshopOpeningBalances(){
+  try{ await storage.set('workshop-opening-balances', JSON.stringify(workshopOpeningBalances)); }catch(e){ showToast('Could not save opening balance'); }
 }
 async function migrateLegacyGstRate(){
   // The 12% GST slab was removed by the Government of India. Any product still
@@ -1131,7 +1457,7 @@ async function saveTransactions(){
 async function saveAccountsList(){
   try{ await storage.set('payment-accounts', JSON.stringify(paymentAccounts)); }catch(e){ showToast('Could not save accounts'); }
 }
- 
+
 /* ================= AUTH: REGISTER / LOGIN / SESSION ================= */
 async function getAuthUser(){
   try{
@@ -1161,7 +1487,7 @@ async function isSessionActive(){
     return !!r && r.value === 'true';
   }catch(e){ return false; }
 }
- 
+
 function showAuthScreen(which){
   document.getElementById('auth-register-screen').style.display = which==='register' ? 'flex' : 'none';
   document.getElementById('auth-login-screen').style.display = which==='login' ? 'flex' : 'none';
@@ -1191,7 +1517,7 @@ function populateLoginUsernameList(username){
   const list = document.getElementById('login-username-list');
   list.innerHTML = username ? `<option value="${escapeHtml(username)}"></option>` : '';
 }
- 
+
 document.getElementById('reg-gate-no').addEventListener('click', revealRegisterForm);
 document.getElementById('reg-gate-yes').addEventListener('click', ()=>{
   showAuthScreen('login');
@@ -1212,7 +1538,7 @@ document.getElementById('login-switch-to-register').addEventListener('click', (e
   showAuthScreen('register');
   revealRegisterForm();
 });
- 
+
 function markFieldError(fieldId, isError){
   document.getElementById(fieldId).classList.toggle('input-error', isError);
 }
@@ -1225,7 +1551,7 @@ clearFieldErrorOnInput('reg-password','reg-password-field');
 clearFieldErrorOnInput('reg-password2','reg-password2-field');
 clearFieldErrorOnInput('login-username','login-username-field');
 clearFieldErrorOnInput('login-password','login-password-field');
- 
+
 document.getElementById('reg-submit-btn').addEventListener('click', async ()=>{
   const name = document.getElementById('reg-name').value.trim();
   const username = document.getElementById('reg-username').value.trim();
@@ -1234,7 +1560,7 @@ document.getElementById('reg-submit-btn').addEventListener('click', async ()=>{
   const errEl = document.getElementById('reg-error');
   errEl.textContent = '';
   ['reg-name-field','reg-username-field','reg-password-field','reg-password2-field'].forEach(id=>markFieldError(id,false));
- 
+
   const missing = [];
   if(!name) missing.push('reg-name-field');
   if(!username) missing.push('reg-username-field');
@@ -1256,7 +1582,7 @@ document.getElementById('reg-submit-btn').addEventListener('click', async ()=>{
   showAuthScreen('login');
   revealLoginForm();
 });
- 
+
 document.getElementById('login-submit-btn').addEventListener('click', async ()=>{
   const username = document.getElementById('login-username').value.trim();
   const password = document.getElementById('login-password').value;
@@ -1265,7 +1591,7 @@ document.getElementById('login-submit-btn').addEventListener('click', async ()=>
   errEl.textContent = '';
   markFieldError('login-username-field', false);
   markFieldError('login-password-field', false);
- 
+
   const missing = [];
   if(!username) missing.push('login-username-field');
   if(!password) missing.push('login-password-field');
@@ -1291,7 +1617,7 @@ document.getElementById('login-submit-btn').addEventListener('click', async ()=>
 document.getElementById('login-username').addEventListener('keydown', (e)=>{ if(e.key==='Enter') document.getElementById('login-password').focus(); });
 document.getElementById('login-password').addEventListener('keydown', (e)=>{ if(e.key==='Enter') document.getElementById('login-submit-btn').click(); });
 document.getElementById('reg-password2').addEventListener('keydown', (e)=>{ if(e.key==='Enter') document.getElementById('reg-submit-btn').click(); });
- 
+
 document.getElementById('login-reset-link').addEventListener('click', async (e)=>{
   e.preventDefault();
   const ok = await confirmAction('Reset your login? You will need to register a new username and password. Your invoices, products, and accounts data will NOT be deleted.', 'Reset Account');
@@ -1307,7 +1633,7 @@ document.getElementById('login-reset-link').addEventListener('click', async (e)=
   showAuthScreen('register');
   revealRegisterForm();
 });
- 
+
 document.getElementById('logout-btn').addEventListener('click', async ()=>{
   const ok = await confirmAction('Log out of Khata on this device?', 'Log Out');
   if(!ok) return;
@@ -1317,7 +1643,7 @@ document.getElementById('logout-btn').addEventListener('click', async ()=>{
   document.getElementById('login-welcome-sub').textContent = 'Log in to continue to your ledger.';
   showAuthScreen('login');
 });
- 
+
 async function enterApp(){
   showAuthScreen('app');
   const healthy = await checkStorageHealth();
@@ -1329,7 +1655,7 @@ async function enterApp(){
   addItemRow();
   recalc();
 }
- 
+
 async function initAuth(){
   const user = await getAuthUser();
   if(!user){
@@ -1350,7 +1676,7 @@ async function initAuth(){
     if(remembered) revealLoginForm();
   }
 }
- 
+
 /* ================= BACKUP: EXPORT / IMPORT ================= */
 function exportBackup(){
   const backup = {
@@ -1373,28 +1699,40 @@ function exportBackup(){
   URL.revokeObjectURL(url);
   showToast('Backup exported');
 }
- 
+
+async function readFileAsText(file){
+  if(typeof file.text === 'function'){
+    try{ return await file.text(); }catch(e){ /* fall through to FileReader */ }
+  }
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = ()=> resolve(reader.result);
+    reader.onerror = ()=> reject(reader.error);
+    reader.readAsText(file);
+  });
+}
+
 async function importBackupFromFile(file){
   try{
-    const text = await file.text();
+    const text = await readFileAsText(file);
     const data = JSON.parse(text);
- 
+
     if(typeof data !== 'object' || data === null){
       showToast('Invalid backup file');
       return;
     }
- 
+
     const hasProfile = data.profile && typeof data.profile === 'object';
     const hasProducts = Array.isArray(data.products);
     const hasInvoices = Array.isArray(data.invoices);
     const hasTransactions = Array.isArray(data.transactions);
     const hasAccounts = Array.isArray(data.paymentAccounts);
- 
+
     if(!hasProfile && !hasProducts && !hasInvoices && !hasTransactions && !hasAccounts){
       showToast('This file does not look like a Khata backup');
       return;
     }
- 
+
     if(hasProfile){
       profile = Object.assign({ name:"", address:"", gstin:"", state:"", pin:"", phone:"", logo:"", sheetSyncUrl:"" }, data.profile);
       await saveProfile();
@@ -1416,20 +1754,20 @@ async function importBackupFromFile(file){
       ensureDefaultAccount();
       await saveAccountsList();
     }
- 
+
     renderProfileForm();
     renderProducts();
     renderDashboard();
     renderHistory();
     renderGst();
     renderAccounts();
- 
+
     showToast('Backup imported successfully');
   }catch(e){
     showToast('Could not read backup file — is it valid JSON?');
   }
 }
- 
+
 document.getElementById('export-backup-btn').addEventListener('click', exportBackup);
 document.getElementById('import-backup-btn').addEventListener('click', ()=>{
   document.getElementById('import-backup-input').click();
@@ -1440,7 +1778,7 @@ document.getElementById('import-backup-input').addEventListener('change', (e)=>{
   importBackupFromFile(file);
   e.target.value = '';
 });
- 
+
 /* ================= GOOGLE SHEET SYNC ================= */
 function setSyncStatus(msg, isError){
   const el = document.getElementById('sheet-sync-status');
@@ -1487,7 +1825,7 @@ document.getElementById('copy-script-btn').addEventListener('click', async ()=>{
     showToast('Could not copy — please select and copy manually');
   }
 });
- 
+
 /* ================= UTIL ================= */
 function fmt(n){ return '₹' + (Math.round(n*100)/100).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2}); }
 function todayISO(){ return new Date().toISOString().slice(0,10); }
@@ -1501,7 +1839,7 @@ function nextInvoiceNo(){
   const yr = new Date().getFullYear();
   return `INV-${yr}-${String(n).padStart(4,'0')}`;
 }
- 
+
 /* ================= NAVIGATION ================= */
 document.querySelectorAll('.nav-item').forEach(btn=>{
   btn.addEventListener('click', ()=>gotoPage(btn.dataset.page));
@@ -1517,15 +1855,829 @@ function gotoPage(name){
   if(name==='gst') renderGst();
   if(name==='products') renderProducts();
   if(name==='accounts') renderAccounts();
+  if(name==='workshop') renderWorkshop();
   if(name==='profile') renderProfileForm();
 }
- 
+
+/* ================= WORKSHOP ================= */
+function switchWorkshopTab(tab){
+  document.getElementById('workshop-tab-raw').className = tab==='raw' ? 'btn' : 'btn secondary';
+  document.getElementById('workshop-tab-finished').className = tab==='finished' ? 'btn' : 'btn secondary';
+  document.getElementById('workshop-tab-workers').className = tab==='workers' ? 'btn' : 'btn secondary';
+  document.getElementById('workshop-raw-panel').style.display = tab==='raw' ? 'block' : 'none';
+  document.getElementById('workshop-finished-panel').style.display = tab==='finished' ? 'block' : 'none';
+  document.getElementById('workshop-workers-panel').style.display = tab==='workers' ? 'block' : 'none';
+}
+document.getElementById('workshop-tab-raw').addEventListener('click', ()=>switchWorkshopTab('raw'));
+document.getElementById('workshop-tab-finished').addEventListener('click', ()=>switchWorkshopTab('finished'));
+document.getElementById('workshop-tab-workers').addEventListener('click', ()=>switchWorkshopTab('workers'));
+
+function renderWorkshopItemsList(containerId, items, saveFn, withMaterialsBtn){
+  const box = document.getElementById(containerId);
+  box.innerHTML = '';
+  if(items.length===0){
+    box.innerHTML = `<div class="workshop-items-empty">No items yet — click "+ Add Item" below to add one.</div>`;
+    return;
+  }
+  items.forEach((item, idx)=>{
+    const row = document.createElement('div');
+    row.className = 'workshop-item-row';
+
+    const num = document.createElement('div');
+    num.className = 'workshop-item-number';
+    num.textContent = (idx+1) + ')';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = item.name || '';
+    input.placeholder = 'Item name';
+    input.addEventListener('input', ()=>{ item.name = input.value; saveFn(); renderFinishedProductsList(); });
+
+    row.appendChild(num);
+    row.appendChild(input);
+
+    if(withMaterialsBtn){
+      const matCount = (item.materials||[]).length;
+      const matBtn = document.createElement('button');
+      matBtn.className = 'btn ghost workshop-item-materials-btn';
+      matBtn.textContent = 'Raw Materials' + (matCount>0 ? ` (${matCount})` : '');
+      matBtn.addEventListener('click', ()=> openMaterialsModal(item));
+      row.appendChild(matBtn);
+    }
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn ghost workshop-item-remove';
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', ()=>{
+      const i = items.indexOf(item);
+      if(i>-1) items.splice(i,1);
+      renderWorkshopItemsList(containerId, items, saveFn, withMaterialsBtn);
+      saveFn();
+      renderFinishedProductsList();
+    });
+    row.appendChild(removeBtn);
+
+    box.appendChild(row);
+  });
+}
+// When Stock Available for a finished item increases (a new batch is produced), the raw
+// materials it's made from are consumed proportionally — deduct = amount produced × Per Piece,
+// for every material listed under that item's Raw Materials. If a material doesn't have enough
+// stock to support the batch, production is blocked so raw material stock never goes negative.
+function checkAndConsumeRawMaterials(item, amount){
+  const materials = item.materials || [];
+  if(materials.length===0) return { ok:true };
+  let maxPieces = Infinity;
+  let limitingMaterial = null;
+  materials.forEach(m=>{
+    const perPiece = parseFloat(m.perPiece)||0;
+    if(perPiece>0){
+      const stock = parseFloat(m.qty)||0;
+      const possible = stock/perPiece;
+      if(possible < maxPieces){ maxPieces = possible; limitingMaterial = m; }
+    }
+  });
+  if(maxPieces===Infinity) return { ok:true }; // no material has a Per Piece rate set — can't constrain
+  if(amount > maxPieces + 0.001){
+    return { ok:false, limitingMaterial, maxPieces: Math.floor(maxPieces*100)/100 };
+  }
+  materials.forEach(m=>{
+    const perPiece = parseFloat(m.perPiece)||0;
+    if(perPiece>0){
+      const stock = parseFloat(m.qty)||0;
+      m.qty = Math.round((stock - amount*perPiece)*100)/100;
+    }
+  });
+  return { ok:true };
+}
+// Read-only version of the same calculation, for display: the maximum number of pieces
+// currently producible, limited by whichever raw material would run out first.
+function computeMaxProducible(item){
+  const materials = item.materials || [];
+  if(materials.length===0) return null;
+  let maxPieces = Infinity;
+  materials.forEach(m=>{
+    const perPiece = parseFloat(m.perPiece)||0;
+    if(perPiece>0){
+      const stock = parseFloat(m.qty)||0;
+      const possible = stock/perPiece;
+      if(possible < maxPieces) maxPieces = possible;
+    }
+  });
+  if(maxPieces===Infinity) return null;
+  return Math.floor(maxPieces);
+}
+function renderFinishedProductsList(){
+  const box = document.getElementById('workshop-finished-items-list');
+  box.innerHTML = '';
+  if(workshopRawItems.length===0){
+    box.innerHTML = `<div class="workshop-items-empty">No items yet — add items in the Raw Materials tab first.</div>`;
+    return;
+  }
+  workshopRawItems.forEach((item, idx)=>{
+    const row = document.createElement('div');
+    row.className = 'workshop-item-row';
+
+    const num = document.createElement('div');
+    num.className = 'workshop-item-number';
+    num.textContent = (idx+1) + ')';
+
+    const label = document.createElement('div');
+    label.style.cssText = 'flex:1;font-size:14px;color:var(--ink);padding:8px 0;';
+    label.textContent = item.name || '(Unnamed item)';
+
+    const rawAvailValue = document.createElement('div');
+    rawAvailValue.className = 'workshop-rawavail-value';
+    const maxProducible = computeMaxProducible(item);
+    if(maxProducible===null){
+      rawAvailValue.textContent = '—';
+      rawAvailValue.style.color = 'var(--ink-soft)';
+      rawAvailValue.title = 'No raw materials with a Per Piece rate set yet for this item';
+    } else {
+      rawAvailValue.textContent = maxProducible + ' pcs';
+      rawAvailValue.style.color = maxProducible<=0 ? 'var(--red)' : 'var(--ink)';
+      rawAvailValue.title = 'Maximum pieces that can currently be made, limited by the raw material with the least stock relative to its Per Piece requirement';
+    }
+
+    const qtyWrap = document.createElement('div');
+    qtyWrap.style.cssText = 'display:flex;align-items:center;flex-shrink:0;width:118px;';
+    const qtyInput = document.createElement('input');
+    qtyInput.type = 'number';
+    qtyInput.min = '0';
+    qtyInput.step = '1';
+    qtyInput.className = 'workshop-finished-qty';
+    qtyInput.placeholder = '0';
+    qtyInput.title = 'Number of finished pieces reported by the workshop';
+    qtyInput.value = (item.finishedQty===undefined || item.finishedQty===null || item.finishedQty==='') ? '' : item.finishedQty;
+    qtyInput.addEventListener('input', ()=>{
+      item.finishedQty = qtyInput.value===''?'':parseFloat(qtyInput.value)||0;
+      saveWorkshopRawItems();
+    });
+    const qtyUnit = document.createElement('span');
+    qtyUnit.className = 'workshop-finished-qty-unit';
+    qtyUnit.textContent = 'pcs';
+
+    qtyWrap.appendChild(qtyInput);
+    qtyWrap.appendChild(qtyUnit);
+
+    const addWrap = document.createElement('div');
+    addWrap.className = 'workshop-finished-add-wrap';
+    const addInput = document.createElement('input');
+    addInput.type = 'number';
+    addInput.min = '0';
+    addInput.step = '1';
+    addInput.className = 'workshop-finished-add-input';
+    addInput.placeholder = '+ add';
+    addInput.title = 'Enter a newly reported batch quantity, then click Add';
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'btn workshop-finished-add-btn';
+    addBtn.textContent = 'Add';
+    function commitAdd(){
+      const amount = parseFloat(addInput.value);
+      if(!isFinite(amount) || amount<=0) return;
+      const check = checkAndConsumeRawMaterials(item, amount);
+      if(!check.ok){
+        showToast(`Not enough ${check.limitingMaterial.name||'raw material'} in stock — can only make ${check.maxPieces} more pcs of ${item.name||'this item'}`);
+        return;
+      }
+      const newTotal = (parseFloat(item.finishedQty)||0) + amount;
+      item.finishedQty = Math.round(newTotal*100)/100;
+      qtyInput.value = item.finishedQty;
+      addInput.value = '';
+      saveWorkshopRawItems();
+      showToast(`Added ${amount} pcs to ${item.name||'this item'} — new total: ${item.finishedQty}`);
+      renderFinishedProductsList();
+    }
+    addBtn.addEventListener('click', commitAdd);
+    addInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') commitAdd(); });
+    addWrap.appendChild(addInput);
+    addWrap.appendChild(addBtn);
+
+    const sellWrap = document.createElement('div');
+    sellWrap.className = 'workshop-finished-sell-wrap';
+    const sellInput = document.createElement('input');
+    sellInput.type = 'number';
+    sellInput.min = '0';
+    sellInput.step = '1';
+    sellInput.className = 'workshop-finished-sell-input';
+    sellInput.placeholder = 'qty';
+    sellInput.title = 'Enter the quantity sold out, then click Sell Out to deduct it from Stock Available';
+    const sellBtn = document.createElement('button');
+    sellBtn.type = 'button';
+    sellBtn.className = 'btn workshop-finished-sell-btn';
+    sellBtn.textContent = 'Sell Out';
+    function commitSellOut(){
+      const amount = parseFloat(sellInput.value);
+      if(!isFinite(amount) || amount<=0) return;
+      const currentStock = parseFloat(item.finishedQty)||0;
+      if(amount > currentStock){
+        showToast(`Only ${currentStock} pcs of ${item.name||'this item'} in stock — cannot sell out ${amount}`);
+        return;
+      }
+      const newTotal = Math.round((currentStock-amount)*100)/100;
+      item.finishedQty = newTotal;
+      qtyInput.value = item.finishedQty;
+      sellInput.value = '';
+      saveWorkshopRawItems();
+      showToast(`Sold out ${amount} pcs of ${item.name||'this item'} — remaining stock: ${item.finishedQty}`);
+    }
+    sellBtn.addEventListener('click', commitSellOut);
+    sellInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') commitSellOut(); });
+    sellWrap.appendChild(sellInput);
+    sellWrap.appendChild(sellBtn);
+
+    row.appendChild(num);
+    row.appendChild(label);
+    row.appendChild(rawAvailValue);
+    row.appendChild(qtyWrap);
+    row.appendChild(addWrap);
+    row.appendChild(sellWrap);
+    box.appendChild(row);
+  });
+}
+function renderWorkshop(){
+  renderWorkshopItemsList('workshop-raw-items-list', workshopRawItems, saveWorkshopRawItems, true);
+  renderFinishedProductsList();
+  renderWorkers();
+}
+document.getElementById('workshop-raw-add-btn').addEventListener('click', async ()=>{
+  workshopRawItems.push({name:'', materials:[]});
+  await saveWorkshopRawItems();
+  renderWorkshopItemsList('workshop-raw-items-list', workshopRawItems, saveWorkshopRawItems, true);
+  renderFinishedProductsList();
+  const inputs = document.querySelectorAll('#workshop-raw-items-list input');
+  if(inputs.length) inputs[inputs.length-1].focus();
+});
+
+/* ---- Workers: wage math helpers ---- */
+function timeToMinutes(t){
+  if(!t) return null;
+  const parts = t.split(':');
+  const h = parseInt(parts[0],10), m = parseInt(parts[1],10);
+  if(isNaN(h) || isNaN(m)) return null;
+  return h*60+m;
+}
+function computeAttendanceStats(worker, entry){
+  if(!worker) return { status:'Absent', hoursWorked:0, otHours:0, deduction:0, wage:0 };
+  const base = parseFloat(worker.wagePerDay)||0;
+  const inMin = timeToMinutes(entry.inTime);
+  const outMin = timeToMinutes(entry.outTime);
+
+  if(inMin===null || outMin===null || outMin<=inMin){
+    return { status:'Absent', hoursWorked:0, otHours:0, deduction:0, wage:0 };
+  }
+  const hoursWorked = Math.round(((outMin-inMin)/60)*100)/100;
+
+  const normInMin = timeToMinutes(worker.normalInTime);
+  const normOutMin = timeToMinutes(worker.normalOutTime);
+  // Overtime and deductions are calculated strictly from this worker's own Normal In/Out time.
+  // If it isn't set yet, fall back to a standard 8-hour day so calculations don't break.
+  const normalHours = (normInMin!==null && normOutMin!==null && normOutMin>normInMin)
+    ? Math.round(((normOutMin-normInMin)/60)*100)/100
+    : 8;
+  // Wages per hour (or any fractional part of an hour) — this single rate is used both to
+  // pay overtime and to deduct pay for hours short of the normal shift.
+  const hourlyRate = normalHours>0 ? base/normalHours : 0;
+
+  let otHours = 0, deduction = 0, regularPay = base;
+  if(hoursWorked >= normalHours){
+    otHours = Math.round((hoursWorked-normalHours)*100)/100;
+  } else {
+    const shortfallHours = Math.round((normalHours-hoursWorked)*100)/100;
+    deduction = Math.round((shortfallHours*hourlyRate)*100)/100;
+    regularPay = Math.round((base-deduction)*100)/100;
+  }
+  const otPay = Math.round((otHours*hourlyRate)*100)/100;
+  const wage = Math.round((regularPay+otPay)*100)/100;
+  const status = hoursWorked>=normalHours ? 'Present' : 'Partial';
+  return { status, hoursWorked, otHours, deduction, wage };
+}
+function computeDailyWage(worker, entry){
+  return computeAttendanceStats(worker, entry).wage;
+}
+function getMondayISO(d){
+  const date = new Date(d);
+  const day = date.getDay(); // 0=Sun..6=Sat
+  const diff = (day===0 ? -6 : 1-day);
+  date.setDate(date.getDate()+diff);
+  return date.toISOString().slice(0,10);
+}
+function workerWeekPaid(workerId, startISO){
+  const start = new Date(startISO);
+  const end = new Date(start); end.setDate(end.getDate()+6);
+  return Math.round(workshopWagePayments.filter(p=>{
+    if(p.workerId!==workerId) return false;
+    const d = new Date(p.date);
+    return d>=start && d<=end;
+  }).reduce((s,p)=>s+(parseFloat(p.amount)||0),0)*100)/100;
+}
+function workerWeekStats(workerId, startISO){
+  const worker = workshopWorkers.find(w=>w.id===workerId);
+  const start = new Date(startISO);
+  const end = new Date(start); end.setDate(end.getDate()+6);
+  const entries = workshopAttendance.filter(a=>{
+    if(a.workerId!==workerId) return false;
+    const d = new Date(a.date);
+    return d>=start && d<=end;
+  });
+  const statsList = entries.map(e=>computeAttendanceStats(worker,e));
+  const daysPresent = statsList.filter(s=>s.hoursWorked>0).length;
+  const otHours = Math.round(statsList.reduce((s,st)=>s+st.otHours,0)*100)/100;
+  const wage = Math.round(statsList.reduce((s,st)=>s+st.wage,0)*100)/100;
+  return { daysPresent, otHours, wage };
+}
+
+/* ---- Worker Directory ---- */
+function renderWorkerDirectory(){
+  const box = document.getElementById('workshop-workers-list');
+  box.innerHTML = '';
+  if(workshopWorkers.length===0){
+    box.innerHTML = `<div class="workshop-items-empty">No workers yet — click "+ Add Worker" below to add one.</div>`;
+    return;
+  }
+  workshopWorkers.forEach((w, idx)=>{
+    const row = document.createElement('div');
+    row.className = 'workshop-worker-row';
+
+    const num = document.createElement('div');
+    num.className = 'workshop-item-number';
+    num.textContent = (idx+1) + ')';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.placeholder = 'Worker name';
+    nameInput.value = w.name || '';
+    nameInput.addEventListener('input', ()=>{ w.name = nameInput.value; saveWorkshopWorkers(); renderWeeklySummary(); });
+
+    const wageInput = document.createElement('input');
+    wageInput.type = 'number';
+    wageInput.min = '0';
+    wageInput.step = '1';
+    wageInput.className = 'workshop-worker-wage-input';
+    wageInput.placeholder = '0.00';
+    wageInput.value = (w.wagePerDay===undefined || w.wagePerDay===null || w.wagePerDay==='') ? '' : w.wagePerDay;
+    wageInput.addEventListener('input', ()=>{
+      w.wagePerDay = wageInput.value===''?'':parseFloat(wageInput.value)||0;
+      saveWorkshopWorkers();
+      renderWeeklySummary();
+    });
+
+    const normalInInput = document.createElement('input');
+    normalInInput.type = 'time';
+    normalInInput.title = 'Normal arrival time for this worker\'s standard shift';
+    normalInInput.value = w.normalInTime || '';
+    normalInInput.addEventListener('input', ()=>{
+      w.normalInTime = normalInInput.value;
+      saveWorkshopWorkers();
+      renderWeeklySummary();
+    });
+
+    const normalOutInput = document.createElement('input');
+    normalOutInput.type = 'time';
+    normalOutInput.title = 'Normal departure time for this worker\'s standard shift';
+    normalOutInput.value = w.normalOutTime || '';
+    normalOutInput.addEventListener('input', ()=>{
+      w.normalOutTime = normalOutInput.value;
+      saveWorkshopWorkers();
+      renderWeeklySummary();
+    });
+
+    const attBtn = document.createElement('button');
+    attBtn.className = 'btn ghost workshop-worker-attendance-btn';
+    attBtn.textContent = 'Attendance';
+    attBtn.addEventListener('click', ()=> openAttendanceModal(w.id));
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn ghost workshop-worker-remove';
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', async ()=>{
+      const hasData = workshopAttendance.some(a=>a.workerId===w.id) || workshopWagePayments.some(p=>p.workerId===w.id);
+      if(hasData){
+        const ok = await confirmAction(`Remove ${w.name||'this worker'}? Their attendance and payment history will also be deleted. This cannot be undone.`, 'Remove Worker');
+        if(!ok) return;
+      }
+      workshopWorkers = workshopWorkers.filter(x=>x.id!==w.id);
+      workshopAttendance = workshopAttendance.filter(a=>a.workerId!==w.id);
+      workshopWagePayments = workshopWagePayments.filter(p=>p.workerId!==w.id);
+      await saveWorkshopWorkers();
+      await saveWorkshopAttendance();
+      await saveWorkshopWagePayments();
+      renderWorkers();
+    });
+
+    row.appendChild(num);
+    row.appendChild(nameInput);
+    row.appendChild(wageInput);
+    row.appendChild(normalInInput);
+    row.appendChild(normalOutInput);
+    row.appendChild(attBtn);
+    row.appendChild(removeBtn);
+    box.appendChild(row);
+  });
+}
+document.getElementById('workshop-worker-add-btn').addEventListener('click', async ()=>{
+  workshopWorkers.push({id:'wk_'+Date.now(), name:'', wagePerDay:'', normalInTime:'', normalOutTime:'', createdAt:Date.now()});
+  await saveWorkshopWorkers();
+  renderWorkers();
+  const inputs = document.querySelectorAll('#workshop-workers-list input');
+  if(inputs.length) inputs[inputs.length-4].focus();
+});
+
+/* ---- Weekly Wage Summary ---- */
+function openingBalanceKey(workerId, startISO){ return workerId+'::'+startISO; }
+function addDaysISO(startISO, days){
+  const d = new Date(startISO);
+  d.setDate(d.getDate()+days);
+  return d.toISOString().slice(0,10);
+}
+// A week's Opening Balance is whatever the user manually set for that week; if they never
+// set one, it automatically carries forward as the previous week's closing Balance Due —
+// all the way back to the week the worker was added (before that, there's no history, so 0).
+function computeWeekOpeningBalance(workerId, startISO){
+  const obKey = openingBalanceKey(workerId, startISO);
+  if(workshopOpeningBalances[obKey]!==undefined){
+    return parseFloat(workshopOpeningBalances[obKey])||0;
+  }
+  const worker = workshopWorkers.find(w=>w.id===workerId);
+  if(worker && worker.createdAt){
+    const createdWeekStart = getMondayISO(new Date(worker.createdAt));
+    if(new Date(startISO) <= new Date(createdWeekStart)) return 0;
+  }
+  const prevStartISO = addDaysISO(startISO, -7);
+  const prevOpening = computeWeekOpeningBalance(workerId, prevStartISO);
+  const prevStats = workerWeekStats(workerId, prevStartISO);
+  const prevPaid = workerWeekPaid(workerId, prevStartISO);
+  return Math.round((prevOpening+prevStats.wage-prevPaid)*100)/100;
+}
+function renderWeeklySummary(){
+  const startInput = document.getElementById('workshop-week-start');
+  if(!startInput.value) startInput.value = getMondayISO(new Date());
+  const startISO = startInput.value;
+  const body = document.getElementById('workshop-weekly-body');
+  body.innerHTML = '';
+  if(workshopWorkers.length===0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="8">No workers added yet.</td></tr>`;
+    return;
+  }
+  workshopWorkers.forEach(w=>{
+    const stats = workerWeekStats(w.id, startISO);
+    const paidWeek = workerWeekPaid(w.id, startISO);
+    const obKey = openingBalanceKey(w.id, startISO);
+    const isManual = workshopOpeningBalances[obKey]!==undefined;
+    const openingBalance = computeWeekOpeningBalance(w.id, startISO);
+    const due = Math.round((openingBalance+stats.wage-paidWeek)*100)/100;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${escapeHtml(w.name||'(Unnamed)')}</td>
+      <td></td>
+      <td class="mono">${stats.daysPresent}</td>
+      <td class="mono">${stats.otHours}</td>
+      <td class="mono">${fmt(stats.wage)}</td>
+      <td class="mono">${fmt(paidWeek)}</td>
+      <td class="mono" style="${due>0?'color:var(--red);font-weight:700;':(due<0?'color:var(--green);font-weight:700;':'')}">${fmt(due)}</td>
+      <td></td>
+    `;
+    const obInput = document.createElement('input');
+    obInput.type = 'number';
+    obInput.step = '0.01';
+    obInput.value = openingBalance!==0 || isManual ? openingBalance : '';
+    obInput.placeholder = '0.00';
+    obInput.style.cssText = 'width:90px;padding:6px 8px;border-radius:6px;font-family:\'IBM Plex Mono\',monospace;font-size:13px;'
+      + (isManual ? 'border:1px solid var(--brass);' : 'border:1px dashed var(--line);color:var(--ink-soft);');
+    obInput.title = isManual
+      ? "Manually set for this week. Clear the field to go back to auto-carrying last week's balance due."
+      : "Auto-carried from last week's Balance Due. Type a value to set a manual opening balance just for this week.";
+    obInput.addEventListener('input', async ()=>{
+      const val = obInput.value;
+      if(val===''){ delete workshopOpeningBalances[obKey]; } else { workshopOpeningBalances[obKey] = parseFloat(val)||0; }
+      await saveWorkshopOpeningBalances();
+      renderWeeklySummary();
+    });
+    tr.children[1].appendChild(obInput);
+
+    const payBtn = document.createElement('button');
+    payBtn.className = 'btn ghost';
+    payBtn.textContent = 'Record Payment';
+    payBtn.addEventListener('click', ()=> openWorkerPaymentModal(w.id));
+    tr.lastElementChild.appendChild(payBtn);
+    body.appendChild(tr);
+  });
+}
+document.getElementById('workshop-week-start').addEventListener('change', renderWeeklySummary);
+
+function renderWorkers(){
+  renderWorkerDirectory();
+  renderWeeklySummary();
+}
+
+/* ---- Attendance modal ---- */
+let currentAttendanceWorkerId = null;
+let editingAttendanceEntryId = null;
+function exitAttendanceEditMode(){
+  editingAttendanceEntryId = null;
+  document.getElementById('wa-add-entry-btn').textContent = '+ Add Entry';
+  document.getElementById('wa-cancel-edit-btn').style.display = 'none';
+  document.getElementById('wa-date').value = todayISO();
+  const worker = workshopWorkers.find(w=>w.id===currentAttendanceWorkerId);
+  // Default In Time to AM and Out Time to PM — using the worker's own Normal In/Out
+  // shift when set, otherwise a sensible 9 AM–5 PM fallback.
+  document.getElementById('wa-in-time').value = (worker && worker.normalInTime) ? worker.normalInTime : '09:00';
+  document.getElementById('wa-out-time').value = (worker && worker.normalOutTime) ? worker.normalOutTime : '17:00';
+}
+function openAttendanceModal(workerId){
+  currentAttendanceWorkerId = workerId;
+  const worker = workshopWorkers.find(w=>w.id===workerId);
+  document.getElementById('wa-title').textContent = 'Attendance — ' + (worker && worker.name ? worker.name : 'Unnamed Worker');
+  exitAttendanceEditMode();
+  renderAttendanceList();
+  document.getElementById('workshop-attendance-modal-overlay').classList.add('show');
+}
+function renderAttendanceList(){
+  const box = document.getElementById('workshop-attendance-list');
+  box.innerHTML = '';
+  const worker = workshopWorkers.find(w=>w.id===currentAttendanceWorkerId);
+  const entries = workshopAttendance.filter(a=>a.workerId===currentAttendanceWorkerId)
+    .sort((a,b)=> b.date.localeCompare(a.date) || b.createdAt-a.createdAt);
+  if(entries.length===0){
+    box.innerHTML = `<div class="workshop-items-empty">No attendance entries yet.</div>`;
+    return;
+  }
+  entries.forEach(entry=>{
+    const row = document.createElement('div');
+    row.className = 'workshop-attendance-row';
+    const stats = computeAttendanceStats(worker, entry);
+    row.innerHTML = `
+      <div>${new Date(entry.date).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</div>
+      <div>${entry.inTime||'—'}</div>
+      <div>${entry.outTime||'—'}</div>
+      <div class="mono">${stats.hoursWorked}</div>
+      <div class="mono">${stats.otHours}</div>
+      <div class="mono">${fmt(stats.wage)}</div>
+      <div></div>
+      <div></div>
+    `;
+    const cells = row.children;
+    const editBtn = document.createElement('button');
+    editBtn.className = 'btn ghost';
+    editBtn.textContent = 'Edit';
+    editBtn.title = 'Edit this entry';
+    editBtn.addEventListener('click', ()=>{
+      editingAttendanceEntryId = entry.id;
+      document.getElementById('wa-date').value = entry.date;
+      document.getElementById('wa-in-time').value = entry.inTime || '';
+      document.getElementById('wa-out-time').value = entry.outTime || '';
+      document.getElementById('wa-add-entry-btn').textContent = 'Save Changes';
+      document.getElementById('wa-cancel-edit-btn').style.display = 'inline-flex';
+      document.getElementById('wa-date').focus();
+    });
+    cells[6].appendChild(editBtn);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn ghost';
+    removeBtn.textContent = '×';
+    removeBtn.title = 'Remove this entry';
+    removeBtn.addEventListener('click', async ()=>{
+      workshopAttendance = workshopAttendance.filter(a=>a.id!==entry.id);
+      await saveWorkshopAttendance();
+      if(editingAttendanceEntryId===entry.id) exitAttendanceEditMode();
+      renderAttendanceList();
+    });
+    cells[7].appendChild(removeBtn);
+
+    box.appendChild(row);
+  });
+}
+document.getElementById('wa-add-entry-btn').addEventListener('click', async ()=>{
+  const date = document.getElementById('wa-date').value || todayISO();
+  const inTime = document.getElementById('wa-in-time').value;
+  const outTime = document.getElementById('wa-out-time').value;
+  if(!inTime || !outTime){ showToast('Enter both In Time and Out Time'); return; }
+
+  if(editingAttendanceEntryId){
+    const entry = workshopAttendance.find(a=>a.id===editingAttendanceEntryId);
+    if(entry){
+      entry.date = date; entry.inTime = inTime; entry.outTime = outTime;
+      await saveWorkshopAttendance();
+      showToast('Attendance entry updated');
+    }
+    exitAttendanceEditMode();
+    renderAttendanceList();
+    return;
+  }
+
+  const existing = workshopAttendance.find(a=>a.workerId===currentAttendanceWorkerId && a.date===date);
+  if(existing){
+    existing.inTime = inTime; existing.outTime = outTime;
+  } else {
+    workshopAttendance.push({id:'att_'+Date.now(), workerId: currentAttendanceWorkerId, date, inTime, outTime, createdAt: Date.now()});
+  }
+  await saveWorkshopAttendance();
+  renderAttendanceList();
+  showToast(existing ? 'Attendance entry updated' : 'Attendance entry added');
+  const worker = workshopWorkers.find(w=>w.id===currentAttendanceWorkerId);
+  document.getElementById('wa-in-time').value = (worker && worker.normalInTime) ? worker.normalInTime : '09:00';
+  document.getElementById('wa-out-time').value = (worker && worker.normalOutTime) ? worker.normalOutTime : '17:00';
+});
+document.getElementById('wa-cancel-edit-btn').addEventListener('click', ()=>{
+  exitAttendanceEditMode();
+});
+document.getElementById('wa-back-btn').addEventListener('click', ()=>{
+  exitAttendanceEditMode();
+  document.getElementById('workshop-attendance-modal-overlay').classList.remove('show');
+});
+document.getElementById('wa-close-btn').addEventListener('click', ()=>{
+  exitAttendanceEditMode();
+  document.getElementById('workshop-attendance-modal-overlay').classList.remove('show');
+  renderWorkers();
+});
+
+/* ---- Worker payment modal ---- */
+let currentPaymentWorkerId = null;
+function setWpType(type){
+  document.querySelector(`input[name="wp-type"][value="${type}"]`).checked = true;
+  document.getElementById('wp-type-wage-opt').classList.toggle('selected', type==='wage');
+  document.getElementById('wp-type-advance-opt').classList.toggle('selected', type==='advance');
+  document.getElementById('wp-type-extra-opt').classList.toggle('selected', type==='extra');
+}
+document.getElementById('wp-type-wage-opt').addEventListener('click', ()=>setWpType('wage'));
+document.getElementById('wp-type-advance-opt').addEventListener('click', ()=>setWpType('advance'));
+document.getElementById('wp-type-extra-opt').addEventListener('click', ()=>setWpType('extra'));
+function openWorkerPaymentModal(workerId){
+  currentPaymentWorkerId = workerId;
+  const worker = workshopWorkers.find(w=>w.id===workerId);
+  const startISO = document.getElementById('workshop-week-start').value || getMondayISO(new Date());
+  const stats = workerWeekStats(workerId, startISO);
+  const paidWeek = workerWeekPaid(workerId, startISO);
+  const openingBalance = computeWeekOpeningBalance(workerId, startISO);
+  const due = Math.round((openingBalance+stats.wage-paidWeek)*100)/100;
+  document.getElementById('wp-title').textContent = 'Record Payment — ' + (worker && worker.name ? worker.name : 'Unnamed Worker');
+  const obPart = openingBalance!==0 ? `Opening Balance: ${fmt(openingBalance)}  |  ` : '';
+  document.getElementById('wp-sub').textContent = `${obPart}This Week's Wage: ${fmt(stats.wage)}  |  Paid This Week: ${fmt(paidWeek)}  |  Due: ${fmt(due)}`;
+  document.getElementById('wp-date').value = todayISO();
+  document.getElementById('wp-amount').value = due>0 ? due : '';
+  document.getElementById('wp-note').value = '';
+  document.getElementById('wp-error').textContent = '';
+  setWpType('wage');
+  document.getElementById('workshop-payment-modal-overlay').classList.add('show');
+}
+document.getElementById('wp-cancel-btn').addEventListener('click', ()=>{
+  document.getElementById('workshop-payment-modal-overlay').classList.remove('show');
+});
+document.getElementById('wp-save-btn').addEventListener('click', async ()=>{
+  const errEl = document.getElementById('wp-error');
+  const date = document.getElementById('wp-date').value || todayISO();
+  const amount = parseFloat(document.getElementById('wp-amount').value);
+  const note = document.getElementById('wp-note').value.trim();
+  const type = document.querySelector('input[name="wp-type"]:checked').value;
+  if(!amount || amount<=0){ errEl.textContent = 'Enter a valid amount.'; return; }
+  workshopWagePayments.push({id:'wpay_'+Date.now(), workerId: currentPaymentWorkerId, date, amount, type, note, createdAt: Date.now()});
+  await saveWorkshopWagePayments();
+  document.getElementById('workshop-payment-modal-overlay').classList.remove('show');
+  const typeLabel = type==='extra' ? 'Extra payment' : (type==='advance' ? 'Advance payment' : 'Wage payment');
+  showToast(typeLabel+' recorded');
+  renderWeeklySummary();
+});
+
+/* ---- Raw Materials modal (per manufactured item) ---- */
+let currentWorkshopMaterialItem = null;
+function openMaterialsModal(item){
+  currentWorkshopMaterialItem = item;
+  if(!Array.isArray(item.materials)) item.materials = [];
+  document.getElementById('wm-title').textContent = 'Raw Materials — ' + (item.name || 'Unnamed Item');
+  renderMaterialsList();
+  document.getElementById('workshop-materials-modal-overlay').classList.add('show');
+}
+function computePieceText(mat){
+  const stock = parseFloat(mat.qty);
+  const perPiece = parseFloat(mat.perPiece);
+  if(!isFinite(stock) || !isFinite(perPiece) || perPiece===0) return '—';
+  return (Math.round((stock/perPiece)*100)/100).toString();
+}
+function renderMaterialsList(){
+  const box = document.getElementById('workshop-materials-list');
+  box.innerHTML = '';
+  const materials = currentWorkshopMaterialItem.materials;
+  if(materials.length===0){
+    box.innerHTML = `<div class="workshop-items-empty">No raw materials added yet.</div>`;
+    return;
+  }
+  materials.forEach(mat=>{
+    const row = document.createElement('div');
+    row.className = 'workshop-material-row';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.placeholder = 'Material name';
+    nameInput.value = mat.name || '';
+    nameInput.addEventListener('input', ()=>{ mat.name = nameInput.value; saveWorkshopRawItems(); });
+
+    const pieceValue = document.createElement('div');
+    pieceValue.className = 'workshop-piece-value';
+    pieceValue.textContent = computePieceText(mat);
+
+    const qtyInput = document.createElement('input');
+    qtyInput.type = 'number';
+    qtyInput.min = '0';
+    qtyInput.step = '0.01';
+    qtyInput.placeholder = 'Stock';
+    qtyInput.value = (mat.qty===undefined || mat.qty===null || mat.qty==='') ? '' : mat.qty;
+    qtyInput.addEventListener('input', ()=>{
+      mat.qty = qtyInput.value===''?'':parseFloat(qtyInput.value)||0;
+      saveWorkshopRawItems();
+      pieceValue.textContent = computePieceText(mat);
+    });
+
+    const restockWrap = document.createElement('div');
+    restockWrap.className = 'workshop-restock-wrap';
+    const restockInput = document.createElement('input');
+    restockInput.type = 'number';
+    restockInput.min = '0';
+    restockInput.step = '0.01';
+    restockInput.className = 'workshop-restock-input';
+    restockInput.placeholder = 'qty';
+    restockInput.title = 'Enter the quantity of new material that arrived, then click Add to restock';
+    const restockBtn = document.createElement('button');
+    restockBtn.type = 'button';
+    restockBtn.className = 'btn workshop-restock-btn';
+    restockBtn.textContent = 'Add';
+    function commitRestock(){
+      const amount = parseFloat(restockInput.value);
+      if(!isFinite(amount) || amount<=0) return;
+      const newStock = Math.round(((parseFloat(mat.qty)||0)+amount)*100)/100;
+      mat.qty = newStock;
+      qtyInput.value = mat.qty;
+      pieceValue.textContent = computePieceText(mat);
+      restockInput.value = '';
+      saveWorkshopRawItems();
+      showToast(`Added ${amount} ${mat.unit||''} of ${mat.name||'this material'} — new stock: ${mat.qty}`);
+    }
+    restockBtn.addEventListener('click', commitRestock);
+    restockInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') commitRestock(); });
+    restockWrap.appendChild(restockInput);
+    restockWrap.appendChild(restockBtn);
+
+    const unitInput = document.createElement('input');
+    unitInput.type = 'text';
+    unitInput.placeholder = 'kg / pcs';
+    unitInput.value = mat.unit || '';
+    unitInput.addEventListener('input', ()=>{ mat.unit = unitInput.value; saveWorkshopRawItems(); });
+
+    const perPieceInput = document.createElement('input');
+    perPieceInput.type = 'number';
+    perPieceInput.min = '0';
+    perPieceInput.step = '0.01';
+    perPieceInput.placeholder = 'e.g. 1.25';
+    perPieceInput.title = 'Quantity of this material needed to manufacture one piece';
+    perPieceInput.value = (mat.perPiece===undefined || mat.perPiece===null || mat.perPiece==='') ? '' : mat.perPiece;
+    perPieceInput.addEventListener('input', ()=>{
+      mat.perPiece = perPieceInput.value===''?'':parseFloat(perPieceInput.value)||0;
+      saveWorkshopRawItems();
+      pieceValue.textContent = computePieceText(mat);
+    });
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn ghost';
+    removeBtn.textContent = '×';
+    removeBtn.title = 'Remove this material';
+    removeBtn.addEventListener('click', ()=>{
+      const i = materials.indexOf(mat);
+      if(i>-1) materials.splice(i,1);
+      renderMaterialsList();
+      saveWorkshopRawItems();
+    });
+
+    row.appendChild(nameInput);
+    row.appendChild(qtyInput);
+    row.appendChild(restockWrap);
+    row.appendChild(unitInput);
+    row.appendChild(perPieceInput);
+    row.appendChild(pieceValue);
+    row.appendChild(removeBtn);
+    box.appendChild(row);
+  });
+}
+document.getElementById('wm-add-material-btn').addEventListener('click', ()=>{
+  currentWorkshopMaterialItem.materials.push({name:'', qty:'', unit:'', perPiece:''});
+  renderMaterialsList();
+  saveWorkshopRawItems();
+  const rows = document.querySelectorAll('#workshop-materials-list .workshop-material-row');
+  if(rows.length) rows[rows.length-1].querySelector('input').focus();
+});
+document.getElementById('wm-back-btn').addEventListener('click', ()=>{
+  document.getElementById('workshop-materials-modal-overlay').classList.remove('show');
+});
+document.getElementById('wm-close-btn').addEventListener('click', ()=>{
+  document.getElementById('workshop-materials-modal-overlay').classList.remove('show');
+  renderWorkshop();
+});
+
 /* ================= DASHBOARD ================= */
 function renderDashboard(){
   document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-IN', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
   const today = todayISO();
   const monthKey = today.slice(0,7);
- 
+
   let todaySales=0, monthSales=0, monthGst=0, monthCount=0;
   invoices.forEach(inv=>{
     if(inv.date===today) todaySales += inv.grandTotal;
@@ -1539,7 +2691,7 @@ function renderDashboard(){
   document.getElementById('stat-month').textContent = fmt(monthSales);
   document.getElementById('stat-gst').textContent = fmt(monthGst);
   document.getElementById('stat-count').textContent = monthCount;
- 
+
   const recent = [...invoices].sort((a,b)=> b.createdAt - a.createdAt).slice(0,6);
   const body = document.getElementById('recent-body');
   body.innerHTML = '';
@@ -1549,7 +2701,7 @@ function renderDashboard(){
     recent.forEach(inv=> body.appendChild(invoiceRow(inv)));
   }
 }
- 
+
 /* ================= INVOICE ITEMS BUILDER ================= */
 function addItemRow(prefill){
   itemRowId++;
@@ -1558,9 +2710,9 @@ function addItemRow(prefill){
   const row = document.createElement('div');
   row.className = 'item-row';
   row.id = id;
- 
+
   const nameOptions = products.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
- 
+
   row.innerHTML = `
     <input class="item-name" list="dl-${id}" placeholder="Item name" value="${prefill?escapeHtml(prefill.name):''}">
     <datalist id="dl-${id}">${products.map(p=>`<option value="${escapeHtml(p.name)}">`).join('')}</datalist>
@@ -1579,7 +2731,7 @@ function addItemRow(prefill){
   wrap.appendChild(row);
   if(prefill) row.querySelector('.item-gst').value = prefill.gst;
   if(prefill && prefill.priceMode) row.querySelector('.item-price-mode').value = prefill.priceMode;
- 
+
   row.querySelector('.item-name').addEventListener('input', (e)=>{
     const match = products.find(p=>p.name.toLowerCase()===e.target.value.toLowerCase());
     if(match && match.id !== row.dataset.lastMatchId){
@@ -1600,11 +2752,11 @@ function addItemRow(prefill){
   row.querySelector('.rm').addEventListener('click', ()=>{ row.remove(); recalc(); });
 }
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
- 
+
 document.getElementById('add-item-btn').addEventListener('click', ()=>addItemRow());
- 
+
 populateStateSelect(document.getElementById('cust-state'), true);
- 
+
 function enforceDigitsOnly(inputEl, maxLen){
   inputEl.addEventListener('input', ()=>{
     const digitsOnly = inputEl.value.replace(/\D/g, '').slice(0, maxLen);
@@ -1648,7 +2800,7 @@ function autoSetTaxTypeFromState(){
     : `Customer is in ${custState}, same as your state — CGST + SGST applied automatically.`;
   recalc();
 }
- 
+
 document.querySelectorAll('input[name=taxtype]').forEach(r=>{
   r.addEventListener('change', ()=>{
     document.getElementById('opt-intra').classList.toggle('selected', r.value==='intra' && r.checked);
@@ -1658,7 +2810,7 @@ document.querySelectorAll('input[name=taxtype]').forEach(r=>{
 });
 document.getElementById('opt-intra').addEventListener('click', ()=>{ document.querySelector('input[value=intra]').checked=true; document.getElementById('opt-intra').classList.add('selected'); document.getElementById('opt-inter').classList.remove('selected'); recalc(); });
 document.getElementById('opt-inter').addEventListener('click', ()=>{ document.querySelector('input[value=inter]').checked=true; document.getElementById('opt-inter').classList.add('selected'); document.getElementById('opt-intra').classList.remove('selected'); recalc(); });
- 
+
 function getItemsFromForm(){
   const rows = document.querySelectorAll('#items-wrap .item-row');
   const items = [];
@@ -1677,7 +2829,7 @@ function getItemsFromForm(){
   });
   return items;
 }
- 
+
 function recalc(){
   const items = getItemsFromForm();
   const isInter = document.querySelector('input[name=taxtype]:checked').value === 'inter';
@@ -1697,13 +2849,13 @@ function recalc(){
   document.getElementById('row-igst').style.display = isInter?'table-row':'none';
   return {items, isInter, taxable, cgst, sgst, igst, grand: taxable+cgst+sgst+igst};
 }
- 
+
 document.getElementById('save-invoice-btn').addEventListener('click', async ()=>{
   const custName = document.getElementById('cust-name').value.trim();
   const {items, isInter, taxable, cgst, sgst, igst, grand} = recalc();
   if(!custName){ showToast('Enter a customer name'); return; }
   if(items.length===0){ showToast('Add at least one item'); return; }
- 
+
   const inv = {
     id: 'i'+Date.now(),
     invoiceNo: nextInvoiceNo(),
@@ -1731,7 +2883,7 @@ document.getElementById('save-invoice-btn').addEventListener('click', async ()=>
   clearInvoiceForm();
   openInvoiceModal(inv.id);
 });
- 
+
 document.getElementById('clear-invoice-btn').addEventListener('click', clearInvoiceForm);
 function clearInvoiceForm(){
   ['cust-name','cust-phone','cust-address','cust-pin','cust-gstin'].forEach(id=>document.getElementById(id).value='');
@@ -1744,7 +2896,7 @@ function clearInvoiceForm(){
   addItemRow();
   recalc();
 }
- 
+
 /* ================= HISTORY ================= */
 function paymentStatusInfo(inv){
   const grand = inv.grandTotal||0;
@@ -1786,7 +2938,7 @@ function renderHistory(){
   }
 }
 document.getElementById('history-search').addEventListener('input', renderHistory);
- 
+
 /* ================= GST SUMMARY ================= */
 function renderGst(){
   const map = {};
@@ -1817,7 +2969,7 @@ function renderGst(){
     body.appendChild(tr);
   });
 }
- 
+
 /* ================= PRODUCTS ================= */
 /* ================= CONFIRM DIALOG ================= */
 let confirmResolver = null;
@@ -1837,9 +2989,9 @@ document.getElementById('confirm-no').addEventListener('click', ()=>{
   if(confirmResolver) confirmResolver(false);
   confirmResolver = null;
 });
- 
+
 let editingProductId = null;
- 
+
 function renderProducts(){
   const body = document.getElementById('products-body');
   body.innerHTML='';
@@ -1898,7 +3050,7 @@ document.getElementById('pm-save').addEventListener('click', async ()=>{
   showToast(editingProductId ? 'Product updated' : 'Product added');
   editingProductId = null;
 });
- 
+
 /* ================= ACCOUNTS ================= */
 /* ================= ACCOUNT BALANCE HELPERS ================= */
 function computeAccountBalance(accountId){
@@ -1953,7 +3105,7 @@ function populateAccountSelects(){
   filterSel.innerHTML = `<option value="all">All Accounts</option>` + opts;
   filterSel.value = [...filterSel.options].some(o=>o.value===prevFilter) ? prevFilter : 'all';
 }
- 
+
 function renderAccountsList(){
   const box = document.getElementById('accounts-list-body');
   box.innerHTML='';
@@ -1964,12 +3116,12 @@ function renderAccountsList(){
       || (acc.accountNumber||'').toLowerCase().includes(term)
       || (acc.ifsc||'').toLowerCase().includes(term);
   }) : paymentAccounts;
- 
+
   if(filteredAccounts.length===0){
     box.innerHTML = `<div style="font-size:13px;color:var(--ink-soft);padding:10px 0;">No accounts match "${escapeHtml(term)}".</div>`;
     return;
   }
- 
+
   filteredAccounts.forEach(acc=>{
     const bal = computeAccountBalance(acc.id);
     const row = document.createElement('div');
@@ -2004,12 +3156,12 @@ function renderAccountsList(){
     box.appendChild(row);
   });
 }
- 
+
 function renderAccounts(){
   ensureDefaultAccount();
   populateAccountSelects();
   renderAccountsList();
- 
+
   const body = document.getElementById('accounts-body');
   body.innerHTML='';
   let totalIn = 0, totalOut = 0;
@@ -2021,10 +3173,10 @@ function renderAccounts(){
   document.getElementById('acc-out').textContent = fmt(totalOut);
   const totalOpening = paymentAccounts.reduce((s,a)=>s+(a.openingBalance||0),0);
   document.getElementById('acc-balance').textContent = fmt(totalOpening + totalIn - totalOut);
- 
+
   const filterId = document.getElementById('txn-filter-account').value || 'all';
   const filtered = filterId==='all' ? transactions : transactions.filter(t=>t.accountId===filterId || t.toAccountId===filterId);
- 
+
   if(filtered.length===0){
     body.innerHTML = `<tr class="empty-row"><td colspan="7">No transactions yet.</td></tr>`;
     return;
@@ -2081,7 +3233,7 @@ document.getElementById('account-search-input').addEventListener('input', render
 document.getElementById('account-search-input').addEventListener('keydown', (e)=>{
   if(e.key==='Enter') renderAccountsList();
 });
- 
+
 function setTxnType(type){
   document.querySelector(`input[name="txn-type"][value="${type}"]`).checked = true;
   document.getElementById('txn-type-in-opt').classList.toggle('selected', type==='in');
@@ -2093,7 +3245,7 @@ function setTxnType(type){
 document.getElementById('txn-type-in-opt').addEventListener('click', ()=>setTxnType('in'));
 document.getElementById('txn-type-out-opt').addEventListener('click', ()=>setTxnType('out'));
 document.getElementById('txn-type-transfer-opt').addEventListener('click', ()=>setTxnType('transfer'));
- 
+
 document.getElementById('add-txn-btn').addEventListener('click', ()=>{
   if(paymentAccounts.length===0){ showToast('Add a payment account first'); return; }
   document.getElementById('txn-date').value = todayISO();
@@ -2129,7 +3281,7 @@ document.getElementById('txn-save').addEventListener('click', async ()=>{
     toAccountName: toAcc ? toAcc.name : ''
   }) });
 });
- 
+
 /* ================= PAYMENT ACCOUNTS (CASH & BANK) ================= */
 function setAccountKind(kind){
   document.querySelector(`input[name="am-kind"][value="${kind}"]`).checked = true;
@@ -2139,7 +3291,7 @@ function setAccountKind(kind){
 }
 document.getElementById('am-kind-cash-opt').addEventListener('click', ()=>setAccountKind('cash'));
 document.getElementById('am-kind-bank-opt').addEventListener('click', ()=>setAccountKind('bank'));
- 
+
 function openViewAccountModal(accountId){
   const acc = paymentAccounts.find(a=>a.id===accountId);
   if(!acc) return;
@@ -2158,7 +3310,7 @@ function openViewAccountModal(accountId){
   const balEl = document.getElementById('va-balance');
   balEl.textContent = fmt(bal);
   balEl.style.color = bal<0 ? 'var(--red)' : 'var(--ink)';
- 
+
   const list = document.getElementById('va-txn-list');
   list.innerHTML = '';
   const related = transactions.filter(t=>t.accountId===acc.id || t.toAccountId===acc.id)
@@ -2185,7 +3337,7 @@ function openViewAccountModal(accountId){
       list.appendChild(row);
     });
   }
- 
+
   document.getElementById('view-account-modal-overlay').classList.add('show');
   document.getElementById('va-edit').onclick = ()=>{
     document.getElementById('view-account-modal-overlay').classList.remove('show');
@@ -2195,17 +3347,17 @@ function openViewAccountModal(accountId){
 document.getElementById('va-close').addEventListener('click', ()=>{
   document.getElementById('view-account-modal-overlay').classList.remove('show');
 });
- 
+
 function openViewTxnModal(txnId){
   const t = transactions.find(x=>x.id===txnId);
   if(!t) return;
   document.getElementById('vt-id').textContent = 'Reference: '+t.id;
   document.getElementById('vt-date').textContent = new Date(t.date).toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'});
   document.getElementById('vt-note').textContent = t.note || '—';
- 
+
   const fromAcc = paymentAccounts.find(a=>a.id===t.accountId);
   const fromHistory = computeAccountBalanceHistory(t.accountId)[t.id] || {before:0, after:0};
- 
+
   if(t.type==='transfer'){
     const toAcc = paymentAccounts.find(a=>a.id===t.toAccountId);
     document.getElementById('vt-type').textContent = 'Transfer';
@@ -2217,7 +3369,7 @@ function openViewTxnModal(txnId){
     document.getElementById('vt-from-before').textContent = fmt(fromHistory.before);
     document.getElementById('vt-from-after').textContent = fmt(fromHistory.after);
     document.getElementById('vt-from-current').textContent = fmt(computeAccountBalance(t.accountId));
- 
+
     const toHistory = computeAccountBalanceHistory(t.toAccountId)[t.id] || {before:0, after:0};
     document.getElementById('vt-to-section').style.display = 'block';
     document.getElementById('vt-to-name').textContent = accountLabel(toAcc);
@@ -2237,13 +3389,13 @@ function openViewTxnModal(txnId){
     document.getElementById('vt-from-current').textContent = fmt(computeAccountBalance(t.accountId));
     document.getElementById('vt-to-section').style.display = 'none';
   }
- 
+
   document.getElementById('view-txn-modal-overlay').classList.add('show');
 }
 document.getElementById('vt-close').addEventListener('click', ()=>{
   document.getElementById('view-txn-modal-overlay').classList.remove('show');
 });
- 
+
 function openAccountModal(accountId){
   editingAccountId = accountId || null;
   const acc = accountId ? paymentAccounts.find(a=>a.id===accountId) : null;
@@ -2280,7 +3432,7 @@ document.getElementById('am-save').addEventListener('click', async ()=>{
   renderAccounts();
   showToast('Account saved');
 });
- 
+
 /* ================= PROFILE ================= */
 function findCanonicalState(rawValue){
   const match = INDIA_STATES.find(s=>normalizeState(s)===normalizeState(rawValue));
@@ -2319,7 +3471,7 @@ document.getElementById('save-profile-btn').addEventListener('click', async ()=>
   await saveProfile();
   showToast('Business profile saved');
 });
- 
+
 /* ================= INVOICE MODAL ================= */
 function openInvoiceModal(id){
   const inv = invoices.find(x=>x.id===id);
@@ -2328,16 +3480,16 @@ function openInvoiceModal(id){
   const body = document.getElementById('inv-modal-body');
   const isInter = inv.taxType==='inter';
   const pay = paymentStatusInfo(inv);
- 
+
   const invDate = new Date(inv.date);
   const dueDate = new Date(invDate);
   dueDate.setDate(dueDate.getDate()+15);
   const dueDateStr = dueDate.toLocaleDateString('en-IN', {year:'numeric',month:'short',day:'numeric'});
- 
+
   let stampHtml = '';
   if(pay.status==='paid') stampHtml = '<div class="stamp stamp-paid">PAID</div>';
   else if(pay.status==='partial') stampHtml = '<div class="stamp stamp-partial">PARTIALLY<br>PAID</div>';
- 
+
   let dueNoteHtml = '';
   if(pay.due>0){
     if(pay.paid>0){
@@ -2352,7 +3504,7 @@ function openInvoiceModal(id){
       </div>`;
     }
   }
- 
+
   body.innerHTML = `
     <div class="ledger-sheet">
       ${stampHtml}
@@ -2453,7 +3605,7 @@ document.getElementById('payment-save-btn').addEventListener('click', async ()=>
   showToast(inv.status==='paid' ? 'Marked as fully paid' : (inv.status==='partial' ? 'Part payment recorded' : 'Payment updated'));
   openInvoiceModal(inv.id);
 });
- 
+
 /* ================= INIT ================= */
 async function checkStorageHealth(){
   try{
@@ -2473,4 +3625,3 @@ initAuth();
 </script>
 </body>
 </html>
- 
